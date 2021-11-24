@@ -155,7 +155,7 @@ a:focus {
 }
 
 /*---------------------------------------
-      MENU              
+      Header              
   -----------------------------------------*/
 
 header {
@@ -200,7 +200,7 @@ header span i {
 }
 
 /*---------------------------------------
-      MENU              
+      NAVMENU              
   -----------------------------------------*/
 
 .navbar-default {
@@ -279,7 +279,7 @@ header span i {
   background-color: transparent;
 }
 /*---------------------------------------
-      HOME              
+      Slider              
   -----------------------------------------*/
 
 #home h1 {
@@ -357,6 +357,38 @@ header span i {
 .slider .item-third {
   background-image: url('../image/slider3.jpg');
 }
+
+/*---------------------------------------
+      Introduction              
+  -----------------------------------------*/
+
+#about {
+  background: url('../image/about-bg.jpg') no-repeat top center;
+  background-size: cover;
+  padding-top: 150px;
+}
+
+.profile img,
+.profile figcaption {
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 1em;
+}
+.profile img {
+  border-radius: 100%;
+  width: 65px;
+  height: 65px;
+  margin-right: 1em;
+}
+.profile figcaption h3 {
+  margin-top: 0;
+}
+
+#about h6 {
+  color: #858585;
+  margin: 0;
+}
+
 /*---------------------------------------
      RESPONSIVE STYLES              
   -----------------------------------------*/

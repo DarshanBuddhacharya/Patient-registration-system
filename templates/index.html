@@ -4,7 +4,7 @@
 {% load static %}
  <!--================Header Area =================-->
 <header class="header_area">
-            <!-- Navbar -->
+<!--------------------------------- Navbar -------------------------------------->
     <section class="navbar navbar-default navbar-static-top" role="navigation"></section>
         <div class="container">
             <div class="row">
@@ -15,7 +15,7 @@
         
                 <div class="col-md-8 col-sm-7 text-align-right">
                     <span class="phone-icon"><i class="fa fa-phone"></i> +977-98X-XXX-XXXX</span>
-                    <span class="date-icon"><i class="fa fa-calendar-plus-o"></i> Book an appointment</span>
+                    <span class="date-icon"><i class="fa fa-calendar-plus-o"></i><a href="#" class="smoothScroll">Book an appointment</a></span>
                     <span class="invert">
                         <a class="nav-link" onclick="invertColor()" title="Invert Color for color blindness"><i
                                     class="fa fa-adjust"></i> Invert Color</a>
@@ -28,7 +28,7 @@
         </div>
     </section>
 </header>
-    <!-- MENU -->
+<!------------------------------------------------- NAVMENU ---------------------------------------->
     <section class="navbar navbar-default navbar-static-top" role="navigation">
         <div class="container">
     
@@ -38,12 +38,8 @@
                     <span class="icon icon-bar"></span>
                     <span class="icon icon-bar"></span>
                 </button>
-    
-                <!-- lOGO TEXT HERE -->
                 <a href=""><img src="{% static 'image/Logo1.jpg' %} " alt="Main logo"></a>
             </div>
-    
-            <!-- MENU LINKS -->
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#" class="smoothScroll">Home</a></li>
@@ -55,7 +51,7 @@
             </div>
         </div>
     </section>
-    <!-- HOME -->
+<!------------------------------------------- Slider ----------------------------------------------->
     <section id="home" class="slider" data-stellar-background-ratio="0.5">
         <div class="container">
             <div class="row">
@@ -94,5 +90,41 @@
             </div>
         </div>
     </section>
-        <!--================Header Area =================-->
+<!----------------------------------------------- Introduction -------------------------------------------------------->
+    <section id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-6">
+                    <div class="about-info">
+                        <h2 class="wow fadeInUp" data-wow-delay="0.6s">Welcome to Dhanvantari</h2>
+                        <h3 class="wow fadeInUp" data-wow-delay="0.7s">Your very own Patient registration system</h3>
+                        <div class="wow fadeInUp" data-wow-delay="0.8s">
+                            <p>
+                                The project is proposed to be a patient registration website of hospitals with a brain tumor
+                                and Pneumonia detection. This project aims to minimize the hassle and time taken in the
+                                hospital. When you visit a hospital there is a lot of checkpoints that you need to go
+                                through.
+                            </p>
+                            <p>
+                                This website plans to eliminate this hassle by making the patient registration online. Users
+                                can fill out the registration form in their homes and make an appointment with a concerned
+                                doctor by just press of a button.
+                            </p>
+                            <p>
+                                This website features brain tumor detection
+                                as well as a Pneumonia detection system with the help of a deep-learning algorithm called
+                                convolutional neural network (CNN). The patient can visit diagnostic centers with are
+                                comparatively less crowded and get an X-ray/ MRI scan. The scan can be uploaded on
+                                the website where the algorithm can detect if the patient is healthy or not. If the result is
+                                3
+                                adverse then the patient can visit the hospital for special treatment.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+    
+            </div>
+        </div>
+    </section>
+<!--========================================Header Area ========================================================-->
 {% endblock %}
