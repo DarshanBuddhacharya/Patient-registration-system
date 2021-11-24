@@ -4,8 +4,8 @@
 {% load static %}
  <!--================Header Area =================-->
 <header class="header_area">
-
             <!-- Navbar -->
+    <section class="navbar navbar-default navbar-static-top" role="navigation"></section>
         <div class="container">
             <div class="row">
         
@@ -22,42 +22,77 @@
                         <a class="nav-link" onclick="changeFont('decrease')" title="Decrease Font Size">A- </a>
                         <a class="nav-link" onclick="changeFont('original')" title="Original Font Size">A </a>
                         <a class="nav-link" onclick="changeFont('increase')" title="Increase Font Size">A+ </a>
-                </span>
+                    </span>
                 </div>
-        
             </div>
         </div>
-        </header>
-        
-        
-        <!-- MENU -->
-        <section class="navbar navbar-default navbar-static-top" role="navigation">
-            <div class="container">
-        
-                <div class="navbar-header">
-                    <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon icon-bar"></span>
-                        <span class="icon icon-bar"></span>
-                        <span class="icon icon-bar"></span>
-                    </button>
-        
-                    <!-- lOGO TEXT HERE -->
-                    <a href=""><img src="{% static 'image/Logo1.jpg' %} " alt="Main logo"></a>
-                </div>
-        
-                <!-- MENU LINKS -->
-                <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#" class="smoothScroll">Home</a></li>
-                        <li><a href="#" class="smoothScroll">About Us</a></li>
-                        <li><a href="#" class="smoothScroll">Services</a></li>
-                        <li><a href="#" class="smoothScroll">Contact</a></li>
-                        <li><a href="#" class="smoothScroll">Help</a></li>
-                    </ul>
-                </div>
-        
-            </div>
-        </section>
+    </section>
 </header>
+    <!-- MENU -->
+    <section class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="container">
+    
+            <div class="navbar-header">
+                <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon icon-bar"></span>
+                    <span class="icon icon-bar"></span>
+                    <span class="icon icon-bar"></span>
+                </button>
+    
+                <!-- lOGO TEXT HERE -->
+                <a href=""><img src="{% static 'image/Logo1.jpg' %} " alt="Main logo"></a>
+            </div>
+    
+            <!-- MENU LINKS -->
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#" class="smoothScroll">Home</a></li>
+                    <li><a href="#" class="smoothScroll">About Us</a></li>
+                    <li><a href="#" class="smoothScroll">Services</a></li>
+                    <li><a href="#" class="smoothScroll">Contact</a></li>
+                    <li><a href="#" class="smoothScroll">Help</a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <!-- HOME -->
+    <section id="home" class="slider" data-stellar-background-ratio="0.5">
+        <div class="container">
+            <div class="row">
+                <div class="owl-carousel owl-theme">
+                    <div class="item item-first">
+                        <div class="caption">
+                            <div class="col-md-offset-1 col-md-10">
+                                <h3>Get connected with our doctors</h3>
+                                <h1>Meet a Doctor</h1>
+                                <a href="#team" class="section-btn btn btn-default smoothScroll">Book an appointment</a>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="item item-second">
+                        <div class="caption">
+                            <div class="col-md-offset-1 col-md-10">
+                                <h3>Detect Brain tumor and Pneumonia</h3>
+                                <h1>Cutting edge deep-learning</h1>
+                                <a href="#about" class="section-btn btn btn-default btn-gray smoothScroll">Detection algorithm</a>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="item item-third">
+                        <div class="caption">
+                            <div class="col-md-offset-1 col-md-10">
+                                <h3>Study news</h3>
+                                <h1>Find out whats new in Nepal</h1>
+                                <a href="#news" class="section-btn btn btn-default btn-blue smoothScroll">Read News</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+            </div>
+        </div>
+    </section>
         <!--================Header Area =================-->
 {% endblock %}

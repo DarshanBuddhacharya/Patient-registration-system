@@ -46,6 +46,7 @@ h3 {
   font-size: 1.8em;
   line-height: 1.2em;
   margin-bottom: 0;
+  padding-bottom: 10px;
 }
 
 h4 {
@@ -61,7 +62,7 @@ h6 {
 
 p {
   color: #757575;
-  font-size: 14px;
+  font-size: 18px;
   font-weight: normal;
   line-height: 24px;
 }
@@ -246,21 +247,20 @@ header span i {
   -webkit-transition: all ease-in-out 0.4s;
   transition: all ease-in-out 0.4s;
 }
-
 .navbar-default .navbar-nav > li a:hover {
-  color: #393939 !important;
+  color: #a5c422 !important;
 }
 
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
-  color: #555555;
+  color: #a5c422;
   background-color: transparent;
 }
 
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
-  color: #393939;
+  color: #a5c422;
   background-color: transparent;
 }
 
@@ -270,7 +270,7 @@ header span i {
 }
 
 .navbar-default .navbar-toggle .icon-bar {
-  background: #393939;
+  background: #a5c422;
   border-color: transparent;
 }
 
@@ -278,7 +278,85 @@ header span i {
 .navbar-default .navbar-toggle:focus {
   background-color: transparent;
 }
+/*---------------------------------------
+      HOME              
+  -----------------------------------------*/
 
+#home h1 {
+  color: #ffffff;
+  padding-bottom: 10px;
+  margin-top: 0;
+}
+
+#home h3 {
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: inherit;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.slider .container {
+  width: 100%;
+}
+
+.slider .owl-dots {
+  position: absolute;
+  top: 575px;
+  width: 100%;
+  justify-content: center;
+}
+
+.owl-theme .owl-dots .owl-dot span {
+  width: 8px;
+  height: 8px;
+  margin: 5px 7px;
+  border: 2px solid #d9d9d9;
+  background: transparent;
+  display: block;
+  -webkit-backface-visibility: visible;
+  transition: opacity 200ms ease;
+  border-radius: 30px;
+}
+
+.owl-theme .owl-dots .owl-dot.active span,
+.owl-theme .owl-dots .owl-dot:hover span {
+  background-color: #ffffff;
+  border-color: transparent;
+}
+
+.slider .caption {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  background-color: rgba(20, 20, 20, 0.2);
+  height: 100%;
+  color: #fff;
+  cursor: e-resize;
+}
+
+.slider .item {
+  background-position: inherit;
+  background-repeat: no-repeat;
+  background-attachment: local;
+  background-size: cover;
+  height: 650px;
+}
+
+.slider .item-first {
+  background-image: url('../image/slider1.jpg');
+}
+
+.slider .item-second {
+  background-image: url('../image/slider2.png');
+}
+
+.slider .item-third {
+  background-image: url('../image/slider3.jpg');
+}
 /*---------------------------------------
      RESPONSIVE STYLES              
   -----------------------------------------*/
