@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+<!--================Header Area =================-->
+<body>
+    <div class="contactUs">
+        <div class="title">
+            <h2>
+                Contact us
+            </h2>
+        </div>
+        <div class="box">
+            <div class="contact form">
+                <h3>Send a Meessage</h3>
+                <form>
+                    <div class = "formBox">
+                        <div class="row50">
+                            <div class="inputBox">
+                                <span> First Name </span>
+                                <input type="text" placeholder="First Name" required>
+                            </div>
+                            <div class="inputBox">
+                                <span> Last Name </span>
+                                <input type="text" placeholder="Last Name" required>
+                            </div>
+                        </div>
+                        <div class="row50">
+                            <div class="inputBox">
+                                <span> Email Address </span>
+                                <input type="email" placeholder="Email Address" required>
+                            </div>
+                            <div class="inputBox">
+                                <span> Phone number </span>
+                                <input type="number" placeholder="Phone number" required>
+                            </div>
+                        </div>
+                        <div class="row100">
+                            <div class="inputBox">
+                                <span> Message </span>
+                                <textarea placeholder="Write your message here..." required></textarea>
+                            </div>
+                        </div>
+                        <div class="row100">
+                            <div class="inputBox">
+                                <input type = "submit" value="Submit">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="contact info">
+                <h3>Contact Info</h3>
+                <div class="infoBox">
+                    <div>
+                        <span><ion-icon name="location-outline"></ion-icon></span>
+                            <p>
+                                Naxal, Kathmandu <br>NEPAL
+                            </p>
+                    </div>
+                    <div>
+                        <span><ion-icon name="mail-outline"></ion-icon></span>
+                        <a href="mailto:test123@email.com">
+                            test123@email.com
+                        </a>
+                    </div>
+                    <div>
+                        <span><ion-icon name="call-outline"></ion-icon></span>
+                        <a href="Phone no:+977 98X-XXX-XXXXS">
+                            +977 98X-XXX-XXXXS
+                        </a>
+                    </div>
+                    <h3>Visit us on social media sites</h3>
+                    <ul class="sci">
+                        <li><a href="#"><ion-icon name="logo-facebook"></ion-icon></a></li>
+                        <li><a href="#"><ion-icon name="logo-instagram"></ion-icon></a></li>
+                        <li><a href="#"><ion-icon name="logo-twitter"></ion-icon></a></li>
+                        <li><a href="#"><ion-icon name="logo-discord"></ion-icon></a></li>
+                        <li><a href="#"><ion-icon name="logo-linkedin"></ion-icon></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="contact map">
+<iframe
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1766.0712294148284!2d85.32827201399935!3d27.712887460672658!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb190ea12f729d%3A0xf0835e5b0dbb4402!2sNaxal%20Bhagawati%20Temple!5e0!3m2!1sen!2snp!4v1638714830375!5m2!1sen!2snp"
+    width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </div>
+</body>
+<!--========================================Header Area ========================================================-->
+{% endblock %}
