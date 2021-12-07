@@ -746,6 +746,41 @@ a:hover {
 }
 
 /*---------------------------------------
+     Help page              
+  -----------------------------------------*/
+
+.container-fluid {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.container-fluid h2 {
+  color: black;
+  position: relative;
+}
+
+.accordion {
+  width: 100%;
+  padding: 0 5px;
+  border: 2px solid #a9c239;
+  cursor: pointer;
+  border-radius: 50px;
+  display: flex;
+  margin: 10px 0;
+  align-items: center;
+}
+
+.accordion .icon {
+  margin: 0 10px 0 0;
+  width: 30px;
+  height: 30px;
+  background: url('../image/plus.png') no-repeat 4px 5px #a9c239;
+  border-radius: 50%;
+  float: left;
+  transition: all 0.5s ease-in;
+}
+
+/*---------------------------------------
      RESPONSIVE STYLES              
   -----------------------------------------*/
 
