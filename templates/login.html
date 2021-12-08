@@ -3,10 +3,9 @@
 {% block content %}
 {% load static %}
 
-<img class="wave" src="img/wave.png">
-<div class="loginContainer">
+<div class="loginContainer" id="signupContainer">
     <div class="img">
-        <img src="{% static 'image/loginImg.svg' %}">
+        <img src="{% static 'image/login.svg' %}">
     </div>
     <div class="login-content">
         <form action="index.html" id="loginForm">
@@ -32,7 +31,7 @@
             </div>
             <a href="#">Forgot Password?</a>
             <input type="submit" class="loginBtn" value="Login">
-            <a href="#news" class="section-btn btn btn-default btn-blue smoothScroll">Create an account</a>
+            <a href="signup" class="section-btn btn btn-default btn-blue smoothScroll">Create an account</a>
             <a href="#news" class="section-btn btn btn-default btn-blue smoothScroll">login as Guest user</a>
         </form>
     </div>

@@ -280,6 +280,73 @@ header span i {
   background-color: transparent;
 }
 /*---------------------------------------
+      DropDown List              
+  -----------------------------------------*/
+
+.custom-select {
+  position: relative;
+  font-family: Arial;
+}
+
+.custom-select select {
+  display: none; /*hide original SELECT element: */
+}
+
+.select-selected {
+  background-color: #a9c239;
+}
+
+/* Style the arrow inside the select element: */
+.select-selected:after {
+  position: absolute;
+  content: '';
+  top: 14px;
+  right: -290px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-color: #fff transparent transparent transparent;
+}
+
+/* Point the arrow upwards when the select box is open (active): */
+.select-selected.select-arrow-active:after {
+  border-color: transparent transparent #fff transparent;
+  top: 7px;
+}
+
+/* style the items (options), including the selected item: */
+.select-items div,
+.select-selected {
+  color: #ffffff;
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+  cursor: pointer;
+  width: 500px;
+  font-size: 1.8rem;
+}
+
+/* Style items (options): */
+.select-items {
+  position: absolute;
+  background-color: #758b12;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  width: 500px;
+}
+
+/* Hide the items when the select box is closed: */
+.select-hide {
+  display: none;
+}
+
+.select-items div:hover,
+.same-as-selected {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+/*---------------------------------------
       Slider              
   -----------------------------------------*/
 
@@ -601,7 +668,7 @@ header span i {
 }
 
 .img img {
-  width: 660px;
+  width: 830px;
 }
 
 #loginForm {
@@ -653,7 +720,7 @@ header span i {
   position: absolute;
   left: 10px;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-80%);
   color: #999;
   font-size: 18px;
   transition: 0.3s;
@@ -702,7 +769,7 @@ header span i {
   outline: none;
   background: none;
   padding: 0.5rem 0.7rem;
-  font-size: 1.2rem;
+  font-size: 1.8rem;
   color: #555;
   font-family: 'poppins', sans-serif;
 }
@@ -744,6 +811,12 @@ a:hover {
 .loginBtn:hover {
   background-position: right;
 }
+/*---------------------------------------
+      Sign Up Form              
+  -----------------------------------------*/
+#signupForm {
+  width: 550px;
+}
 
 /*---------------------------------------
      Help page              
@@ -783,6 +856,26 @@ a:hover {
 /*---------------------------------------
      RESPONSIVE STYLES              
   -----------------------------------------*/
+@media only screen and (max-width: 1480px) {
+  .loginContainer {
+    grid-gap: 5rem;
+  }
+  #loginForm {
+    width: 350px;
+  }
+  form {
+    width: 290px;
+  }
+
+  .login-content h2 {
+    font-size: 2.4rem;
+    margin: 8px 0;
+  }
+
+  .img img {
+    width: 400px;
+  }
+}
 
 @media only screen and (max-width: 1200px) {
   h1 {
@@ -890,6 +983,17 @@ a:hover {
   .img img {
     width: 400px;
   }
+  .loginContainer {
+    grid-template-columns: 1fr;
+  }
+
+  .img {
+    display: none;
+  }
+
+  .login-content {
+    justify-content: center;
+  }
 }
 
 @media only screen and (max-width: 767px) {
@@ -910,10 +1014,6 @@ a:hover {
   }
 
   .img {
-    display: none;
-  }
-
-  .wave {
     display: none;
   }
 

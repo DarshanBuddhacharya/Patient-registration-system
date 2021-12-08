@@ -16,3 +16,7 @@ def login(request):
 
 def help(request):
     return render(request, 'help.html')
+
+
+def signup(request):
+    return render(request, 'signup.html')
