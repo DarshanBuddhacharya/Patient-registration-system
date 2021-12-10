@@ -78,11 +78,14 @@ WSGI_APPLICATION = 'Dhanvantari.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'patientlist',
+        'NAME': 'HospitalList',
         'USER': 'root',
         'PASSWORD': '',
         'HOST': 'localHost',
-        'PORT': '3306'
+        'PORT': '3306',
+        'OPTIONS': {
+            'sql_mode': 'traditional',
+        }
     }
 }
 

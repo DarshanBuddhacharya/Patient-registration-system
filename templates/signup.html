@@ -8,7 +8,8 @@
         <img src="{% static 'image/registration.svg' %}">
     </div>
     <div class="login-content">
-        <form action="index.html" id="signupForm">
+        <form method="post" id="signupForm">
+            {% csrf_token %}
             <h2 class="title">Registration form</h2>
             <div class="input-div one">
                 <div class="i">
@@ -16,7 +17,7 @@
                 </div>
                 <div class="div">
                     <h5>First Name</h5>
-                    <input type="text" class="input" required>
+                    <input type="text" class="input" name="FirstName" required>
                 </div>
             </div>
             <div class="input-div one">
@@ -25,7 +26,7 @@
                 </div>
                 <div class="div">
                     <h5>Last Name</h5>
-                    <input type="text" class="input" required>
+                    <input type="text" class="input" name="LastName" required>
                 </div>
             </div>
             <div class="input-div one">
@@ -34,7 +35,7 @@
                 </div>
                 <div class="div">
                     <h5>Age</h5>
-                    <input type="number" class="input" required>
+                    <input type="number" class="input" name="age" required>
                 </div>
             </div>
             <div class="input-div one">
@@ -43,7 +44,7 @@
                 </div>
                 <div class="div">
                     <div class="custom-select">
-                        <select required>
+                        <select name="gender" required>
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
                             <option value="Other">Other</option>
@@ -57,7 +58,16 @@
                 </div>
                 <div class="div">
                     <h5>Address</h5>
-                    <input type="text" class="input" required>
+                    <input type="text" class="input" name="address" required>
+                </div>
+            </div>
+            <div class="input-div pass">
+                <div class="i">
+                    <ion-icon name="call"></ion-icon>
+                </div>
+                <div class="div">
+                    <h5>Phone number</h5>
+                    <input type="number" class="input" name="PhoneNumber" required>
                 </div>
             </div>
             <div class="input-div pass">
@@ -66,7 +76,7 @@
                 </div>
                 <div class="div">
                     <h5>Email Address</h5>
-                    <input type="email" class="input" required>
+                    <input type="email" class="input" name="EmailAddress" required>
                 </div>
             </div>
             <div class="input-div pass">
@@ -75,7 +85,16 @@
                 </div>
                 <div class="div">
                     <h5>Password</h5>
-                    <input type="password" class="input" required>
+                    <input type="password" class="input" name="Password" required>
+                </div>
+            </div>
+            <div class="input-div pass">
+                <div class="i">
+                    <ion-icon name="lock-closed"></ion-icon>
+                </div>
+                <div class="div">
+                    <h5>Repeat Password</h5>
+                    <input type="password" class="input" name="RepeatPassword" required>
                 </div>
             </div>
             <div class="input-div pass">
@@ -84,7 +103,7 @@
                 </div>
                 <div class="div">
                     <div class="custom-select">
-                        <select required>
+                        <select name="BloodGroup" required>
                             <option value="O+">O+</option>
                             <option value="O-">O-</option>
                             <option value="A+">A+</option>
@@ -97,10 +116,21 @@
                     </div>
                 </div>
             </div>
-            <input type="submit" class="loginBtn" value="Submit">
+            <button type="submit" class="loginBtn">Submit</button>
             <a href="login" class="section-btn btn btn-default btn-blue smoothScroll">Already have an account</a>
             <a href="#news" class="section-btn btn btn-default btn-blue smoothScroll">login as Guest user</a>
         </form>
     </div>
 </div>
+{% ifequal error 'no' %}
+<script type="text/javascript">
+    alert("You have successfully registered.")
+    window.location = ('{% url "login" %}')
+</script>
+{% endifequal %}
+{% ifequal error 'yes' %}
+<script type="text/javascript">
+    alert("Something went wrong.")
+</script>
+{% endifequal %}
 {% endblock %}
