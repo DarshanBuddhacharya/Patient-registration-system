@@ -3,16 +3,6 @@
 {% block content %}
 {% load static %}
 
-{% if messages %}
-    {% for message in messages %}
-
-    <div class="alert alert-warning alert-dismissible" role="alert">
-        <span type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                aria-hidden="true">&times;</span></span>
-        <strong>Warning!</strong> {{ message }}
-    </div>
-    {% endfor %}
-{% endif %}
 <div class="loginContainer" id="signupContainer">
     <div class="img">
         <img src="{% static 'image/login.svg' %}">

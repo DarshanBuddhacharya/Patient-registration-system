@@ -5,7 +5,6 @@ from .models import *
 from django.contrib.auth.models import User, Group
 from django.contrib.auth import login, authenticate
 from django.contrib import messages
-from django.http import HttpResponse
 # Create your views here.
 
 
@@ -66,7 +65,8 @@ def signup(request):
                 user.save()
                 error = "no"
             else:
-                error = "yes"
+                messages.success(
+                    request, ("Passwords do not match. Please try again"))
         except Exception as e:
             error = "yes"
     d = {'error': error}
