@@ -1,7 +1,11 @@
+from django.core.checks import messages
 from django.core.checks.messages import Error
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from .models import *
 from django.contrib.auth.models import User, Group
+from django.contrib.auth import login, authenticate
+from django.contrib import messages
+from django.http import HttpResponse
 # Create your views here.
 
 
@@ -13,8 +17,23 @@ def contact(request):
     return render(request, 'contact.html')
 
 
-def login(request):
-    return render(request, 'login.html')
+def loginPage(request):
+    if request.method == "POST":
+        u = request.POST['EmailAddress']
+        p = request.POST['Password']
+
+        user = authenticate(request, username=u, password=p)
+        if user is not None:
+            login(request, user)
+            g = request.user.groups.all()[0].name
+            if g == 'Patient':
+                return render(request, 'index.html')
+        else:
+            messages.success(
+                request, ("Invalid username or password. Please try again.."))
+            return redirect('login')
+    else:
+        return render(request, 'login.html')
 
 
 def help(request):
@@ -41,7 +60,7 @@ def signup(request):
                 Patient.objects.create(FirstName=FirstName, LastName=LastName, age=age, gender=gender,
                                        address=address, PhoneNumber=PhoneNumber, EmailAddress=EmailAddress, BloodGroup=BloodGroup)
                 user = User.objects.create_user(
-                    FirstName=FirstName, LastName=LastName, EmailAddress=EmailAddress, username=EmailAddress)
+                    first_name=FirstName, email=EmailAddress, password=Password, username=EmailAddress)
                 pat_group = Group.objects.get(name="Patient")
                 pat_group.user_set.add(user)
                 user.save()
@@ -49,6 +68,6 @@ def signup(request):
             else:
                 error = "yes"
         except Exception as e:
-            error = "no"
+            error = "yes"
     d = {'error': error}
     return render(request, 'signup.html', d)

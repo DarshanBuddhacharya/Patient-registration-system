@@ -3,12 +3,23 @@
 {% block content %}
 {% load static %}
 
+{% if messages %}
+    {% for message in messages %}
+
+    <div class="alert alert-warning alert-dismissible" role="alert">
+        <span type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                aria-hidden="true">&times;</span></span>
+        <strong>Warning!</strong> {{ message }}
+    </div>
+    {% endfor %}
+{% endif %}
 <div class="loginContainer" id="signupContainer">
     <div class="img">
         <img src="{% static 'image/login.svg' %}">
     </div>
     <div class="login-content">
-        <form method="post" id="loginForm">
+        <form method="POST" id="loginForm">
+            {% csrf_token %}
             <img src="{% static 'image/avatar.svg' %}">
             <h2 class="title">Welcome</h2>
             <div class="input-div one">
@@ -16,8 +27,8 @@
                     <ion-icon name="person"></ion-icon>
                 </div>
                 <div class="div">
-                    <h5>Username</h5>
-                    <input type="text" class="input" required>
+                    <h5>Email Address</h5>
+                    <input type="email" class="input" name="EmailAddress" required>
                 </div>
             </div>
             <div class="input-div pass">
@@ -26,7 +37,7 @@
                 </div>
                 <div class="div">
                     <h5>Password</h5>
-                    <input type="password" class="input" required>
+                    <input type="password" class="input" name="Password" required>
                 </div>
             </div>
             <a href="#">Forgot Password?</a>

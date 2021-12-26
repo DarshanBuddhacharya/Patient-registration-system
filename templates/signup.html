@@ -8,7 +8,7 @@
         <img src="{% static 'image/registration.svg' %}">
     </div>
     <div class="login-content">
-        <form method="post" id="signupForm">
+        <form method="POST" id="signupForm">
             {% csrf_token %}
             <h2 class="title">Registration form</h2>
             <div class="input-div one">
@@ -125,7 +125,7 @@
 {% ifequal error 'no' %}
 <script type="text/javascript">
     alert("You have successfully registered.")
-    window.location = ('{% url "login" %}')
+    window.location = ('loginPage')
 </script>
 {% endifequal %}
 {% ifequal error 'yes' %}
