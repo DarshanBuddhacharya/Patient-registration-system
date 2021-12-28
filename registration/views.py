@@ -1,3 +1,4 @@
+from django.contrib import auth
 from django.core.checks import messages
 from django.core.checks.messages import Error
 from django.shortcuts import redirect, render
@@ -5,6 +6,7 @@ from .models import *
 from django.contrib.auth.models import User, Group
 from django.contrib.auth import login, authenticate
 from django.contrib import messages
+from PIL import Image
 # Create your views here.
 
 
@@ -18,6 +20,17 @@ def contact(request):
 
 def booking(request):
     return render(request, 'booking.html')
+
+
+def userProfile(request):
+    # if not request.user.is_active:
+    #     return redirect('loginPage')
+
+    g = request.user.groups.all()[0].name
+    if g == 'Patient':
+        patient_details = Patient.objects.all().filter(EmailAddress=request.user)
+        d = {'patient_details': patient_details}
+    return render(request, 'userProfile.html', d)
 
 
 def doctors(request):
@@ -37,7 +50,9 @@ def loginPage(request):
             login(request, user)
             g = request.user.groups.all()[0].name
             if g == 'Patient':
-                return render(request, 'index.html')
+                patient_details = Patient.objects.all().filter(EmailAddress=request.user)
+                d = {'patient_details': patient_details}
+                return render(request, 'userProfile.html', d)
         else:
             messages.success(
                 request, ("Invalid username or password. Please try again.."))
@@ -52,10 +67,10 @@ def help(request):
 
 def signup(request):
     user = "none"
-    error = ""
     if request.method == "POST":
         FirstName = request.POST['FirstName']
         LastName = request.POST['LastName']
+        image = request.FILES['image']
         age = request.POST['age']
         gender = request.POST['gender']
         address = request.POST['address']
@@ -67,18 +82,22 @@ def signup(request):
 
         try:
             if Password == RepeatPassword:
-                Patient.objects.create(FirstName=FirstName, LastName=LastName, age=age, gender=gender,
+                Patient.objects.create(FirstName=FirstName, LastName=LastName, image=image, age=age, gender=gender,
                                        address=address, PhoneNumber=PhoneNumber, EmailAddress=EmailAddress, BloodGroup=BloodGroup)
                 user = User.objects.create_user(
                     first_name=FirstName, email=EmailAddress, password=Password, username=EmailAddress)
                 pat_group = Group.objects.get(name="Patient")
                 pat_group.user_set.add(user)
                 user.save()
-                error = "no"
             else:
                 messages.success(
                     request, ("Passwords do not match. Please try again"))
         except Exception as e:
-            error = "yes"
-    d = {'error': error}
-    return render(request, 'signup.html', d)
+            messages.success(
+                request, ("This email already exists. Try again with another email or recover your account"))
+    return render(request, 'signup.html')
+
+
+def logout(request):
+    auth.logout(request)
+    return redirect('/')

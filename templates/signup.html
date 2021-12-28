@@ -9,7 +9,7 @@
         <img src="{% static 'image/registration.svg' %}">
     </div>
     <div class="login-content">
-        <form method="POST" id="signupForm">
+        <form method="POST" id="signupForm" enctype="multipart/form-data">
             {% csrf_token %}
             <h2 class="title">Registration form</h2>
             <div class="input-div one">
@@ -28,6 +28,15 @@
                 <div class="div">
                     <h5>Last Name</h5>
                     <input type="text" class="input" name="LastName" required>
+                </div>
+            </div>
+            <div class="input-div one">
+                <div class="i">
+                    <ion-icon name="image-sharp"></ion-icon>
+                </div>
+                <div class="div">
+                    <h5>Photo</h5>
+                    <input type="file" class="input" name="image" required>
                 </div>
             </div>
             <div class="input-div one">

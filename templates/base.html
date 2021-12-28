@@ -63,7 +63,12 @@
                     <li><a href="doctors" class="smoothScroll">Doctors</a></li>
                     <li><a href="contact" class="smoothScroll">Contact</a></li>
                     <li><a href="help" class="smoothScroll">Help</a></li>
+                    {% if user.is_authenticated %}
+                    <li><a href="userProfile" class="smoothScroll">Hello, {{user.first_name}}</a></li>
+                    <li><a href="logout" class="smoothScroll">Logout</a></li>
+                    {% else %}
                     <li><a href="loginPage" class="smoothScroll">Log In</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </div>

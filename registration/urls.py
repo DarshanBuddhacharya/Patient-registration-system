@@ -12,6 +12,8 @@ urlpatterns = [
     path('signup', views.signup, name='signup'),
     path('doctors', views.doctors, name='doctors'),
     path('booking', views.booking, name='booking'),
+    path('userProfile', views.userProfile, name='userProfile'),
+    path('logout', views.logout, name='logout')
 ]
 
 urlpatterns = urlpatterns + \
