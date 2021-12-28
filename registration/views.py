@@ -16,6 +16,13 @@ def contact(request):
     return render(request, 'contact.html')
 
 
+def doctors(request):
+
+    docs = Doctor.objects.all()
+
+    return render(request, 'doctors.html', {'docs': docs})
+
+
 def loginPage(request):
     if request.method == "POST":
         u = request.POST['EmailAddress']

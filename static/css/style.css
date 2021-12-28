@@ -118,6 +118,7 @@ a:focus {
   transition: transform 0.1s ease-in;
   transform: translateX(0);
   margin-bottom: 10px;
+  margin-top: 20px;
 }
 
 .section-btn:hover {
@@ -456,7 +457,90 @@ header span i {
   color: #858585;
   margin: 0;
 }
-
+/*---------------------------------------------Doctors--------------------------------------------*/
+.doctors {
+  background: #fff;
+}
+.doctors .section-title {
+  text-align: center;
+  padding: 40px;
+}
+.doctors .member {
+  position: relative;
+  box-shadow: 0px 2px 15px rgba(44, 73, 100, 0.08);
+  padding: 30px;
+  border-radius: 10px;
+  display: flex;
+}
+.doctors .member .pic {
+  overflow: hidden;
+  width: 180px;
+}
+.doctors .member .pic img {
+  transition: ease-in-out 0.3s;
+}
+.doctors .member:hover img {
+  transform: scale(1.1);
+}
+.doctors .member .member-info {
+  padding-left: 30px;
+}
+.doctors .member h4 {
+  font-weight: 700;
+  margin-bottom: 5px;
+  font-size: 20px;
+  color: #2c4964;
+}
+.doctors .member span {
+  display: block;
+  font-size: 15px;
+  padding-bottom: 10px;
+  position: relative;
+  font-weight: 500;
+}
+.doctors .member span::after {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 50px;
+  height: 1px;
+  background: #b2c8dd;
+  bottom: 0;
+  left: 0;
+}
+.doctors .member p {
+  margin: 10px 0 0 0;
+  font-size: 16px;
+}
+.doctors .member .social {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.doctors .member .social a {
+  transition: ease-in-out 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+  width: 45px;
+  height: 45px;
+  font-size: 22px;
+  background: #a9c239;
+  color: white;
+}
+.doctors .member .social a i {
+  color: #fff;
+  font-size: 16px;
+  margin: 0 2px;
+}
+.doctors .member .social a:hover {
+  background: #1977cc;
+}
+.doctors .member .social a + a {
+  margin-left: 8px;
+}
 /*-----------------------------------------------
                 Contact page
 ------------------------------------------------*/
@@ -877,7 +961,7 @@ a:hover {
   }
 }
 
-@media only screen and (max-width: 1200px) {
+@media only screen and (max-width: 1420px) {
   h1 {
     font-size: 4em;
   }
