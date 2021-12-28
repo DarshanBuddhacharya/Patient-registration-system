@@ -11,6 +11,7 @@ urlpatterns = [
     path('help', views.help),
     path('signup', views.signup, name='signup'),
     path('doctors', views.doctors, name='doctors'),
+    path('booking', views.booking, name='booking'),
 ]
 
 urlpatterns = urlpatterns + \
