@@ -40,6 +40,30 @@ def doctors(request):
     return render(request, 'doctors.html', {'docs': docs})
 
 
+def doctorlogin(request):
+    if request.method == "POST":
+        u = request.POST['Username']
+        p = request.POST['Password']
+
+        user = authenticate(request, username=u, password=p)
+        if user is not None:
+            login(request, user)
+            g = request.user.groups.all()[0].name
+            if g == 'Doctors':
+                return render(request, 'contact.html')
+            if g == 'Patient':
+                messages.success(
+                    request, ("You cannot login with patient's detail. Do so from patient login or login with doctor's details"))
+                auth.logout(request)
+                return redirect('doclogin')
+        else:
+            messages.success(
+                request, ("Invalid username or password. Please try again.."))
+            return redirect('doclogin')
+    else:
+        return render(request, 'doctorlogin.html')
+
+
 def loginPage(request):
     if request.method == "POST":
         u = request.POST['EmailAddress']

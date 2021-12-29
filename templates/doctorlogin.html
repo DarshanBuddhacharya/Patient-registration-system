@@ -5,20 +5,20 @@
 
 <div class="loginContainer" id="signupContainer">
     <div class="img">
-        <img src="{% static 'image/login.svg' %}">
+        <img src="{% static 'image/doclog.svg' %}">
     </div>
     <div class="login-content">
         <form method="POST" id="loginForm">
             {% csrf_token %}
-            <img src="{% static 'image/avatar.svg' %}">
-            <h2 class="title">Welcome</h2>
+            <img src="{% static 'image/doctor.svg' %}">
+            <h2 class="title">Welcome Doctor</h2>
             <div class="input-div one">
                 <div class="i">
                     <ion-icon name="person"></ion-icon>
                 </div>
                 <div class="div">
-                    <h5>Email Address</h5>
-                    <input type="email" class="input" name="EmailAddress" required>
+                    <h5>Doctor's ID</h5>
+                    <input type="text" class="input" name="Username" required>
                 </div>
             </div>
             <div class="input-div pass">
@@ -32,8 +32,7 @@
             </div>
             <a href="#">Forgot Password?</a>
             <input type="submit" class="loginBtn" value="Login">
-            <a href="signup" class="section-btn btn btn-default btn-blue smoothScroll">Create an account</a>
-            <a href="doctorlogin" class="section-btn btn btn-default btn-blue smoothScroll">Doctor's Login</a>
+            <a href="loginPage" class="section-btn btn btn-default btn-blue smoothScroll">Patient's Login</a>
         </form>
     </div>
 </div>
