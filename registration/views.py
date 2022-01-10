@@ -18,7 +18,15 @@ def contact(request):
 
 
 def booking(request):
-    return render(request, 'booking.html')
+    if not request.user.is_active:
+        messages.success(
+            request, ("In order to book an appointment you must login first"))
+        return redirect('login')
+    g = request.user.groups.all()[0].name
+    if g == 'Patient':
+        patient_details = Patient.objects.all().filter(EmailAddress=request.user)
+        d = {'patient_details': patient_details}
+    return render(request, 'booking.html', d)
 
 
 def userProfile(request):
