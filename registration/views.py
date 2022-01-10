@@ -6,7 +6,6 @@ from .models import *
 from django.contrib.auth.models import User, Group
 from django.contrib.auth import login, authenticate
 from django.contrib import messages
-from PIL import Image
 # Create your views here.
 
 
@@ -33,6 +32,17 @@ def userProfile(request):
     return render(request, 'userProfile.html', d)
 
 
+def doctorProfile(request):
+    # if not request.user.is_active:
+    #     return redirect('loginPage')
+
+    g = request.user.groups.all()[0].name
+    if g == 'Doctors':
+        doctor_details = Doctor.objects.all().filter(EmailAddress=request.user)
+        d = {'doctor_details': doctor_details}
+    return render(request, 'doctorProfile.html', d)
+
+
 def doctors(request):
 
     docs = Doctor.objects.all()
@@ -50,7 +60,9 @@ def doctorlogin(request):
             login(request, user)
             g = request.user.groups.all()[0].name
             if g == 'Doctors':
-                return render(request, 'contact.html')
+                doctor_details = Doctor.objects.all().filter(EmailAddress=request.user)
+                d = {'doctor_details': doctor_details}
+                return render(request, 'doctorProfile.html', d)
             if g == 'Patient':
                 messages.success(
                     request, ("You cannot login with patient's detail. Do so from patient login or login with doctor's details"))
@@ -77,6 +89,11 @@ def loginPage(request):
                 patient_details = Patient.objects.all().filter(EmailAddress=request.user)
                 d = {'patient_details': patient_details}
                 return render(request, 'userProfile.html', d)
+            if g == 'Doctors':
+                messages.success(
+                    request, ("You cannot login with Doctors's detail. Do so from Doctor login or login with patients's details"))
+                auth.logout(request)
+                return redirect('login')
         else:
             messages.success(
                 request, ("Invalid username or password. Please try again.."))

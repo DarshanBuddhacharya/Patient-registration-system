@@ -63,8 +63,11 @@
                     <li><a href="doctors" class="smoothScroll">Doctors</a></li>
                     <li><a href="contact" class="smoothScroll">Contact</a></li>
                     <li><a href="help" class="smoothScroll">Help</a></li>
-                    {% if user.is_authenticated %}
+                    {% if user.is_authenticated and not user.is_staff%}
                     <li><a href="userProfile" class="smoothScroll">Hello, {{user.first_name}}</a></li>
+                    <li><a href="logout" class="smoothScroll">Logout</a></li>
+                    {% elif user.is_authenticated and user.is_staff%}
+                    <li><a href="doctorProfile" class="smoothScroll">Hello, Dr. {{user.first_name}}</a></li>
                     <li><a href="logout" class="smoothScroll">Logout</a></li>
                     {% else %}
                     <li><a href="loginPage" class="smoothScroll">Log In</a></li>
