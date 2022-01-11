@@ -36,7 +36,8 @@
                 </div>
                 <div class="div">
                     <div class="custom-select">
-                        <select name="doctors" required>
+                        <select name="Department" required>
+                            <option value="General">Select a Department</option>
                             {% for f in doctor_details %}
                             <option value="{{f.speciality}}">{{f.speciality}}</option>
                             {% endfor %}
@@ -51,7 +52,8 @@
                 </div>
                 <div class="div">
                     <div class="custom-select">
-                        <select name="doctors" required>
+                        <select name="doctor" required>
+                            <option value="Any Doctor">Select a Doctor</option>
                             {% for f in doctor_details %}
                                 <option value="{{f.name}}">{{f.name}}</option>
                             {% endfor %}
