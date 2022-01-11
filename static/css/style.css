@@ -905,6 +905,16 @@ a:hover {
 #signupForm {
   width: 550px;
 }
+/*---------------------------------------
+      Booking Form              
+  -----------------------------------------*/
+#bookingField {
+  margin-bottom: 0;
+}
+#bookingMoreBtn {
+  margin-top: 10px;
+  margin-left: 20px;
+}
 
 /*---------------------------------------
      Help page              

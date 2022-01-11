@@ -22,17 +22,16 @@ def booking(request):
         messages.success(
             request, ("In order to book an appointment you must login first"))
         return redirect('login')
+    doctor_details = Doctor.objects.all()
     g = request.user.groups.all()[0].name
     if g == 'Patient':
         patient_details = Patient.objects.all().filter(EmailAddress=request.user)
-        d = {'patient_details': patient_details}
+        d = {'patient_details': patient_details,
+             'doctor_details': doctor_details}
     return render(request, 'booking.html', d)
 
 
 def userProfile(request):
-    # if not request.user.is_active:
-    #     return redirect('loginPage')
-
     g = request.user.groups.all()[0].name
     if g == 'Patient':
         patient_details = Patient.objects.all().filter(EmailAddress=request.user)

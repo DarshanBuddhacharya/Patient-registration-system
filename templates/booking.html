@@ -9,16 +9,16 @@
         <img src="{% static 'image/booking.svg' %}">
     </div>
     <div class="login-content">
-        {% for d in patient_details %}
         <form method="POST" id="signupForm">
             {% csrf_token %}
             <h2 class="title">Booking form</h2>
+            {% for f in patient_details%}
             <div class="input-div one">
                 <div class="i">
                     <ion-icon name="person-circle"></ion-icon>
                 </div>
                 <div class="div">
-                    <h5>Patient ID: PID - {{d.id}}</h5>
+                    <h5>Patient ID: PID - {{f.id}}</h5>
                 </div>
             </div>
             <div class="input-div one">
@@ -26,34 +26,65 @@
                     <ion-icon name="person"></ion-icon>
                 </div>
                 <div class="div">
-                    <h5>Name: {{d.FirstName}} {{d.LastName}}</h5>
+                    <h5>Name: {{f.FirstName}} {{f.LastName}}</h5>
                 </div>
             </div>
-            <div class="input-div one">
+                {% endfor %}
+            <div class="input-div one" id = "bookingField">
                 <div class="i">
                     <ion-icon name="business"></ion-icon>
                 </div>
                 <div class="div">
-                    <h5>Department</h5>
-                    <input type="text" class="input" name="age" required>
+                    <div class="custom-select">
+                        <select name="doctors" required>
+                            {% for f in doctor_details %}
+                            <option value="{{f.speciality}}">{{f.speciality}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
                 </div>
             </div>
-            <div class="input-div one">
+            <a href="doctors" id="bookingMoreBtn" class="section-btn btn btn-default btn-blue smoothScroll">Visit our Departments</a>
+            <div class="input-div one" id = "bookingField">
                 <div class="i">
                     <ion-icon name="medkit"></ion-icon>
                 </div>
                 <div class="div">
-                    <h5>Doctor</h5>
-                    <input type="text" class="input" name="age" required>
+                    <div class="custom-select">
+                        <select name="doctors" required>
+                            {% for f in doctor_details %}
+                                <option value="{{f.name}}">{{f.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
                 </div>
             </div>
+            <a href="doctors" id = "bookingMoreBtn" class="section-btn btn btn-default btn-blue smoothScroll">Meet our Doctors</a>
             <div class="input-div one">
                 <div class="i">
                     <ion-icon name="bandage"></ion-icon>
                 </div>
                 <div class="div">
                     <h5>Symptoms</h5>
-                    <input type="textarea" class="input" name="address" required>
+                    <input type="datalist" class="input" name="address" required>
+                </div>
+            </div>
+            <div class="input-div one focus">
+                <div class="i">
+                    <ion-icon name="calendar"></ion-icon>
+                </div>
+                <div class="div">
+                    <h5>Appointment Date</h5>
+                    <input type="date" class="input" name="address" required>
+                </div>
+            </div>
+            <div class="input-div one focus">
+                <div class="i">
+                    <ion-icon name="time"></ion-icon>
+                </div>
+                <div class="div">
+                    <h5>Appointment Time</h5>
+                    <input type="time" class="input" name="address" required>
                 </div>
             </div>
             <div class="input-div one">
@@ -69,7 +100,6 @@
             <a href="userProfile" class="section-btn btn btn-default btn-blue smoothScroll">Return to Personal Profile</a>
             <a href="./" class="section-btn btn btn-default btn-blue smoothScroll">Cancel Booking</a>
         </form>
-        {% endfor %}
     </div>
 </div>
 {% ifequal error 'no' %}
