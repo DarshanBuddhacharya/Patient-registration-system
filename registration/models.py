@@ -60,7 +60,9 @@ class Doctor(models.Model):
 
 class Appoitment(models.Model):
     Patient_ID = models.ForeignKey(User, on_delete=models.CASCADE)
+    PatientName = models.CharField(max_length=100)
     Doctor_ID = models.ForeignKey(Doctor, on_delete=models.CASCADE)
+    DoctorEmail = models.CharField(max_length=100)
     department = models.CharField(
         max_length=100, choices=DEPARTMENT_CHOICES, default='General')
     symptoms = models.CharField(max_length=500)

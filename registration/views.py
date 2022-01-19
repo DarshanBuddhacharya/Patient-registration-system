@@ -1,4 +1,5 @@
 from sqlite3 import Time
+from time import timezone
 from django.contrib import auth
 from django.core.checks import messages
 from django.core.checks.messages import Error
@@ -7,7 +8,7 @@ from .models import *
 from django.contrib.auth.models import User, Group
 from django.contrib.auth import login, authenticate
 from django.contrib import messages
-# Create your views here.
+from django.utils import timezone
 
 
 def index(request):
@@ -32,14 +33,17 @@ def booking(request):
 
     if request.method == "POST":
         Patient_ID = request.user.id
+        PatientName = request.user.first_name + request.user.last_name
         Department = request.POST['Department']
         doctor = request.POST['doctor']
+        DoctorID = doctor.split()[0]
+        DoctorEmail = doctor.split()[1]
         Symptoms = request.POST['Symptoms']
         Date = request.POST['Date']
         time = request.POST['Time']
         comment = request.POST['comment']
         try:
-            Appoitment.objects.create(Patient_ID_id=Patient_ID, Doctor_ID_id=doctor, symptoms=Symptoms,
+            Appoitment.objects.create(Patient_ID_id=Patient_ID, PatientName=PatientName, Doctor_ID_id=DoctorID, DoctorEmail=DoctorEmail, symptoms=Symptoms,
                                       department=Department, appoitmentDate=Date, appoitmentTime=time, Comments=comment)
             return render(request, 'index.html')
         except Exception as e:
@@ -57,13 +61,16 @@ def userProfile(request):
 
 
 def doctorProfile(request):
-    # if not request.user.is_active:
-    #     return redirect('loginPage')
-
+    upcomming_appointments = Appoitment.objects.all().filter(
+        DoctorEmail=request.user, appoitmentDate__gte=timezone.now()).order_by('appoitmentDate')
+    past_appointments = Appoitment.objects.all().filter(
+        DoctorEmail=request.user, appoitmentDate__lt=timezone.now()).order_by('-appoitmentDate')
     g = request.user.groups.all()[0].name
     if g == 'Doctors':
         doctor_details = Doctor.objects.all().filter(EmailAddress=request.user)
-        d = {'doctor_details': doctor_details}
+        d = {'doctor_details': doctor_details,
+             'upcomming_appointments': upcomming_appointments,
+             'past_appointments': past_appointments}
     return render(request, 'doctorProfile.html', d)
 
 
@@ -86,7 +93,7 @@ def doctorlogin(request):
             if g == 'Doctors':
                 doctor_details = Doctor.objects.all().filter(EmailAddress=request.user)
                 d = {'doctor_details': doctor_details}
-                return render(request, 'doctorProfile.html', d)
+                return redirect('doctorProfile')
             if g == 'Patient':
                 messages.success(
                     request, ("You cannot login with patient's detail. Do so from patient login or login with doctor's details"))
@@ -112,7 +119,7 @@ def loginPage(request):
             if g == 'Patient':
                 patient_details = Patient.objects.all().filter(EmailAddress=request.user)
                 d = {'patient_details': patient_details}
-                return render(request, 'userProfile.html', d)
+                return redirect('userProfile')
             if g == 'Doctors':
                 messages.success(
                     request, ("You cannot login with Doctors's detail. Do so from Doctor login or login with patients's details"))
@@ -150,10 +157,11 @@ def signup(request):
                 Patient.objects.create(FirstName=FirstName, LastName=LastName, image=image, age=age, gender=gender,
                                        address=address, PhoneNumber=PhoneNumber, EmailAddress=EmailAddress, BloodGroup=BloodGroup)
                 user = User.objects.create_user(
-                    first_name=FirstName, email=EmailAddress, password=Password, username=EmailAddress)
+                    first_name=FirstName, last_name=LastName, email=EmailAddress, password=Password, username=EmailAddress)
                 pat_group = Group.objects.get(name="Patient")
                 pat_group.user_set.add(user)
                 user.save()
+                return redirect('login')
             else:
                 messages.success(
                     request, ("Passwords do not match. Please try again"))

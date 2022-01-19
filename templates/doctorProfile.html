@@ -20,20 +20,23 @@
                         </div>
                     </div>
                 </div>
+                {% endfor %}
                 <div class="card mt-3">
                     <ul class="list-group list-group-flush">
                         <h4>Appointments</h4>
+                        {% for d in upcomming_appointments %}
                         <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                             <h6 class="mb-0">
-                                <ion-icon name="partly-sunny"></ion-icon> Appointment with {{d.name}}
+                                <ion-icon name="partly-sunny"></ion-icon> Appointment with <strong>{{d.PatientName}}</strong>
                             </h6>
                             <span class="text-secondary">
-                                Date: {{d.name}}
-                                Time: {{d.name}}
-                                Symptoms: {{d.name}}
-                                Comment: {{d.name}}
+                                Date: {{d.appoitmentDate}} <br>
+                                Time: {{d.appoitmentTime}}<br>
+                                Symptoms: {{d.symptoms}}<br>
+                                Comment: {{d.Comments}}<br>
                             </span>
                         </li>
+                        {% endfor %}
                         <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                             <h6 class="mb-0">
                                 <ion-icon name="sunny"></ion-icon> Day
@@ -61,6 +64,7 @@
                     </ul>
                 </div>
             </div>
+            {% for d in doctor_details %}
             <div class="col-md-8">
                 <div class="card mb-3">
                     <div class="card-body">
