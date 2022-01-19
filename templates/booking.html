@@ -55,7 +55,7 @@
                         <select name="doctor" required>
                             <option value="Any Doctor">Select a Doctor</option>
                             {% for f in doctor_details %}
-                                <option value="{{f.name}}">{{f.name}}</option>
+                                <option value="{{f.id}}">{{f.name}}</option>
                             {% endfor %}
                         </select>
                     </div>
@@ -68,7 +68,7 @@
                 </div>
                 <div class="div">
                     <h5>Symptoms</h5>
-                    <input type="datalist" class="input" name="address" required>
+                    <input type="datalist" class="input" name="Symptoms" required>
                 </div>
             </div>
             <div class="input-div one focus">
@@ -77,7 +77,7 @@
                 </div>
                 <div class="div">
                     <h5>Appointment Date</h5>
-                    <input type="date" class="input" name="address" required>
+                    <input type="date" class="input" name="Date" required>
                 </div>
             </div>
             <div class="input-div one focus">
@@ -86,7 +86,7 @@
                 </div>
                 <div class="div">
                     <h5>Appointment Time</h5>
-                    <input type="time" class="input" name="address" required>
+                    <input type="time" class="input" name="Time" required>
                 </div>
             </div>
             <div class="input-div one">
@@ -95,7 +95,7 @@
                 </div>
                 <div class="div">
                     <h5>Comments (Optional)</h5>
-                    <input type="textarea" class="input" name="address">
+                    <input type="textarea" class="input" name="comment">
                 </div>
             </div>
             <button type="submit" class="loginBtn">Submit</button>

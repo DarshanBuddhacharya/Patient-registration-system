@@ -1,3 +1,4 @@
+from sqlite3 import Time
 from django.contrib import auth
 from django.core.checks import messages
 from django.core.checks.messages import Error
@@ -28,6 +29,22 @@ def booking(request):
         patient_details = Patient.objects.all().filter(EmailAddress=request.user)
         d = {'patient_details': patient_details,
              'doctor_details': doctor_details}
+
+    if request.method == "POST":
+        Patient_ID = request.user.id
+        Department = request.POST['Department']
+        doctor = request.POST['doctor']
+        Symptoms = request.POST['Symptoms']
+        Date = request.POST['Date']
+        time = request.POST['Time']
+        comment = request.POST['comment']
+        try:
+            Appoitment.objects.create(Patient_ID_id=Patient_ID, Doctor_ID_id=doctor, symptoms=Symptoms,
+                                      department=Department, appoitmentDate=Date, appoitmentTime=time, Comments=comment)
+            return render(request, 'index.html')
+        except Exception as e:
+            messages.success(
+                request, ("Looks like a field is empty"))
     return render(request, 'booking.html', d)
 
 
