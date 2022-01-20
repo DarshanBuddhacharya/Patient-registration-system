@@ -52,6 +52,16 @@ def booking(request):
     return render(request, 'booking.html', d)
 
 
+def delete_appointment(request, aid):
+    appoitment = Appoitment.objects.get(id=aid)
+    appoitment.delete()
+    g = request.user.groups.all()[0].name
+    if g == 'Patient':
+        return redirect('userProfile')
+    else:
+        return redirect('doctorProfile')
+
+
 def userProfile(request):
     upcomming_appointments = Appoitment.objects.all().filter(
         Patient_ID=request.user, appoitmentDate__gte=timezone.now()).order_by('appoitmentDate')

@@ -3,6 +3,7 @@ from . import views
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
+from registration.views import *
 
 urlpatterns = [
     path('', views.index),
@@ -15,7 +16,9 @@ urlpatterns = [
     path('booking', views.booking, name='booking'),
     path('userProfile', views.userProfile, name='userProfile'),
     path('doctorProfile', views.doctorProfile, name='doctorProfile'),
-    path('logout', views.logout, name='logout')
+    path('logout', views.logout, name='logout'),
+    path('delete_appointment<int:aid>',
+         delete_appointment, name='delete_appointment')
 ]
 
 urlpatterns = urlpatterns + \

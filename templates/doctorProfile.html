@@ -36,7 +36,7 @@
                                 Comment: <strong>{{d.Comments}}</strong><br>
                             </span>
                             <a class="btn btn-info" href="">Change time</a>
-                            <a class="btn btn-info " id="logoutBtn" href="">Cancel Appoitment</a>
+                            <a class="btn btn-info " id="logoutBtn" href="{% url 'delete_appointment' d.id %}" onclick="return confirm('Are you sure you want to cancel this appointment? This action is irreversible.')">Cancel Appoitment</a>
                         </li>
                         {% endfor %}
                     </ul>
