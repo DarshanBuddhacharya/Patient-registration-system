@@ -53,10 +53,16 @@ def booking(request):
 
 
 def userProfile(request):
+    upcomming_appointments = Appoitment.objects.all().filter(
+        Patient_ID=request.user, appoitmentDate__gte=timezone.now()).order_by('appoitmentDate')
+    past_appointments = Appoitment.objects.all().filter(
+        Patient_ID=request.user, appoitmentDate__lt=timezone.now()).order_by('-appoitmentDate')
     g = request.user.groups.all()[0].name
     if g == 'Patient':
         patient_details = Patient.objects.all().filter(EmailAddress=request.user)
-        d = {'patient_details': patient_details}
+        d = {'patient_details': patient_details,
+             'upcomming_appointments': upcomming_appointments,
+             'past_appointments': past_appointments}
     return render(request, 'userProfile.html', d)
 
 

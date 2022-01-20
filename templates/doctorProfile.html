@@ -27,40 +27,34 @@
                         {% for d in upcomming_appointments %}
                         <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                             <h6 class="mb-0">
-                                <ion-icon name="partly-sunny"></ion-icon> Appointment with <strong>{{d.PatientName}}</strong>
+                                <ion-icon name="medkit"></ion-icon> Appointment with <strong>{{d.PatientName}}</strong><a class="btn btn-info " id="sessionBtn" href="">Start Session</a>
                             </h6>
                             <span class="text-secondary">
-                                Date: {{d.appoitmentDate}} <br>
-                                Time: {{d.appoitmentTime}}<br>
-                                Symptoms: {{d.symptoms}}<br>
-                                Comment: {{d.Comments}}<br>
+                                Date: <strong>{{d.appoitmentDate}}</strong> <br>
+                                Time: <strong>{{d.appoitmentTime}}</strong><br>
+                                Symptoms: <strong>{{d.symptoms}}</strong><br>
+                                Comment: <strong>{{d.Comments}}</strong><br>
+                            </span>
+                            <a class="btn btn-info" href="">Change time</a>
+                            <a class="btn btn-info " id="logoutBtn" href="">Cancel Appoitment</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <ul class="list-group list-group-flush">
+                        <h4>Past Appointments</h4>
+                        {% for d in past_appointments %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                            <h6 class="mb-0">
+                                <ion-icon name="medkit"></ion-icon> Appointment with <strong>{{d.PatientName}}</strong>
+                            </h6>
+                            <span class="text-secondary">
+                                Date: <strong>{{d.appoitmentDate}}</strong><br>
+                                Time: <strong>{{d.appoitmentTime}}</strong><br>
+                                Symptoms: <strong>{{d.symptoms}}</strong><br>
+                                Comment: <strong>{{d.Comments}}</strong><br>
                             </span>
                         </li>
                         {% endfor %}
-                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                            <h6 class="mb-0">
-                                <ion-icon name="sunny"></ion-icon> Day
-                            </h6>
-                            <span class="text-secondary">
-                                PANTOPRAZOLE - 40
-                            </span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                            <h6 class="mb-0">
-                                <ion-icon name="cloudy-night"></ion-icon> Noon
-                            </h6>
-                            <span class="text-secondary">
-                                SITAMOL
-                            </span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                            <h6 class="mb-0">
-                                <ion-icon name="moon-sharp"></ion-icon> Night
-                            </h6>
-                            <span class="text-secondary">
-                                COUGH SIRUP
-                            </span>
-                        </li>
                     </ul>
                 </div>
             </div>
@@ -170,8 +164,7 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <a class="btn btn-info" href="">Edit</a>
-                                <a class="btn btn-info " id="logoutBtn" href="logout">Log
-                                    out</a>
+                                <a class="btn btn-info " id="logoutBtn" href="logout">Logout</a>
                             </div>
                         </div>
                     </div>
