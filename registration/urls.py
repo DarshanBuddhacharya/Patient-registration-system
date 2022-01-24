@@ -16,6 +16,7 @@ urlpatterns = [
     path('booking', views.booking, name='booking'),
     path('userProfile', views.userProfile, name='userProfile'),
     path('doctorProfile', views.doctorProfile, name='doctorProfile'),
+    path('conformation', views.conformation, name='conformation'),
     path('logout', views.logout, name='logout'),
     path('delete_appointment<int:aid>',
          delete_appointment, name='delete_appointment')

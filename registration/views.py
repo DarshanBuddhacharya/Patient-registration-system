@@ -38,6 +38,8 @@ def booking(request):
         doctor = request.POST['doctor']
         DoctorID = doctor.split()[0]
         DoctorEmail = doctor.split()[1]
+        DoctorName = doctor.split()[2]
+        DoctorSurname = doctor.split()[3]
         Symptoms = request.POST['Symptoms']
         Date = request.POST['Date']
         time = request.POST['Time']
@@ -45,7 +47,7 @@ def booking(request):
         try:
             Appoitment.objects.create(Patient_ID_id=Patient_ID, PatientName=PatientName, Doctor_ID_id=DoctorID, DoctorEmail=DoctorEmail, symptoms=Symptoms,
                                       department=Department, appoitmentDate=Date, appoitmentTime=time, Comments=comment)
-            return render(request, 'index.html')
+            return render(request, 'conformation.html', {'PatientName': PatientName, 'DoctorName': DoctorName, 'DoctorSurname': DoctorSurname, 'Date': Date, 'time': time, 'DoctorEmail': DoctorEmail})
         except Exception as e:
             messages.success(
                 request, ("Looks like a field is empty"))
@@ -185,6 +187,10 @@ def signup(request):
             messages.success(
                 request, ("This email already exists. Try again with another email or recover your account"))
     return render(request, 'signup.html')
+
+
+def conformation(request):
+    return render(request, 'conformation.html')
 
 
 def logout(request):

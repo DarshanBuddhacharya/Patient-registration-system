@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+<div class="jumbotron text-center">
+    <h1 class="display-3">Thank You! {{PatientName}}</h1>
+    <h3>You have successfully booked an appoitment with <strong>Dr. {{DoctorName}} {{DoctorSurname}}</strong></h3>
+    <h4>Appoitment Date: {{Date}}</h4>
+    <h4>Appoitment Time: {{time}}</h4>
+    <p>
+        Want to contact doctor personally? You can do so with doctors personal email <strong>{{DoctorEmail}}</strong>
+    </p>
+    <p class="lead"><strong>Please check your email</strong> for further details about your appoitment</p>
+    <hr>
+    <p>
+        Having trouble? <a href="contact">Contact us</a>
+    </p>
+    <p class="lead">
+        <a href="./" class="section-btn btn btn-default btn-green smoothScroll">Return to Home Page</a>
+    </p>
+</div>
+{% endblock %}
