@@ -96,7 +96,11 @@
                 </div>
                 <div class="div">
                     <h5>Password</h5>
-                    <input type="password" class="input" name="Password" required>
+                    <input type="password" class="input" name="Password" id="passwordInput" required>
+                    <span id="eye" onclick="toggleEye()">
+                        <ion-icon name="eye" id="openEye"></ion-icon>
+                        <ion-icon name="eye-off" id="closeEye"></ion-icon>
+                    </span>
                 </div>
             </div>
             <div class="input-div pass">
@@ -105,7 +109,11 @@
                 </div>
                 <div class="div">
                     <h5>Repeat Password</h5>
-                    <input type="password" class="input" name="RepeatPassword" required>
+                    <input type="password" class="input" name="RepeatPassword" id="repeatPasswordInput" required>
+                    <span id="eye" onclick="toggleEye2()">
+                        <ion-icon name="eye" id="openEye2"></ion-icon>
+                        <ion-icon name="eye-off" id="closeEye2"></ion-icon>
+                    </span>
                 </div>
             </div>
             <div class="input-div pass">

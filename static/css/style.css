@@ -164,7 +164,18 @@ a:focus {
   padding-top: 100px;
   padding-bottom: 100px;
 }
-
+#eye {
+  float: right;
+  margin-top: 13px;
+  font-size: 21px;
+  color: #a5c422;
+}
+#openEye {
+  display: none;
+}
+#openEye2 {
+  display: none;
+}
 /*---------------------------------------
       Header              
   -----------------------------------------*/

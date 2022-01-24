@@ -76,3 +76,36 @@ function closeAllSelect(elmnt) {
 /*if the user clicks anywhere outside the select box,
 then close all select boxes:*/
 document.addEventListener("click", closeAllSelect);
+
+function toggleEye(){
+    var x = document.getElementById("passwordInput");
+    var y = document.getElementById("openEye");
+    var z = document.getElementById("closeEye");
+
+    if(x.type === 'password'){
+        x.type = 'text';
+        y.style.display = 'block';
+        z.style.display = 'none';
+    }
+    else{
+        x.type = 'password';
+        y.style.display = 'none';
+        z.style.display = 'block';
+    }
+}
+
+function toggleEye2(){
+    var a = document.getElementById("repeatPasswordInput");
+    var y = document.getElementById("openEye2");
+    var z = document.getElementById("closeEye2");
+    if(a.type === 'password'){
+        a.type = 'text';
+        y.style.display = 'block';
+        z.style.display = 'none';
+    }
+    else{
+        a.type = 'password';
+        y.style.display = 'none';
+        z.style.display = 'block';
+    }
+}
