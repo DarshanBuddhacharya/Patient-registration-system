@@ -152,7 +152,9 @@ def loginPage(request):
 
 
 def help(request):
-    return render(request, 'help.html')
+    Help_details = Help.objects.all()
+    d = {'Help_details': Help_details}
+    return render(request, 'help.html', d)
 
 
 def signup(request):

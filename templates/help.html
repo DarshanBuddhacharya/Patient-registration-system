@@ -5,74 +5,18 @@
 
 <div class="container-fluid">
     <h2>Frequently Asked Questions(FAQs)</h2>
+    {% for d in Help_details %}
     <div class="accordion">
         <div class="icon"></div>
-        <h5>Lorem ipsum dolor sit amet consectetur adipisicing elit.<is class=""></is>
+        <h5>{{d.Title}}
         </h5>
     </div>
     <div class="panel">
         <p>
-            Quam nihil ratione, hic voluptatibus architecto odio, exercitationem voluptatem explicabo autem molestias illum nostrum
-            porro! Ratione, quia! Officiis quae qui ratione corrupti?
+            {{d.Description}}
         </p>
     </div>
-    <div class="accordion">
-        <div class="icon">
-        </div>
-        <h5>Lorem ipsum dolor sit amet consectetur adipisicing elit.<is class=""></is>
-        </h5>
-    </div>
-    <div class="panel">
-        <p>
-            Quam nihil ratione, hic voluptatibus architecto odio, exercitationem voluptatem explicabo autem molestias illum nostrum
-            porro! Ratione, quia! Officiis quae qui ratione corrupti?
-        </p>
-    </div>
-    <div class="accordion">
-        <div class="icon"></div>
-        <h5>Lorem ipsum dolor sit amet consectetur adipisicing elit.<is class=""></is>
-        </h5>
-    </div>
-    <div class="panel">
-        <p>
-            Quam nihil ratione, hic voluptatibus architecto odio, exercitationem voluptatem explicabo autem molestias illum nostrum
-            porro! Ratione, quia! Officiis quae qui ratione corrupti?
-        </p>
-    </div>
-    <div class="accordion">
-        <div class="icon"></div>
-        <h5>Lorem ipsum dolor sit amet consectetur adipisicing elit.<is class=""></is>
-        </h5>
-    </div>
-    <div class="panel">
-        <p>
-            Quam nihil ratione, hic voluptatibus architecto odio, exercitationem voluptatem explicabo autem molestias illum nostrum
-            porro! Ratione, quia! Officiis quae qui ratione corrupti?
-        </p>
-    </div>
-    <div class="accordion">
-        <div class="icon">
-        </div>
-        <h5>Lorem ipsum dolor sit amet consectetur adipisicing elit.<is class=""></is>
-        </h5>
-    </div>
-    <div class="panel">
-        <p>
-            Quam nihil ratione, hic voluptatibus architecto odio, exercitationem voluptatem explicabo autem molestias illum nostrum
-            porro! Ratione, quia! Officiis quae qui ratione corrupti?
-        </p>
-    </div>
-    <div class="accordion">
-        <div class="icon">
-        </div>
-        <h5>Lorem ipsum dolor sit amet consectetur adipisicing elit.<is class=""></is>
-        </h5>
-    </div>
-    <div class="panel">
-        <p>
-            Quam nihil ratione, hic voluptatibus architecto odio, exercitationem voluptatem explicabo autem molestias illum nostrum
-            porro! Ratione, quia! Officiis quae qui ratione corrupti?
-        </p>
-    </div>
+    {% endfor %}
+
 </div>
 {% endblock %}

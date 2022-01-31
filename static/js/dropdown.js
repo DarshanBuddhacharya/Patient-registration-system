@@ -109,3 +109,14 @@ function toggleEye2(){
         z.style.display = 'block';
     }
 }
+
+function toggleShow(){
+  var a = document.getElementById("pastAppoitment")
+
+  if(a.style.display === 'none'){
+    a.style.display = 'block';
+  }
+  else{
+    a.style.display = 'none';
+  }
+}
