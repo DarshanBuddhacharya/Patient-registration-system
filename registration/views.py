@@ -1,5 +1,7 @@
+import email
 from sqlite3 import Time
 from time import timezone
+from django import template
 from django.contrib import auth
 from django.core.checks import messages
 from django.core.checks.messages import Error
@@ -9,6 +11,9 @@ from django.contrib.auth.models import User, Group
 from django.contrib.auth import login, authenticate
 from django.contrib import messages
 from django.utils import timezone
+from django.core.mail import send_mail
+from django.conf import settings
+from django.template.loader import render_to_string
 
 
 def index(request):
@@ -44,9 +49,20 @@ def booking(request):
         Date = request.POST['Date']
         time = request.POST['Time']
         comment = request.POST['comment']
+
         try:
             Appoitment.objects.create(Patient_ID_id=Patient_ID, PatientName=PatientName, Doctor_ID_id=DoctorID, DoctorEmail=DoctorEmail, symptoms=Symptoms,
                                       department=Department, appoitmentDate=Date, appoitmentTime=time, Comments=comment)
+
+            template = render_to_string(
+                'email_booking.html', {'PatientName': PatientName, 'DoctorName': DoctorName, 'DoctorSurname': DoctorSurname, 'Date': Date, 'time': time})
+            send_mail(
+                'Hello there ' + PatientName,
+                template,
+                settings.EMAIL_HOST_USER,
+                ['namew34997@mxclip.com'],
+                fail_silently=False,
+            )
             return render(request, 'conformation.html', {'PatientName': PatientName, 'DoctorName': DoctorName, 'DoctorSurname': DoctorSurname, 'Date': Date, 'time': time, 'DoctorEmail': DoctorEmail})
         except Exception as e:
             messages.success(
@@ -189,6 +205,23 @@ def signup(request):
             messages.success(
                 request, ("This email already exists. Try again with another email or recover your account"))
     return render(request, 'signup.html')
+
+
+def sucess(request, uid):
+    template = render_to_string('email_booking.html', {
+                                'name': request.user.patient.first_name})
+    email = EmailMessage(
+        'Hello',
+        template,
+        settings.EMAIL_HOST_USER,
+        ['namew34997@mxclip.com'],
+    )
+
+    email.fail_silently = False
+    email.send()
+
+    appoitment = Appoitment.objects.get(id=uid)
+    return render(request, {'appoitment': appoitment})
 
 
 def conformation(request):
