@@ -167,6 +167,7 @@ a:focus {
 #eye {
   float: right;
   margin-top: 13px;
+  margin-right: 10px;
   font-size: 21px;
   color: #a5c422;
 }
@@ -174,6 +175,12 @@ a:focus {
   display: none;
 }
 #openEye2 {
+  display: none;
+}
+#pastAppoitment {
+  display: none;
+}
+#hideBtn {
   display: none;
 }
 /*---------------------------------------

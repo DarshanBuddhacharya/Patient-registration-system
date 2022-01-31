@@ -40,8 +40,11 @@
                         </li>
                         {% endfor %}
                     </ul>
-                    <ul class="list-group list-group-flush">
-                        <h4>Past Appointments</h4>
+                    <h4>Past Appointments <span id="eye" onclick="toggleShow()">
+                            <a class="btn btn-info" id="hideBtn"> Hide </a>
+                            <a class="btn btn-info" id="showBtn">Show</a>
+                        </span></h4>
+                    <ul class="list-group list-group-flush" id="pastAppoitment">
                         {% for d in past_appointments %}
                         <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                             <h6 class="mb-0">

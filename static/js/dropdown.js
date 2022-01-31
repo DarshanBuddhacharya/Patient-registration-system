@@ -110,13 +110,26 @@ function toggleEye2(){
     }
 }
 
+if (!window.getComputedStyle) {
+    // Fallback for obsolete IE
+    window.getComputedStyle = function(e) {
+        return e.currentStyle;
+    };
+}
+
 function toggleShow(){
   var a = document.getElementById("pastAppoitment")
+  var b = document.getElementById("showBtn")
+  var c = document.getElementById("hideBtn")
 
-  if(a.style.display === 'none'){
+  if(getComputedStyle(a).display === 'none'){
     a.style.display = 'block';
+    b.style.display = 'none';
+    c.style.display = 'block';
   }
   else{
     a.style.display = 'none';
+    b.style.display = 'block';
+    c.style.display = 'none';
   }
 }
