@@ -7,11 +7,11 @@ from registration.views import *
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    path('', views.index),
-    path('contact', views.contact),
+    path('', views.index, name='home'),
+    path('contact', views.contact, name='contact'),
     path('loginPage', views.loginPage, name='login'),
     path('doctorlogin', views.doctorlogin, name='doclogin'),
-    path('help', views.help),
+    path('help', views.help, name='help'),
     path('signup', views.signup, name='signup'),
     path('doctors', views.doctors, name='doctors'),
     path('booking', views.booking, name='booking'),
