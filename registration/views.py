@@ -207,23 +207,6 @@ def signup(request):
     return render(request, 'signup.html')
 
 
-def sucess(request, uid):
-    template = render_to_string('email_booking.html', {
-                                'name': request.user.patient.first_name})
-    email = EmailMessage(
-        'Hello',
-        template,
-        settings.EMAIL_HOST_USER,
-        ['namew34997@mxclip.com'],
-    )
-
-    email.fail_silently = False
-    email.send()
-
-    appoitment = Appoitment.objects.get(id=uid)
-    return render(request, {'appoitment': appoitment})
-
-
 def conformation(request):
     return render(request, 'conformation.html')
 
