@@ -51,18 +51,17 @@ def booking(request):
         comment = request.POST['comment']
 
         try:
-            Appoitment.objects.create(Patient_ID_id=Patient_ID, PatientName=PatientName, Doctor_ID_id=DoctorID, DoctorEmail=DoctorEmail, symptoms=Symptoms,
-                                      department=Department, appoitmentDate=Date, appoitmentTime=time, Comments=comment)
-
             template = render_to_string(
-                'email_booking.html', {'PatientName': PatientName, 'DoctorName': DoctorName, 'DoctorSurname': DoctorSurname, 'Date': Date, 'time': time})
+                'email/email_booking.html', {'PatientName': PatientName, 'DoctorName': DoctorName, 'DoctorSurname': DoctorSurname, 'Date': Date, 'time': time})
             send_mail(
                 'Hello there ' + PatientName,
                 template,
                 settings.EMAIL_HOST_USER,
-                ['namew34997@mxclip.com'],
+                [request.user.email],
                 fail_silently=False,
             )
+            Appoitment.objects.create(Patient_ID_id=Patient_ID, PatientName=PatientName, Doctor_ID_id=DoctorID, DoctorFullName=DoctorName + " " + DoctorSurname, DoctorEmail=DoctorEmail, symptoms=Symptoms,
+                                      department=Department, appoitmentDate=Date, appoitmentTime=time, Comments=comment)
             return render(request, 'conformation.html', {'PatientName': PatientName, 'DoctorName': DoctorName, 'DoctorSurname': DoctorSurname, 'Date': Date, 'time': time, 'DoctorEmail': DoctorEmail})
         except Exception as e:
             messages.success(
@@ -72,11 +71,34 @@ def booking(request):
 
 def delete_appointment(request, aid):
     appoitment = Appoitment.objects.get(id=aid)
-    appoitment.delete()
     g = request.user.groups.all()[0].name
     if g == 'Patient':
+        appoitment_details = Appoitment.objects.all().filter(id=aid)
+        d = {'appoitment_details': appoitment_details}
+        template = render_to_string(
+            'email/email_patient_cancel.html', d)
+        send_mail(
+            'Appoitment canceled',
+            template,
+            settings.EMAIL_HOST_USER,
+            [request.user.email],
+            fail_silently=False,
+        )
+        appoitment.delete()
         return redirect('userProfile')
     else:
+        appoitment_details = Appoitment.objects.all().filter(id=aid)
+        d = {'appoitment_details': appoitment_details}
+        template = render_to_string(
+            'email/email_doctor_cancel.html', d)
+        send_mail(
+            'Appoitment canceled',
+            template,
+            settings.EMAIL_HOST_USER,
+            [request.user.email],
+            fail_silently=False,
+        )
+        appoitment.delete()
         return redirect('doctorProfile')
 
 

@@ -1,0 +1,8 @@
+{% for d in appoitment_details %}
+Dear, {{d.DoctorFullName}}
+
+I am writing to inform you that due to an unforeseen and emergent situation, We have no choice but to cancel the appointment scheduled for {{d.appoitmentDate}} on {{d.appoitmentTime}} with {{d.PatientName}}.
+{% endfor %}
+
+Best Regards,
+Dhanvantari team

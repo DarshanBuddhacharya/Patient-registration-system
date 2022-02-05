@@ -1,0 +1,15 @@
+{% for d in appoitment_details %}
+Dear, {{d.PatientName}}
+
+I am writing this email to confirm your appoitment with Dr. {{d.DoctorFullName}}. Your appointment is
+scheduled for {{d.appoitmentDate}} on {{d.appoitmentTime}}.
+{% endfor %}
+Please reach the hospital 15 min early of your appoitment time. Please feel free to contact our staff if you have any
+questions or any concern about the respective appointment.
+You can reach our email at dhanvantari@gmail.com or call us at : 98X-XXX-XXXX. We will try to respond as soon as
+possible.
+
+Thank you and get well soon.
+
+Best Regards,
+Dhanvantari team

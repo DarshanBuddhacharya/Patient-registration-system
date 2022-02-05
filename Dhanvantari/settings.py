@@ -139,7 +139,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'smtp.mailtrap.io'
 EMAIL_HOST_USER = 'c39ed2f7072e69'
 EMAIL_HOST_PASSWORD = '459d786dc124a8'
