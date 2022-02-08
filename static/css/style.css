@@ -930,6 +930,17 @@ a:hover {
   width: 550px;
 }
 /*---------------------------------------
+      Medical report              
+  -----------------------------------------*/
+#textArea {
+  max-width: 100%;
+  padding-left: 10px;
+}
+#medicalReport {
+  padding-left: 150px;
+  padding-right: 150px;
+}
+/*---------------------------------------
       Booking Form              
   -----------------------------------------*/
 #bookingField {
@@ -1039,7 +1050,7 @@ a:hover {
     width: 350px;
   }
   form {
-    width: 290px;
+    max-width: 1163px;
   }
 
   .login-content h2 {
@@ -1147,7 +1158,7 @@ a:hover {
     min-height: 300px;
   }
   form {
-    width: 290px;
+    max-width: 1163px;
   }
 
   .login-content h2 {
@@ -1168,6 +1179,10 @@ a:hover {
 
   .login-content {
     justify-content: center;
+  }
+  #medicalReport {
+    padding-left: 30px;
+    padding-right: 30px;
   }
 }
 

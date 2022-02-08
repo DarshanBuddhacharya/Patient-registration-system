@@ -37,7 +37,8 @@ def booking(request):
              'doctor_details': doctor_details}
 
     if request.method == "POST":
-        Patient_ID = request.user.id
+        Patient_ID = request.POST['PatientID']
+        PatientEmail = request.user
         PatientName = request.user.first_name + request.user.last_name
         Department = request.POST['Department']
         doctor = request.POST['doctor']
@@ -60,12 +61,13 @@ def booking(request):
                 [request.user.email],
                 fail_silently=False,
             )
-            Appoitment.objects.create(Patient_ID_id=Patient_ID, PatientName=PatientName, Doctor_ID_id=DoctorID, DoctorFullName=DoctorName + " " + DoctorSurname, DoctorEmail=DoctorEmail, symptoms=Symptoms,
+            Appoitment.objects.create(Patient_ID_id=Patient_ID, PatientName=PatientName, PatientEmail=PatientEmail, Doctor_ID_id=DoctorID, DoctorFullName=DoctorName + " " + DoctorSurname, DoctorEmail=DoctorEmail, symptoms=Symptoms,
                                       department=Department, appoitmentDate=Date, appoitmentTime=time, Comments=comment)
             return render(request, 'conformation.html', {'PatientName': PatientName, 'DoctorName': DoctorName, 'DoctorSurname': DoctorSurname, 'Date': Date, 'time': time, 'DoctorEmail': DoctorEmail})
         except Exception as e:
-            messages.success(
-                request, ("Looks like a field is empty"))
+            raise e
+            # messages.success(
+            #     request, ("Looks like a field is empty"))
     return render(request, 'booking.html', d)
 
 
@@ -104,9 +106,9 @@ def delete_appointment(request, aid):
 
 def userProfile(request):
     upcomming_appointments = Appoitment.objects.all().filter(
-        Patient_ID=request.user, appoitmentDate__gte=timezone.now()).order_by('appoitmentDate')
+        PatientEmail=request.user, appoitmentDate__gte=timezone.now()).order_by('appoitmentDate')
     past_appointments = Appoitment.objects.all().filter(
-        Patient_ID=request.user, appoitmentDate__lt=timezone.now()).order_by('-appoitmentDate')
+        PatientEmail=request.user, appoitmentDate__lt=timezone.now()).order_by('-appoitmentDate')
     g = request.user.groups.all()[0].name
     if g == 'Patient':
         patient_details = Patient.objects.all().filter(EmailAddress=request.user)
@@ -122,12 +124,47 @@ def doctorProfile(request):
     past_appointments = Appoitment.objects.all().filter(
         DoctorEmail=request.user, appoitmentDate__lt=timezone.now()).order_by('-appoitmentDate')
     g = request.user.groups.all()[0].name
-    if g == 'Doctors':
+    if g == 'Doctor':
         doctor_details = Doctor.objects.all().filter(EmailAddress=request.user)
         d = {'doctor_details': doctor_details,
              'upcomming_appointments': upcomming_appointments,
              'past_appointments': past_appointments}
     return render(request, 'doctorProfile.html', d)
+
+
+def medicalReport(request, aid):
+    appoitment_details = Appoitment.objects.all().filter(id=aid)
+    d = {'appoitment_details': appoitment_details}
+    if request.method == "POST":
+        Appoitment_ID = request.POST['SessionID']
+        Patient_ID = request.POST['PatientID']
+        PatientName = request.POST['PatientName']
+        Doctor_ID = request.POST['DoctorID']
+        DoctorEmail = request.user.email
+        DoctorFullName = request.user.first_name + request.user.last_name
+        Department = request.POST['department']
+        DiagnosisReport = request.POST['DiagnosisReport']
+        DoctorComments = request.POST['DoctorComments']
+        MorningMedicine = request.POST['MorningMedicine']
+        DayMedicine = request.POST['DayMedicine']
+        NoonMedicine = request.POST['NoonMedicine']
+        NightMedicine = request.POST['NightMedicine']
+        try:
+            # template = render_to_string(
+            #     'email/email_booking.html', {'PatientName': PatientName, 'DoctorFullName': DoctorFullName, 'Date': d.Date, 'time': d.time})
+            # send_mail(
+            #     'Hello there ' + PatientName,
+            #     template,
+            #     settings.EMAIL_HOST_USER,
+            #     [request.user.email],
+            #     fail_silently=False,
+            # )
+            MedicalReport.objects.create(Appoitment_ID_id=Appoitment_ID, Patient_ID_id=Patient_ID, PatientName=PatientName, Doctor_ID_id=Doctor_ID, DoctorFullName=DoctorFullName, DoctorEmail=DoctorEmail, DiagnosisReport=DiagnosisReport,
+                                         department=Department, DoctorComments=DoctorComments, MorningMedicine=MorningMedicine, DayMedicine=DayMedicine, NoonMedicine=NoonMedicine, NightMedicine=NightMedicine)
+            return redirect('doctorProfile')
+        except Exception as e:
+            raise e
+    return render(request, 'medicalReport.html', d)
 
 
 def doctors(request):
@@ -146,7 +183,7 @@ def doctorlogin(request):
         if user is not None:
             login(request, user)
             g = request.user.groups.all()[0].name
-            if g == 'Doctors':
+            if g == 'Doctor':
                 doctor_details = Doctor.objects.all().filter(EmailAddress=request.user)
                 d = {'doctor_details': doctor_details}
                 return redirect('doctorProfile')
@@ -154,11 +191,11 @@ def doctorlogin(request):
                 messages.success(
                     request, ("You cannot login with patient's detail. Do so from patient login or login with doctor's details"))
                 auth.logout(request)
-                return redirect('doclogin')
+                return redirect('doctorlogin')
         else:
             messages.success(
                 request, ("Invalid username or password. Please try again.."))
-            return redirect('doclogin')
+            return redirect('doctorlogin')
     else:
         return render(request, 'doctorlogin.html')
 
@@ -176,7 +213,7 @@ def loginPage(request):
                 patient_details = Patient.objects.all().filter(EmailAddress=request.user)
                 d = {'patient_details': patient_details}
                 return redirect('userProfile')
-            if g == 'Doctors':
+            if g == 'Doctor':
                 messages.success(
                     request, ("You cannot login with Doctors's detail. Do so from Doctor login or login with patients's details"))
                 auth.logout(request)

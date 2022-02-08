@@ -27,7 +27,7 @@
                         {% for d in upcomming_appointments %}
                         <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                             <h6 class="mb-0">
-                                <ion-icon name="medkit"></ion-icon> Appointment with <strong>{{d.PatientName}}</strong><a class="btn btn-info " id="sessionBtn" href="">Start Session</a>
+                                <ion-icon name="medkit"></ion-icon> Appointment with <strong>{{d.PatientName}}</strong><a class="btn btn-info " id="sessionBtn" href="{% url 'medicalReport' d.id %}">Start Session</a>
                             </h6>
                             <span class="text-secondary">
                                 Date: <strong>{{d.appoitmentDate}}</strong> <br>

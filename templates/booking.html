@@ -12,13 +12,14 @@
         <form method="POST" id="signupForm">
             {% csrf_token %}
             <h2 class="title">Booking form</h2>
-            {% for f in patient_details%}
+            {% for d in patient_details%}
             <div class="input-div one">
                 <div class="i">
                     <ion-icon name="person-circle"></ion-icon>
                 </div>
                 <div class="div">
-                    <h5>Patient ID: PID - {{f.id}}</h5>
+                    <h5>Patient ID: PID - {{d.id}}</h5>
+                    <input type="hidden" name="PatientID" value="{{d.id}}">
                 </div>
             </div>
             <div class="input-div one">
@@ -26,7 +27,7 @@
                     <ion-icon name="person"></ion-icon>
                 </div>
                 <div class="div">
-                    <h5>Name: {{f.FirstName}} {{f.LastName}}</h5>
+                    <h5>Name: {{d.FirstName}} {{d.LastName}}</h5>
                 </div>
             </div>
                 {% endfor %}
@@ -38,8 +39,8 @@
                     <div class="custom-select">
                         <select name="Department" required>
                             <option value="General">Select a Department</option>
-                            {% for f in doctor_details %}
-                            <option value="{{f.speciality}}">{{f.speciality}}</option>
+                            {% for d in doctor_details %}
+                            <option value="{{d.speciality}}">{{d.speciality}}</option>
                             {% endfor %}
                         </select>
                     </div>
@@ -54,8 +55,8 @@
                     <div class="custom-select">
                         <select name="doctor" required>
                             <option value="Any Doctor">Select a Doctor</option>
-                            {% for f in doctor_details %}
-                                <option value="{{f.id}} {{f.EmailAddress}} {{f.name}}">{{f.name}}</option>
+                            {% for d in doctor_details %}
+                                <option value="{{d.id}} {{d.EmailAddress}} {{d.name}}">{{d.name}}</option>
                             {% endfor %}
                         </select>
                     </div>

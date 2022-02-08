@@ -58,7 +58,8 @@ class Doctor(models.Model):
 
 
 class Appoitment(models.Model):
-    Patient_ID = models.ForeignKey(User, on_delete=models.CASCADE)
+    Patient_ID = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    PatientEmail = models.CharField(max_length=100)
     PatientName = models.CharField(max_length=100)
     Doctor_ID = models.ForeignKey(Doctor, on_delete=models.CASCADE)
     DoctorFullName = models.CharField(max_length=100)
@@ -72,6 +73,26 @@ class Appoitment(models.Model):
 
     def __int__(self):
         return self.Doctor_ID + " has an appointment with " + self.Patient_ID
+
+
+class MedicalReport(models.Model):
+    Appoitment_ID = models.ForeignKey(Appoitment, on_delete=models.CASCADE)
+    Patient_ID = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    PatientName = models.CharField(max_length=100)
+    Doctor_ID = models.ForeignKey(Doctor, on_delete=models.CASCADE)
+    DoctorFullName = models.CharField(max_length=100)
+    DoctorEmail = models.CharField(max_length=100)
+    department = models.CharField(
+        max_length=100, choices=DEPARTMENT_CHOICES, default='General')
+    DiagnosisReport = models.CharField(max_length=800)
+    DoctorComments = models.CharField(max_length=500)
+    MorningMedicine = models.CharField(max_length=100)
+    DayMedicine = models.CharField(max_length=100)
+    NoonMedicine = models.CharField(max_length=100)
+    NightMedicine = models.CharField(max_length=100)
+
+    def __int__(self):
+        return self.Doctor_ID + " has uploaded medical report of " + self.Patient_ID
 
 
 class Help(models.Model):

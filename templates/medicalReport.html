@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+
+<div class="userContainer">
+    <div class="main-body">
+        <div class="row gutters-sm" id="medicalReport">
+            {% for d in appoitment_details %}
+            <div class="col-md-12">
+                <h4>Medical Report</h4>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0"><strong>Session ID</strong></h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                   {{d.id}}
+                                    <input type="hidden" name="SessionID" value="{{d.id}}">
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0"><strong>Patient ID</strong></h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    PID - {{d.Patient_ID_id}}
+                                    <input type="hidden" name="PatientID" value="{{d.Patient_ID_id}}">
+                                    <input type="hidden" name="DoctorID" value="{{d.Doctor_ID_id}}">
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0"><strong>Patient Name</strong></h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{d.PatientName}}
+                                    <input type="hidden" name="PatientName" value="{{d.PatientName}}">
+                                    <input type="hidden" name="department" value="{{d.department}}">
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0"><strong>Symptoms</strong></h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{d.symptoms}}
+                                    <input type="hidden" name="symptoms" value="{{d.symptoms}}">
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0"><strong>Comments</strong></h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{d.Comments}}
+                                    <input type="hidden" name="Comments" value="{{d.Comments}}">
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0"><strong>Diagnosis Report</strong></h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <textarea id = "textArea" cols="200" rows="5" placeholder="Type something here..." name="DiagnosisReport" required></textarea>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0"><strong>Doctor Comments</strong></h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <textarea id="textArea" cols="200" rows="5" placeholder="Type something here..." name="DoctorComments" required></textarea>
+                                </div>
+                            </div>
+                            <hr style="border-top: 3px solid black;">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h4 class="mb-0"><strong>Prescribe Medicine</strong></h4>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0"><ion-icon name="partly-sunny"></ion-icon><strong> Morning</strong></h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <textarea id="textArea" cols="200" rows="2" placeholder="Morning Medicine" name="MorningMedicine"></textarea>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0"><ion-icon name="sunny"></ion-icon><strong> Day</strong></h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <textarea id="textArea" cols="200" rows="2" placeholder="Day Medicine" name="DayMedicine"></textarea>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0"><ion-icon name="cloudy-night"></ion-icon><strong> Noon</strong></h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <textarea id="textArea" cols="200" rows="2" placeholder="Noon Medicine" name="NoonMedicine"></textarea>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0"><ion-icon name="moon-sharp"></ion-icon><strong> Night</strong></h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <textarea id="textArea" cols="200" rows="2" placeholder="Night Medicine" name="NightMedicine"></textarea>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <button type="submit" class="btn btn-info" id="sessionBtn" onclick="return confirm('Are you sure you want to publish this report? The patient can view this report.')">Publish Medical Report</button>
+                                    <a class="btn btn-info " href="doctorProfile" onclick="return confirm('Are you sure you want to return to workspace? The progress is not saved.')">Cancel</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
