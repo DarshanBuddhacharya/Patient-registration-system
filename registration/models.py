@@ -78,10 +78,12 @@ class Appoitment(models.Model):
 class MedicalReport(models.Model):
     Appoitment_ID = models.ForeignKey(Appoitment, on_delete=models.CASCADE)
     Patient_ID = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    PatientEmail = models.CharField(max_length=100)
     PatientName = models.CharField(max_length=100)
     Doctor_ID = models.ForeignKey(Doctor, on_delete=models.CASCADE)
     DoctorFullName = models.CharField(max_length=100)
     DoctorEmail = models.CharField(max_length=100)
+    Date = models.CharField(max_length=100)
     department = models.CharField(
         max_length=100, choices=DEPARTMENT_CHOICES, default='General')
     DiagnosisReport = models.CharField(max_length=800)

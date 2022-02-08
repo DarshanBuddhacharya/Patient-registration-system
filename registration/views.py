@@ -109,11 +109,13 @@ def userProfile(request):
         PatientEmail=request.user, appoitmentDate__gte=timezone.now()).order_by('appoitmentDate')
     past_appointments = Appoitment.objects.all().filter(
         PatientEmail=request.user, appoitmentDate__lt=timezone.now()).order_by('-appoitmentDate')
+    report_details = MedicalReport.objects.all().filter(PatientEmail=request.user)
     g = request.user.groups.all()[0].name
     if g == 'Patient':
         patient_details = Patient.objects.all().filter(EmailAddress=request.user)
         d = {'patient_details': patient_details,
              'upcomming_appointments': upcomming_appointments,
+             'report_details': report_details,
              'past_appointments': past_appointments}
     return render(request, 'userProfile.html', d)
 
@@ -139,9 +141,11 @@ def medicalReport(request, aid):
         Appoitment_ID = request.POST['SessionID']
         Patient_ID = request.POST['PatientID']
         PatientName = request.POST['PatientName']
+        PatientEmail = request.POST['PatientEmail']
         Doctor_ID = request.POST['DoctorID']
+        Date = request.POST['Date']
         DoctorEmail = request.user.email
-        DoctorFullName = request.user.first_name + request.user.last_name
+        DoctorFullName = request.user.first_name + " " + request.user.last_name
         Department = request.POST['department']
         DiagnosisReport = request.POST['DiagnosisReport']
         DoctorComments = request.POST['DoctorComments']
@@ -160,7 +164,7 @@ def medicalReport(request, aid):
             #     fail_silently=False,
             # )
             MedicalReport.objects.create(Appoitment_ID_id=Appoitment_ID, Patient_ID_id=Patient_ID, PatientName=PatientName, Doctor_ID_id=Doctor_ID, DoctorFullName=DoctorFullName, DoctorEmail=DoctorEmail, DiagnosisReport=DiagnosisReport,
-                                         department=Department, DoctorComments=DoctorComments, MorningMedicine=MorningMedicine, DayMedicine=DayMedicine, NoonMedicine=NoonMedicine, NightMedicine=NightMedicine)
+                                         department=Department, Date=Date, PatientEmail=PatientEmail, DoctorComments=DoctorComments, MorningMedicine=MorningMedicine, DayMedicine=DayMedicine, NoonMedicine=NoonMedicine, NightMedicine=NightMedicine)
             return redirect('doctorProfile')
         except Exception as e:
             raise e
