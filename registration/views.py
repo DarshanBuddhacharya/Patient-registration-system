@@ -1,4 +1,7 @@
-import email
+from django.http import HttpResponse
+from xhtml2pdf import pisa
+from django.contrib.staticfiles import finders
+
 from sqlite3 import Time
 from time import timezone
 from django import template
@@ -13,7 +16,7 @@ from django.contrib import messages
 from django.utils import timezone
 from django.core.mail import send_mail
 from django.conf import settings
-from django.template.loader import render_to_string
+from django.template.loader import render_to_string, get_template
 
 
 def index(request):
@@ -109,7 +112,8 @@ def userProfile(request):
         PatientEmail=request.user, appoitmentDate__gte=timezone.now()).order_by('appoitmentDate')
     past_appointments = Appoitment.objects.all().filter(
         PatientEmail=request.user, appoitmentDate__lt=timezone.now()).order_by('-appoitmentDate')
-    report_details = MedicalReport.objects.all().filter(PatientEmail=request.user)
+    report_details = MedicalReport.objects.all().filter(
+        PatientEmail=request.user).order_by('-Date')
     g = request.user.groups.all()[0].name
     if g == 'Patient':
         patient_details = Patient.objects.all().filter(EmailAddress=request.user)
@@ -169,6 +173,26 @@ def medicalReport(request, aid):
         except Exception as e:
             raise e
     return render(request, 'medicalReport.html', d)
+
+
+def render_pdf_view(request, aid):
+    template_path = 'reportPrint.html'
+    report_context = MedicalReport.objects.all().filter(id=aid)
+    context = {'report_context': report_context}
+    # Create a Django response object, and specify content_type as pdf
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+    # find the template and render it.
+    template = get_template(template_path)
+    html = template.render(context)
+
+    # create a pdf
+    pisa_status = pisa.CreatePDF(
+        html, dest=response)
+    # if error then show some funy view
+    if pisa_status.err:
+        return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
 
 
 def doctors(request):

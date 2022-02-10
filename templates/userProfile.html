@@ -155,7 +155,7 @@
                                             <ion-icon name="newspaper"></ion-icon> Your medical Report has been Published on <strong> {{d.Date}}</strong>
                                         </h6>
                                         <span class="text-secondary">
-                                            <hr>You can download this report. <a class="btn btn-info " id="sessionBtn" href="">Download this report</a>
+                                            <hr>You can download this report. <a class="btn btn-info " id="sessionBtn" href="{% url 'render_pdf_view' d.id %}" onclick= "return confirm('Do you want to download this file?')">Download this report</a>
                                         </span>
                                         <span class="text-secondary">
                                             <hr>Published by Dr. {{d.DoctorFullName}}

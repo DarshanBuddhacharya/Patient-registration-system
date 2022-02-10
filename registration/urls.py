@@ -20,6 +20,7 @@ urlpatterns = [
     path('conformation', views.conformation, name='conformation'),
     path('medicalReport<int:aid>', views.medicalReport, name='medicalReport'),
     path('logout', views.logout, name='logout'),
+    path('render_pdf_view<int:aid>', views.render_pdf_view, name='render_pdf_view'),
     path('delete_appointment<int:aid>',
          delete_appointment, name='delete_appointment'),
 
