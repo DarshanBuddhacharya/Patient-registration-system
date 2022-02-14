@@ -301,3 +301,7 @@ def conformation(request):
 def logout(request):
     auth.logout(request)
     return redirect('/')
+
+
+def footer(request):
+    return render(request, 'footer.html')
