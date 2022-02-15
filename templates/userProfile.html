@@ -24,19 +24,25 @@
                 <div class="card mt-3">
                     <ul class="list-group list-group-flush">
                         <h4>Appointments</h4>
-                        {% for d in upcomming_appointments %}
-                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                            <h6 class="mb-0">
-                                <ion-icon name="medkit"></ion-icon> Appointment with <strong>{{d.Doctor_ID}}</strong><a class="btn btn-info " id="logoutBtn" href="{% url 'delete_appointment' d.id %}" onclick= "return confirm('Are you sure you want to cancel this appointment? This action is irreversible.')">Cancel Appoitment</a>
-                            </h6>
-                            <span class="text-secondary">
-                                Date: <strong>{{d.appoitmentDate}}</strong> <br>
-                                Time: <strong>{{d.appoitmentTime}}</strong><br>
-                                Symptoms: <strong>{{d.symptoms}}</strong><br>
-                                Comment: <strong>{{d.Comments}}</strong><br>
-                            </span>
-                        </li>
-                        {% endfor %}
+                        {% if upcomming_appointments %}
+                            {% for d in upcomming_appointments %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                <h6 class="mb-0">
+                                    <ion-icon name="medkit"></ion-icon> Appointment with <strong>{{d.Doctor_ID}}</strong><a class="btn btn-info " id="logoutBtn" href="{% url 'delete_appointment' d.id %}" onclick= "return confirm('Are you sure you want to cancel this appointment? This action is irreversible.')">Cancel Appoitment</a>
+                                </h6>
+                                <span class="text-secondary">
+                                    Date: <strong>{{d.appoitmentDate}}</strong> <br>
+                                    Time: <strong>{{d.appoitmentTime}}</strong><br>
+                                    Symptoms: <strong>{{d.symptoms}}</strong><br>
+                                    Comment: <strong>{{d.Comments}}</strong><br>
+                                </span>
+                            </li>
+                            {% endfor %}
+                            {% else %}
+                            <div id="emptyAppoitments">
+                                <p> No sceduled Appointments</p>
+                            </div>
+                        {% endif %}
                     </ul>
                     <h4>Past Appointments <span id="eye" onclick="toggleShow()">
                         <a class="btn btn-info" id="hideBtn">Hide</a>

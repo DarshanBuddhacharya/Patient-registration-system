@@ -4,7 +4,7 @@
 {% load static %}
 
 
-<div class="loginContainer">
+<div class="loginContainer" id="signupContainer">
     <div class="img">
         <img src="{% static 'image/registration.svg' %}">
     </div>
@@ -141,16 +141,5 @@
         </form>
     </div>
 </div>
-{% ifequal error 'no' %}
-<script type="text/javascript">
-    alert("You have successfully registered.")
-    window.location = ('loginPage')
-</script>
-{% endifequal %}
-{% ifequal error 'yes' %}
-<script type="text/javascript">
-    alert("Something went wrong.")
-</script>
-{% endifequal %}
 {% include "footer.html" %}
 {% endblock %}

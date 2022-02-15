@@ -71,7 +71,8 @@
                     <li><a href="doctorProfile" class="smoothScroll">Hello, Dr. {{user.first_name}}</a></li>
                     <li><a href="logout" class="smoothScroll">Logout</a></li>
                     {% else %}
-                    <li><a href="{% url 'login' %}" class="smoothScroll">Log In</a></li>
+                    <li><a class = "button-84" id = "button-19" href="{% url 'login' %}" class="smoothScroll">Login</a></li>
+                    <li><a class = "button-85" id = "navLogin" href="{% url 'signup' %}" class="smoothScroll">SignUp</a></li>
                     {% endif %}
                 </ul>
             </div>
