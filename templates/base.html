@@ -65,12 +65,13 @@
                     <li class="{% if url_name == 'doctors' %}active{% endif %}"><a href="{% url 'doctors' %}" class="smoothScroll">Doctors</a></li>
                     <li class="{% if url_name == 'contact' %}active{% endif %}"><a href="{% url 'contact' %}" class="smoothScroll">Contact</a></li>
                     <li class="{% if url_name == 'help' %}active{% endif %}"><a href="{% url 'help' %}" class="smoothScroll">Help</a></li>
+                    {% endwith %}
                     {% if user.is_authenticated and not user.is_staff%}
                     <li>
                         <div class="profile">
                             <div class="icon_wrap">
                                 <a class="smoothScroll">Hello, {{user.first_name}}</a>
-                            <img src="{% static 'image/doctor-1.jpg' %}" alt="profile_pic">
+                            <img src="{% static 'image/avatar.svg' %} " alt="profile_pic">
                             <ion-icon name="caret-down"></ion-icon>
                             </div>
                             <div class="profile_dd">
@@ -87,8 +88,8 @@
                     <li>
                         <div class="profile">
                             <div class="icon_wrap">
-                                <a class="smoothScroll">Hello, Dr. {{user.first_name}}</a>
-                                <img src="{% static 'image/doctor-1.jpg' %}" alt="profile_pic">
+                                <a class="smoothScroll">Dr. {{user.first_name}} {{user.last_name}}</a>
+                                <img src="{% static 'image/doctor.svg' %}" alt="profile_pic">
                                 <ion-icon name="caret-down"></ion-icon>
                             </div>
                             <div class="profile_dd">
@@ -108,7 +109,6 @@
                     <li><a class = "button-84" id = "button-19" href="{% url 'login' %}" class="smoothScroll">Login</a></li>
                     <li><a class = "button-85" id = "navLogin" href="{% url 'signup' %}" class="smoothScroll">SignUp</a></li>
                     {% endif %}
-                    {% endwith %}
                 </ul>
             </div>
         </div>

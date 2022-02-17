@@ -135,6 +135,27 @@ def doctorProfile(request):
         d = {'doctor_details': doctor_details,
              'upcomming_appointments': upcomming_appointments,
              'past_appointments': past_appointments}
+    if request.method == "POST":
+        SessionID = request.POST['SessionID']
+        editTime = request.POST['editTime']
+        try:
+            appoitment = Appoitment.objects.get(pk=SessionID)
+            appoitment.appoitmentTime = editTime
+            appoitment.save()
+            appoitment_details = Appoitment.objects.all().filter(id=SessionID)
+            d = {'appoitment_details': appoitment_details}
+            template = render_to_string(
+                'email/email_changeTime.html', d)
+            send_mail(
+                'Appoitment time changed_' + editTime,
+                template,
+                settings.EMAIL_HOST_USER,
+                [request.user.email],
+                fail_silently=False,
+            )
+            return redirect('doctorProfile')
+        except Exception as e:
+            raise e
     return render(request, 'doctorProfile.html', d)
 
 

@@ -37,10 +37,22 @@
                                     Symptoms: <strong>{{d.symptoms}}</strong><br>
                                     Comment: <strong>{{d.Comments}}</strong><br>
                                 </span>
-                                <a class="btn btn-info" href="">Change time</a>
+                                <a id = "changeTime_{{d.id}}" class="btn btn-info" onclick='showModal("{{d.id}}")'>Change time</a>
                                 <a class="btn btn-info " id="logoutBtn" href="{% url 'delete_appointment' d.id %}"
                                     onclick="return confirm('Are you sure you want to cancel this appointment? This action is irreversible.')">Cancel
                                     Appoitment</a>
+                                <div class="bg-modal" id="remove-heli-{{d.id}}">
+                                    <div class="modal-contents">
+                                        <div class="close" id="close_{{d.id}}">+</div>
+                                        <form method="POST">
+                                            {% csrf_token %}
+                                            <h5>Change Appointment Time</h5>
+                                            <input type="hidden" name="SessionID" value="{{d.id}}">
+                                            <input type="time" id="timeChange" class="input" name="editTime" required>
+                                            <button type="submit" class="loginBtn" onclick="return confirm('Are you sure you want to change the appointment date? An email will be sent to the patient regarding the change in time')">Submit</button>
+                                        </form>
+                                    </div>
+                                </div>
                             </li>
                             {% endfor %}
                         {% else %}
@@ -177,48 +189,6 @@
                             <div class="col-sm-12">
                                 <a class="btn btn-info" href="">Edit</a>
                                 <a class="btn btn-info " id="logoutBtn" href="logout">Logout</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row gutters-sm">
-                    <div class="col-sm-6 mb-3">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h6 class="d-flex align-items-center mb-3">Diagnosed dieses</h6>
-                                <small>Diabites</small>
-                                <div class="progress mb-3" style="height: 5px">
-                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 100%"
-                                        aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <small>Cancer</small>
-                                <div class="progress mb-3" style="height: 5px">
-                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 100%"
-                                        aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <small>Diabites</small>
-                                <div class="progress mb-3" style="height: 5px">
-                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 100%"
-                                        aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <small>Cancer</small>
-                                <div class="progress mb-3" style="height: 5px">
-                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 100%"
-                                        aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 mb-3">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h6 class="d-flex align-items-center mb-3">Doctor's Comment</h6>
-                                <p>
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi dolores assumenda
-                                    sunt iste. Odio, illo quibusdam? Id placeat nostrum voluptas laboriosam vel sed
-                                    provident quod tempora libero quae, doloribus necessitatibus.
-                                </p>
                             </div>
                         </div>
                     </div>

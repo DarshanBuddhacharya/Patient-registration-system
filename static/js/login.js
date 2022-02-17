@@ -41,3 +41,10 @@ $(".notifications .icon_wrap").click(function(){
 //       }
 //     }
 //   });
+
+function showModal(h) {
+    document.getElementById('remove-heli-' + h).style.display = 'flex';
+	document.getElementById('close_'+h).addEventListener("click", function() {
+		document.getElementById('remove-heli-' + h).style.display = "none";
+});
+}
