@@ -9,7 +9,7 @@
         <img src="{% static 'image/booking.svg' %}">
     </div>
     <div class="login-content">
-        <form method="POST" id="signupForm">
+        <form method="POST" id="signupForm" data-doctor-url="{% url 'ajax_load_doctor' %}">
             {% csrf_token %}
             <h2 class="title">Booking form</h2>
             {% for d in patient_details%}
@@ -36,11 +36,11 @@
                     <ion-icon name="business"></ion-icon>
                 </div>
                 <div class="div">
-                    <div class="custom-select">
-                        <select name="Department" required>
+                    <div class="">
+                        <select name="Department" id="Department" required>
                             <option value="General">Select a Department</option>
-                            {% for d in doctor_details %}
-                            <option value="{{d.speciality}}">{{d.speciality}}</option>
+                            {% for d in department_details%}
+                            <option value="{{d.id}}">{{d.name}}</option>
                             {% endfor %}
                         </select>
                     </div>
@@ -52,12 +52,9 @@
                     <ion-icon name="medkit"></ion-icon>
                 </div>
                 <div class="div">
-                    <div class="custom-select">
-                        <select name="doctor" required>
-                            <option value="Any Doctor">Select a Doctor</option>
-                            {% for d in doctor_details %}
-                                <option value="{{d.id}} {{d.EmailAddress}} {{d.name}}">{{d.name}}</option>
-                            {% endfor %}
+                    <div class="">
+                        <select name="doctor" id="doctor" required>
+                            <option value="">---select doctor---</option>
                         </select>
                     </div>
                 </div>
@@ -105,5 +102,23 @@
         </form>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+    $("#Department").change(function () {
+        var url = $("#signupForm").attr("data-doctor-url");  // get the url of the `load_courses` view
+        var department_id = $(this).val();  // get the selected programming ID from the HTML input
+
+        $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= localhost:8000/load-courses/)
+            data: {
+                'Department_id': department_id      // add the programming id to the GET parameters
+            },
+            success: function (data) {   // `data` is the return of the `load_courses` view function
+                $("#doctor").html(data);  // replace the contents of the course input with the data that came from the server
+            }
+        });
+        console.log(Department_id) 
+    });
+</script>
 {% include "footer.html" %}
 {% endblock %}

@@ -1,3 +1,4 @@
+from unicodedata import name
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -33,11 +34,16 @@ DEPARTMENT_CHOICES = (
 )
 
 
+class Department(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
 class Doctor(models.Model):
     name = models.CharField(max_length=100)
     img = models.ImageField(upload_to='images')
-    speciality = models.CharField(
-        max_length=100, choices=DEPARTMENT_CHOICES, default='General')
+    speciality = models.ForeignKey(Department, on_delete=models.CASCADE)
     education = models.CharField(max_length=50)
     gender = models.CharField(
         max_length=10, choices=GENDER_CHOICES, default='male')

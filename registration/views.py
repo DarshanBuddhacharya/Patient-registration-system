@@ -1,3 +1,4 @@
+from urllib import request
 from django.http import HttpResponse
 from xhtml2pdf import pisa
 from django.contrib.staticfiles import finders
@@ -33,17 +34,19 @@ def booking(request):
             request, ("In order to book an appointment you must login first"))
         return redirect('login')
     doctor_details = Doctor.objects.all()
+    department_details = Department.objects.all()
     g = request.user.groups.all()[0].name
     if g == 'Patient':
         patient_details = Patient.objects.all().filter(EmailAddress=request.user)
         d = {'patient_details': patient_details,
-             'doctor_details': doctor_details}
+             'doctor_details': doctor_details,
+             'department_details': department_details}
 
     if request.method == "POST":
         Patient_ID = request.POST['PatientID']
         PatientEmail = request.user
         PatientName = request.user.first_name + request.user.last_name
-        Department = request.POST['Department']
+        Speciality = request.POST['Department']
         doctor = request.POST['doctor']
         DoctorID = doctor.split()[0]
         DoctorEmail = doctor.split()[1]
@@ -65,13 +68,19 @@ def booking(request):
                 fail_silently=False,
             )
             Appoitment.objects.create(Patient_ID_id=Patient_ID, PatientName=PatientName, PatientEmail=PatientEmail, Doctor_ID_id=DoctorID, DoctorFullName=DoctorName + " " + DoctorSurname, DoctorEmail=DoctorEmail, symptoms=Symptoms,
-                                      department=Department, appoitmentDate=Date, appoitmentTime=time, Comments=comment)
+                                      department=Speciality, appoitmentDate=Date, appoitmentTime=time, Comments=comment)
             return render(request, 'conformation.html', {'PatientName': PatientName, 'DoctorName': DoctorName, 'DoctorSurname': DoctorSurname, 'Date': Date, 'time': time, 'DoctorEmail': DoctorEmail})
         except Exception as e:
             raise e
             # messages.success(
             #     request, ("Looks like a field is empty"))
     return render(request, 'booking.html', d)
+
+
+def load_doctor(request):
+    department_id = request.GET.get('Department_id')
+    doctors = Doctor.objects.all().filter(speciality=department_id).order_by('name')
+    return render(request, 'doctor_dropdown.html', {'doctors': doctors})
 
 
 def delete_appointment(request, aid):

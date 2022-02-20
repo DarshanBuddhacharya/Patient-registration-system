@@ -755,6 +755,14 @@ header span i {
 .same-as-selected {
   background-color: rgba(0, 0, 0, 0.1);
 }
+#Department {
+  width: 100%;
+  height: 42px;
+}
+#doctor {
+  width: 100%;
+  height: 42px;
+}
 /*---------------------------------------
       Slider              
   -----------------------------------------*/
