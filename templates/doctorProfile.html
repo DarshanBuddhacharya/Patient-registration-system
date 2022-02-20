@@ -61,11 +61,36 @@
                         </div>
                         {% endif %}
                     </ul>
+                    <h4>Completed Appointments <span id="AppEye" onclick="toggleAppointments()">
+                            <a class="btn btn-info" id="AppHideBtn"> Hide </a>
+                            <a class="btn btn-info" id="AppShowBtn">Show</a>
+                        </span></h4>
+                    <ul class="list-group list-group-flush" id="completedAppointments">
+                        {% if report_details %}
+                        {% for d in report_details %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                            <h6 class="mb-0">
+                                <ion-icon name="medkit"></ion-icon> Appointment with <strong>{{d.PatientName}}   </strong><ion-icon name="checkbox"></ion-icon>
+                                <a class="btn btn-info " id="sessionBtn" href="{% url 'render_pdf_view' d.id %}">Review this report</a>
+                            </h6>
+                            <span class="text-secondary">
+                                Date: <strong>{{d.Date}}</strong><br>
+                                Diagnosis Report: <strong>{{d.DiagnosisReport}}</strong><br>
+                            </span>
+                        </li>
+                        {% endfor %}
+                        {% else %}
+                        <div id="emptyAppoitments">
+                            <p> No Appointments Completed</p>
+                        </div>
+                        {% endif %}
+                    </ul>
                     <h4>Past Appointments <span id="eye" onclick="toggleShow()">
                             <a class="btn btn-info" id="hideBtn"> Hide </a>
                             <a class="btn btn-info" id="showBtn">Show</a>
                         </span></h4>
                     <ul class="list-group list-group-flush" id="pastAppoitment">
+                        {% if past_appointments %}
                         {% for d in past_appointments %}
                         <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                             <h6 class="mb-0">
@@ -79,6 +104,11 @@
                             </span>
                         </li>
                         {% endfor %}
+                        {% else %}
+                        <div id="emptyAppoitments">
+                            <p> No sceduled Appointments</p>
+                        </div>
+                        {% endif %}
                     </ul>
                 </div>
             </div>

@@ -133,3 +133,20 @@ function toggleShow(){
     c.style.display = 'none';
   }
 }
+
+function toggleAppointments(){
+  var a = document.getElementById("completedAppointments")
+  var b = document.getElementById("AppShowBtn")
+  var c = document.getElementById("AppHideBtn")
+
+  if(getComputedStyle(a).display === 'block'){
+    a.style.display = 'none';
+    b.style.display = 'block';
+    c.style.display = 'none';
+  }
+  else if(getComputedStyle(a).display === 'none'){
+    a.style.display = 'block';
+    b.style.display = 'none';
+    c.style.display = 'block';
+  }
+}

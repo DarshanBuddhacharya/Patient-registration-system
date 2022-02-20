@@ -1,3 +1,4 @@
+import re
 from urllib import request
 from django.http import HttpResponse
 from xhtml2pdf import pisa
@@ -118,9 +119,11 @@ def delete_appointment(request, aid):
 
 def userProfile(request):
     upcomming_appointments = Appoitment.objects.all().filter(
-        PatientEmail=request.user, appoitmentDate__gte=timezone.now()).order_by('appoitmentDate')
+        PatientEmail=request.user, appoitmentDate__gte=timezone.now(), active="yes").order_by('appoitmentDate')
     past_appointments = Appoitment.objects.all().filter(
         PatientEmail=request.user, appoitmentDate__lt=timezone.now()).order_by('-appoitmentDate')
+    completed_appointments = Appoitment.objects.all().filter(
+        PatientEmail=request.user, appoitmentDate__gte=timezone.now(), active="no").order_by('appoitmentDate')
     report_details = MedicalReport.objects.all().filter(
         PatientEmail=request.user).order_by('-Date')
     g = request.user.groups.all()[0].name
@@ -129,21 +132,28 @@ def userProfile(request):
         d = {'patient_details': patient_details,
              'upcomming_appointments': upcomming_appointments,
              'report_details': report_details,
+             'completed_appointments': completed_appointments,
              'past_appointments': past_appointments}
     return render(request, 'userProfile.html', d)
 
 
 def doctorProfile(request):
     upcomming_appointments = Appoitment.objects.all().filter(
-        DoctorEmail=request.user, appoitmentDate__gte=timezone.now()).order_by('appoitmentDate')
+        DoctorEmail=request.user, appoitmentDate__gte=timezone.now(), active="yes").order_by('appoitmentDate')
     past_appointments = Appoitment.objects.all().filter(
         DoctorEmail=request.user, appoitmentDate__lt=timezone.now()).order_by('-appoitmentDate')
+    completed_appointments = Appoitment.objects.all().filter(
+        DoctorEmail=request.user, appoitmentDate__gte=timezone.now(), active="no").order_by('appoitmentDate')
+    report_details = MedicalReport.objects.all().filter(
+        DoctorEmail=request.user).order_by('-Date')
     g = request.user.groups.all()[0].name
     if g == 'Doctor':
         doctor_details = Doctor.objects.all().filter(EmailAddress=request.user)
         d = {'doctor_details': doctor_details,
              'upcomming_appointments': upcomming_appointments,
-             'past_appointments': past_appointments}
+             'past_appointments': past_appointments,
+             'completed_appointments': completed_appointments,
+             'report_details': report_details}
     if request.method == "POST":
         SessionID = request.POST['SessionID']
         editTime = request.POST['editTime']
@@ -187,6 +197,7 @@ def medicalReport(request, aid):
         DayMedicine = request.POST['DayMedicine']
         NoonMedicine = request.POST['NoonMedicine']
         NightMedicine = request.POST['NightMedicine']
+        active = request.POST['active']
         try:
             # template = render_to_string(
             #     'email/email_booking.html', {'PatientName': PatientName, 'DoctorFullName': DoctorFullName, 'Date': d.Date, 'time': d.time})
@@ -199,6 +210,9 @@ def medicalReport(request, aid):
             # )
             MedicalReport.objects.create(Appoitment_ID_id=Appoitment_ID, Patient_ID_id=Patient_ID, PatientName=PatientName, Doctor_ID_id=Doctor_ID, DoctorFullName=DoctorFullName, DoctorEmail=DoctorEmail, DiagnosisReport=DiagnosisReport,
                                          department=Department, Date=Date, PatientEmail=PatientEmail, DoctorComments=DoctorComments, MorningMedicine=MorningMedicine, DayMedicine=DayMedicine, NoonMedicine=NoonMedicine, NightMedicine=NightMedicine)
+            appoitment = Appoitment.objects.get(pk=Appoitment_ID)
+            appoitment.active = active
+            appoitment.save()
             return redirect('doctorProfile')
         except Exception as e:
             raise e

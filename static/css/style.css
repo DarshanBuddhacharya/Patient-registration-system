@@ -171,6 +171,13 @@ a:focus {
   font-size: 21px;
   color: #a5c422;
 }
+#AppEye {
+  float: right;
+  margin-top: 13px;
+  margin-right: 10px;
+  font-size: 21px;
+  color: #a5c422;
+}
 #openEye {
   display: none;
 }
@@ -180,7 +187,13 @@ a:focus {
 #pastAppoitment {
   display: none;
 }
+#completedAppointments {
+  display: block;
+}
 #hideBtn {
+  display: none;
+}
+#AppShowBtn {
   display: none;
 }
 #changeTime {

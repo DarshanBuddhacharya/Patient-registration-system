@@ -73,6 +73,7 @@ class Appoitment(models.Model):
     department = models.CharField(
         max_length=100, choices=DEPARTMENT_CHOICES, default='General')
     symptoms = models.CharField(max_length=500)
+    active = models.CharField(max_length=10, default="yes")
     appoitmentDate = models.DateField()
     appoitmentTime = models.TimeField()
     Comments = models.CharField(max_length=500)
