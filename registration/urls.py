@@ -35,6 +35,8 @@ urlpatterns = [
          name='password_reset_complete'),
 
     path('footer', views.footer, name='footer'),
+
+    path('api/verify_payment', verify_payment, name='verify_payment')
 ]
 
 urlpatterns = urlpatterns + \

@@ -96,29 +96,19 @@
                     <input type="textarea" class="input" name="comment">
                 </div>
             </div>
+            <div class="input-div one">
+                <div class="i">
+                    <ion-icon name="cash"></ion-icon>
+                </div>
+                <div class="div">
+                    <h5>Initial Appointment cost is Rs 1500 (Additional charges may apply)</h5>
+                </div>
+            </div>
             <button type="submit" class="loginBtn">Submit</button>
             <a href="userProfile" class="section-btn btn btn-default btn-blue smoothScroll">Return to Personal Profile</a>
             <a href="./" class="section-btn btn btn-default btn-blue smoothScroll">Cancel Booking</a>
         </form>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script>
-    $("#Department").change(function () {
-        var url = $("#signupForm").attr("data-doctor-url");  // get the url of the `load_courses` view
-        var department_id = $(this).val();  // get the selected programming ID from the HTML input
-
-        $.ajax({                       // initialize an AJAX request
-            url: url,                    // set the url of the request (= localhost:8000/load-courses/)
-            data: {
-                'Department_id': department_id      // add the programming id to the GET parameters
-            },
-            success: function (data) {   // `data` is the return of the `load_courses` view function
-                $("#doctor").html(data);  // replace the contents of the course input with the data that came from the server
-            }
-        });
-        console.log(Department_id) 
-    });
-</script>
 {% include "footer.html" %}
 {% endblock %}

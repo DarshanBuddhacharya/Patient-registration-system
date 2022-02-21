@@ -1,6 +1,8 @@
+import requests
+import json
 import re
 from urllib import request
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from xhtml2pdf import pisa
 from django.contrib.staticfiles import finders
 
@@ -19,6 +21,7 @@ from django.utils import timezone
 from django.core.mail import send_mail
 from django.conf import settings
 from django.template.loader import render_to_string, get_template
+from django.views.decorators.csrf import csrf_exempt
 
 
 def index(request):
@@ -345,6 +348,33 @@ def conformation(request):
 def logout(request):
     auth.logout(request)
     return redirect('/')
+
+
+@csrf_exempt
+def verify_payment(request):
+    data = request.POST
+    product_id = data['product_identity']
+    token = data['token']
+    amount = data['amount']
+
+    url = "https://khalti.com/api/v2/payment/verify/"
+    payload = {
+        "token": token,
+        "amount": amount
+    }
+    headers = {
+        "Authorization": "Key test_secret_key_6406136b79544ca68005ffe1265d3678"
+    }
+
+    response = requests.post(url, payload, headers=headers)
+
+    response_data = json.loads(response.text)
+    status_code = str(response.status_code)
+
+    if status_code == '400':
+        response = JsonResponse(
+            {'status': 'false', 'message': response_data['detail']}, status=500)
+        return response
 
 
 def footer(request):

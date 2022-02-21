@@ -48,3 +48,18 @@ function showModal(h) {
 		document.getElementById('remove-heli-' + h).style.display = "none";
 });
 }
+
+$("#Department").change(function () {
+	var url = $("#signupForm").attr("data-doctor-url"); 
+	var department_id = $(this).val(); 
+
+	$.ajax({              
+		url: url,            
+		data: {
+			'Department_id': department_id   
+		},
+		success: function (data) { 
+			$("#doctor").html(data); 
+		}
+	});
+});
