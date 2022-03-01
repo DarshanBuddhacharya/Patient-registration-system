@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+
+
+<!-- ======= Doctors Section ======= -->
+<section id="doctors" class="doctors">
+    <div class="DoctorContainer">
+        <div class="section-title">
+            <h2>Department</h2>
+            <p>A doctor is responsible for all sides of care of a patient. They diagnose, educate, and treat patients to
+                ensure that
+                they have the best possible care. A few of the main duties of a doctor are performing diagnostic tests,
+                recommending
+                specialists for patients, document patient's medical history, and educating patients.</p>
+        </div>
+
+        <div class="row">
+            {% for dep in deps %}
+            <div class="col-lg-6">
+                <div class="member" id="depMember">
+                    <h3>Department of {{dep.name}}</h3>
+                    <div class="depPic"><img src="{{dep.img.url}}" id="depImg" class="img-fluid"></div>
+                    <div class="member-info">
+                        <hr>
+                        <p>
+                            {{dep.description}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section><!-- End Doctors Section -->
+{% include "footer.html" %}
+{% endblock %}

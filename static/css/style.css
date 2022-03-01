@@ -893,6 +893,20 @@ header span i {
   color: #858585;
   margin: 0;
 }
+/*------------------------------------------------Department-----------------------------------------------*/
+#depMember {
+  display: grid;
+  text-align: center;
+}
+.depPic {
+  width: 100%;
+  max-height: 500px;
+}
+#depImg {
+  width: 95%;
+  height: 95%;
+  transform: none;
+}
 /*---------------------------------------------Doctors--------------------------------------------*/
 .doctors {
   background: #fff;

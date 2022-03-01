@@ -60,8 +60,8 @@
                 <ul class="nav navbar-nav navbar-right">
                     {% with url_name=request.resolver_match.url_name %}
                     <li class="{% if url_name == 'home' %}active{% endif %}"><a href="{% url 'home' %}">Home</a></li>
-                    <li class="{% if url_name == 'about' %}active{% endif %}"><a href="#" class="smoothScroll">About Us</a></li>
-                    <li class="{% if url_name == 'department' %}active{% endif %}"><a href="#" class="smoothScroll">Department</a></li>
+                    <li class="{% if url_name == 'about' %}active{% endif %}"><a href="" class="smoothScroll">About Us</a></li>
+                    <li class="{% if url_name == 'department' %}active{% endif %}"><a href="{% url 'department' %}" class="smoothScroll">Department</a></li>
                     <li class="{% if url_name == 'doctors' %}active{% endif %}"><a href="{% url 'doctors' %}" class="smoothScroll">Doctors</a></li>
                     <li class="{% if url_name == 'contact' %}active{% endif %}"><a href="{% url 'contact' %}" class="smoothScroll">Contact</a></li>
                     <li class="{% if url_name == 'help' %}active{% endif %}"><a href="{% url 'help' %}" class="smoothScroll">Help</a></li>

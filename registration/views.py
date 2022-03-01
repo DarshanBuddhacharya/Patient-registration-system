@@ -1,14 +1,9 @@
 import requests
 import json
-import re
-from urllib import request
 from django.http import HttpResponse, JsonResponse
 from xhtml2pdf import pisa
-from django.contrib.staticfiles import finders
 
-from sqlite3 import Time
 from time import timezone
-from django import template
 from django.contrib import auth
 from django.core.checks import messages
 from django.core.checks.messages import Error
@@ -247,6 +242,11 @@ def doctors(request):
     docs = Doctor.objects.all()
 
     return render(request, 'doctors.html', {'docs': docs})
+
+
+def department(request):
+    deps = Department.objects.all()
+    return render(request, 'department.html',{'deps': deps})
 
 
 def doctorlogin(request):

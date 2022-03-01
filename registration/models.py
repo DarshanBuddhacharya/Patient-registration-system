@@ -36,9 +36,12 @@ DEPARTMENT_CHOICES = (
 
 class Department(models.Model):
     name = models.CharField(max_length=100)
+    img = models.FileField(upload_to='images',  default='doc-2.jpg')
+    description = models.CharField(max_length=1000)
 
     def __str__(self):
         return self.name
+
 
 class Doctor(models.Model):
     name = models.CharField(max_length=100)
