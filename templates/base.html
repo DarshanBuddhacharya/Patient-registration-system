@@ -75,7 +75,7 @@
                     <li class="{% if url_name == 'contact' %}active{% endif %}"><a href="{% url 'contact' %}" class="smoothScroll">Contact</a></li>
                     <li class="{% if url_name == 'help' %}active{% endif %}"><a href="{% url 'help' %}" class="smoothScroll">Help</a></li>
                     {% endwith %}
-                    {% if user.is_authenticated and not user.is_staff%}
+                    {% if user.is_authenticated and not user.is_staff and not user.is_superuser%}
                     <li>
                         <div class="profile">
                             <div class="icon_wrap">
@@ -93,7 +93,7 @@
                             </div>
                         </div>
                     </li>
-                    {% elif user.is_authenticated and user.is_staff%}
+                    {% elif user.is_authenticated and user.is_staff and not user.is_superuser%}
                     <li>
                         <div class="profile">
                             <div class="icon_wrap">
@@ -114,9 +114,30 @@
                             </div>
                         </div>
                     </li>
+                    {% elif user.is_authenticated and user.is_staff and user.is_superuser %}
+                    <li>
+                        <div class="profile">
+                            <div class="icon_wrap">
+                                <a class="smoothScroll">Laboratory</a>
+                                <img src="{% static 'image/lablogin.png' %}" alt="profile_pic">
+                                <ion-icon name="caret-down"></ion-icon>
+                            </div>
+                            <div class="profile_dd">
+                                <ul style="list-style: none; padding: 0;">
+                                    <li><a class="profile" href="{% url 'doctorProfile' %}"><span class="picon">
+                                                <ion-icon name="person"></ion-icon>
+                                            </span>Profile</a>
+                                    </li>
+                                    <li><a class="logout" href="logout"><span class="picon">
+                                                <ion-icon name="log-out"></ion-icon>
+                                            </span>Logout</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
                     {% else %}
-                    <li><a class = "button-84" id = "button-19" href="{% url 'login' %}" class="smoothScroll">Login</a></li>
-                    <li><a class = "button-85" id = "navLogin" href="{% url 'signup' %}" class="smoothScroll">SignUp</a></li>
+                        <li><a class="button-84" id="button-19" href="{% url 'login' %}" class="smoothScroll">Login</a></li>
+                        <li><a class="button-85" id="navLogin" href="{% url 'signup' %}" class="smoothScroll">SignUp</a></li>
                     {% endif %}
                 </ul>
             </div>

@@ -5,19 +5,19 @@
 
 <div class="loginContainer">
     <div class="img">
-        <img src="{% static 'image/doclog.svg' %}">
+        <img src="{% static 'image/lab.svg' %}">
     </div>
     <div class="login-content">
         <form method="POST" id="loginForm">
             {% csrf_token %}
-            <img src="{% static 'image/doctor.svg' %}">
-            <h2 class="title">Welcome Doctor</h2>
+            <img src="{% static 'image/lablogin.png' %}">
+            <h2 class="title">Laboratory</h2>
             <div class="input-div one">
                 <div class="i">
                     <ion-icon name="person"></ion-icon>
                 </div>
                 <div class="div">
-                    <h5>Doctor's Email</h5>
+                    <h5>Lab's Email</h5>
                     <input type="email" class="input" name="Username" required>
                 </div>
             </div>
@@ -36,7 +36,7 @@
             </div>
             <input type="submit" class="loginBtn" value="Login">
             <a href="loginPage" class="section-btn btn btn-default btn-blue smoothScroll">Patient's Login</a>
-            <a href="labLogin" class="section-btn btn btn-default btn-blue smoothScroll">Laboratory Login</a>
+            <a href="doctorlogin" class="section-btn btn btn-default btn-blue smoothScroll">Doctor's Login</a>
         </form>
     </div>
 </div>

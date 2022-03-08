@@ -244,9 +244,33 @@ def doctors(request):
     return render(request, 'doctors.html', {'docs': docs})
 
 
+def labLogin(request):
+    if request.method == "POST":
+        u = request.POST['Username']
+        p = request.POST['Password']
+
+        user = authenticate(request, username=u, password=p)
+        if user is not None:
+            login(request, user)
+            g = request.user.groups.all()[0].name
+            if g == 'Lab':
+                return redirect('contact')
+            if g == 'Patient':
+                messages.success(
+                    request, ("You cannot login with patient's detail. Do so from patient login or login with doctor's details"))
+                auth.logout(request)
+                return redirect('labLogin')
+        else:
+            messages.success(
+                request, ("Invalid username or password. Please try again.."))
+            return redirect('labLogin')
+    else:
+        return render(request, 'labLogin.html')
+
+
 def department(request):
     deps = Department.objects.all()
-    return render(request, 'department.html',{'deps': deps})
+    return render(request, 'department.html', {'deps': deps})
 
 
 def doctorlogin(request):
