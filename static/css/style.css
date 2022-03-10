@@ -1428,6 +1428,56 @@ a:hover {
 #signupForm {
   width: 80%;
 }
+/*--------------------------------------------------
+Lab report
+-----------------------------------------------------*/
+.wrapper {
+  display: inline-flex;
+}
+
+.wrapper .icon {
+  position: relative;
+  background-color: #ffffff;
+  padding: 15px;
+  margin: 10px;
+  height: 50px;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.wrapper .icon:hover span {
+  text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.1);
+}
+
+.wrapper .MRIScan:hover {
+  background-color: #3b5999;
+  color: #ffffff;
+  transition: 0.8s;
+}
+
+.wrapper .XRayScan:hover {
+  background-color: #000000;
+  color: #ffffff;
+  transition: 0.8s;
+}
+
+.wrapper .BloodTest:hover {
+  background-color: #e1306c;
+  color: #ffffff;
+  transition: 0.8s;
+}
+
+.wrapper .Endoscopy:hover {
+  background-color: #46c1f6;
+  color: #ffffff;
+  transition: 0.8s;
+}
 /*---------------------------------------
       Medical report              
   -----------------------------------------*/

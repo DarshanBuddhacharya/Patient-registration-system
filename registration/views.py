@@ -244,6 +244,13 @@ def doctors(request):
     return render(request, 'doctors.html', {'docs': docs})
 
 
+def labWorkshop(request):
+    appointments = Appoitment.objects.all().filter(
+        appoitmentDate__gte=timezone.now(), active="yes").order_by('appoitmentDate')
+    d = {'appointments': appointments}
+    return render(request, 'labWorkshop.html', d)
+
+
 def labLogin(request):
     if request.method == "POST":
         u = request.POST['Username']
@@ -254,7 +261,7 @@ def labLogin(request):
             login(request, user)
             g = request.user.groups.all()[0].name
             if g == 'Lab':
-                return redirect('contact')
+                return redirect('labWorkshop')
             if g == 'Patient':
                 messages.success(
                     request, ("You cannot login with patient's detail. Do so from patient login or login with doctor's details"))
