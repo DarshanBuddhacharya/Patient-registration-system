@@ -107,6 +107,22 @@ class MedicalReport(models.Model):
         return self.Doctor_ID + " has uploaded medical report of " + self.Patient_ID
 
 
+class BloodReport(models.Model):
+    Appoitment_ID = models.ForeignKey(Appoitment, on_delete=models.CASCADE)
+    Patient_ID = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    PatientEmail = models.CharField(max_length=100)
+    PatientName = models.CharField(max_length=100)
+    Date = models.CharField(max_length=100)
+    RBCCount = models.CharField(max_length=50)
+    Hemoglobin = models.CharField(max_length=50)
+    Hematocrit = models.CharField(max_length=50)
+    WBCcount = models.CharField(max_length=50)
+    Platelet = models.CharField(max_length=50)
+
+    def __int__(self):
+        return self.Doctor_ID + " has uploaded medical report of " + self.Patient_ID
+
+
 class Help(models.Model):
     Title = models.CharField(max_length=50)
     Description = models.CharField(max_length=500)

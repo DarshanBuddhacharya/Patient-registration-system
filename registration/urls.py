@@ -28,6 +28,10 @@ urlpatterns = [
     path('delete_appointment<int:aid>',
          delete_appointment, name='delete_appointment'),
 
+    # Lab Reports
+    path('bloodReport<int:aid>',
+         views.bloodReport, name='bloodReport'),
+
     path('password_reset/', auth_views.PasswordResetView.as_view(),
          name='password_reset'),
     path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(),

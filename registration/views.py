@@ -217,6 +217,38 @@ def medicalReport(request, aid):
     return render(request, 'medicalReport.html', d)
 
 
+def bloodReport(request, aid):
+    appoitment_details = Appoitment.objects.all().filter(id=aid)
+    d = {'appoitment_details': appoitment_details}
+    if request.method == "POST":
+        Appoitment_ID = request.POST['SessionID']
+        Patient_ID = request.POST['PatientID']
+        PatientName = request.POST['PatientName']
+        PatientEmail = request.POST['PatientEmail']
+        Date = request.POST['Date']
+        RBCCount = request.POST['RBCCount']
+        Hemoglobin = request.POST['Hemoglobin']
+        Hematocrit = request.POST['Hematocrit']
+        WBCcount = request.POST['WBCcount']
+        Platelet = request.POST['Platelet']
+        try:
+            # template = render_to_string(
+            #     'email/email_booking.html', {'PatientName': PatientName, 'DoctorFullName': DoctorFullName, 'Date': d.Date, 'time': d.time})
+            # send_mail(
+            #     'Hello there ' + PatientName,
+            #     template,
+            #     settings.EMAIL_HOST_USER,
+            #     [request.user.email],
+            #     fail_silently=False,
+            # )
+            BloodReport.objects.create(Appoitment_ID_id=Appoitment_ID, Patient_ID_id=Patient_ID,
+                                       PatientName=PatientName, Date=Date, PatientEmail=PatientEmail, RBCCount=RBCCount, Hemoglobin=Hemoglobin, Hematocrit=Hematocrit, WBCcount=WBCcount, Platelet=Platelet)
+            return redirect('labWorkshop')
+        except Exception as e:
+            raise e
+    return render(request, 'bloodReport.html', d)
+
+
 def render_pdf_view(request, aid):
     template_path = 'reportPrint.html'
     report_context = MedicalReport.objects.all().filter(id=aid)
