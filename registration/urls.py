@@ -25,6 +25,7 @@ urlpatterns = [
     path('logout', views.logout, name='logout'),
     path('load-doctor', views.load_doctor, name='ajax_load_doctor'),
     path('render_pdf_view<int:aid>', views.render_pdf_view, name='render_pdf_view'),
+    path('render_pdf_blood<int:aid>', views.render_pdf_blood, name='render_pdf_blood'),
     path('delete_appointment<int:aid>',
          delete_appointment, name='delete_appointment'),
 

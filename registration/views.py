@@ -178,7 +178,10 @@ def doctorProfile(request):
 
 def medicalReport(request, aid):
     appoitment_details = Appoitment.objects.all().filter(id=aid)
-    d = {'appoitment_details': appoitment_details}
+    bloodReport_details = BloodReport.objects.all().filter(Appoitment_ID_id=aid)
+    d = {'appoitment_details': appoitment_details,
+         'bloodReport_details': bloodReport_details}
+
     if request.method == "POST":
         Appoitment_ID = request.POST['SessionID']
         Patient_ID = request.POST['PatientID']
@@ -253,17 +256,29 @@ def render_pdf_view(request, aid):
     template_path = 'reportPrint.html'
     report_context = MedicalReport.objects.all().filter(id=aid)
     context = {'report_context': report_context}
-    # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'filename="report.pdf"'
-    # find the template and render it.
     template = get_template(template_path)
     html = template.render(context)
 
-    # create a pdf
     pisa_status = pisa.CreatePDF(
         html, dest=response)
-    # if error then show some funy view
+    if pisa_status.err:
+        return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
+
+
+def render_pdf_blood(request, aid):
+    template_path = 'bloodReportPrint.html'
+    report_context = BloodReport.objects.all().filter(id=aid)
+    context = {'report_context': report_context}
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'filename="report.pdf"'
+    template = get_template(template_path)
+    html = template.render(context)
+
+    pisa_status = pisa.CreatePDF(
+        html, dest=response)
     if pisa_status.err:
         return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
