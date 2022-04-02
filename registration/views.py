@@ -1,5 +1,6 @@
 import requests
 import json
+import pickle
 from django.http import HttpResponse, JsonResponse
 from xhtml2pdf import pisa
 
@@ -17,6 +18,10 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.template.loader import render_to_string, get_template
 from django.views.decorators.csrf import csrf_exempt
+from keras.preprocessing.image import load_img, img_to_array
+from django.core.files.storage import FileSystemStorage
+import numpy as np
+from keras.models import load_model
 
 
 def index(request):
@@ -252,6 +257,58 @@ def bloodReport(request, aid):
     return render(request, 'bloodReport.html', d)
 
 
+def tumor_pred(imageTumor):
+    model = load_model("bestmodel2.sav")
+    fs = FileSystemStorage()
+    filePathName = fs.save(imageTumor.name, imageTumor)
+    filePathName = fs.url(filePathName)
+    path = '.'+filePathName
+    img = load_img(path, target_size=(224, 224))
+    input_arr = img_to_array(img)/225
+
+    input_arr.shape
+
+    input_arr = np.expand_dims(input_arr, axis=0)
+
+    pred = model.predict_classes(input_arr)[0][0]
+
+    if pred == 0:
+        return 'yes'
+    elif pred == 1:
+        return 'no'
+    else:
+        return 'error'
+
+
+def mriReport(request, aid):
+    appoitment_details = Appoitment.objects.all().filter(id=aid)
+    if request.method == "POST":
+        Appoitment_ID = request.POST['SessionID']
+        Patient_ID = request.POST['PatientID']
+        PatientName = request.POST['PatientName']
+        PatientEmail = request.POST['PatientEmail']
+        Date = request.POST['Date']
+        imageTumor = request.FILES['imageTumor']
+
+        result = tumor_pred(imageTumor)
+        try:
+            # template = render_to_string(
+            #     'email/email_booking.html', {'PatientName': PatientName, 'DoctorFullName': DoctorFullName, 'Date': d.Date, 'time': d.time})
+            # send_mail(
+            #     'Hello there ' + PatientName,
+            #     template,
+            #     settings.EMAIL_HOST_USER,
+            #     [request.user.email],
+            #     fail_silently=False,
+            # )
+            MRIReport.objects.create(Appoitment_ID_id=Appoitment_ID, Patient_ID_id=Patient_ID,
+                                     PatientName=PatientName, Date=Date, PatientEmail=PatientEmail, image=imageTumor, result=result)
+            return redirect('labWorkshop')
+        except Exception as e:
+            raise e
+    return render(request, 'MRIReport.html', {'appoitment_details': appoitment_details})
+
+
 def render_pdf_view(request, aid):
     template_path = 'reportPrint.html'
     report_context = MedicalReport.objects.all().filter(id=aid)
@@ -363,8 +420,8 @@ def loginPage(request):
             login(request, user)
             g = request.user.groups.all()[0].name
             if g == 'Patient':
-                patient_details = Patient.objects.all().filter(EmailAddress=request.user)
-                d = {'patient_details': patient_details}
+                # patient_details = Patient.objects.all().filter(EmailAddress=request.user)
+                # d = {'patient_details': patient_details}
                 return redirect('userProfile')
             if g == 'Doctor':
                 messages.success(
