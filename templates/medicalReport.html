@@ -72,11 +72,18 @@
                         {% endfor %}
                         {% for d in bloodReport_details %}
                             <h6 class="mb-0">
-                                <ion-icon name="water"></ion-icon>Blood Report of <strong>{{d.PatientName}} </strong>
+                                <ion-icon name="water"></ion-icon> Blood Report of <strong>{{d.PatientName}} </strong>
                                 <a class="btn btn-info " id="sessionBtn" href="{% url 'render_pdf_blood' d.id %}">Review this report</a>
                             </h6>
                             <hr>
                             {% endfor %}
+                        {% for d in mriReport_details %}
+                            <h6 class="mb-0">
+                                <ion-icon name="color-filter"></ion-icon> MRI Report of <strong>{{d.PatientName}} </strong>
+                                <a class="btn btn-info " id="sessionBtn" href="{% url 'render_pdf_Mri' d.id %}">Review this report</a>
+                            </h6>
+                            <hr>
+                        {% endfor %}
                             <div class="row">
                                 <div class="col-sm-3">
                                     <h6 class="mb-0"><strong>Diagnosis Report</strong></h6>

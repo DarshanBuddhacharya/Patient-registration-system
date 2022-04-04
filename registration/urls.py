@@ -27,6 +27,8 @@ urlpatterns = [
     path('render_pdf_view<int:aid>', views.render_pdf_view, name='render_pdf_view'),
     path('render_pdf_blood<int:aid>',
          views.render_pdf_blood, name='render_pdf_blood'),
+    path('render_pdf_Mri<int:aid>',
+         views.render_pdf_Mri, name='render_pdf_Mri'),
     path('delete_appointment<int:aid>',
          delete_appointment, name='delete_appointment'),
 

@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% for context in report_context %}
+    <title>PDF report No: {{context.id}}</title>
+    {% endfor %}
+    <style>
+        .userContainer .card-body .row {
+            font-size: 15px;
+        }
+
+        .forImage {
+            background-color: #a9c239;
+            position: absolute;
+            bottom: 0px;
+        }
+
+        #title {
+            text-align: center;
+            font-size: 25px;
+        }
+
+        #Date {
+            margin-bottom: 70px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="userContainer">
+        {% for context in report_context %}
+        <h4 id="title">MRI Report</h4>
+        <div class="card-body">
+            <div class="row" id="Date">
+                <div class="col-sm-3">
+                    <h6 class="mb-0"><strong>Date: </strong></h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                    {{context.Date}}
+                </div>
+            </div>
+            <hr>
+            <HR>
+            <div class="row">
+                <div class="col-sm-3">
+                    <h6 class="mb-0"><strong>Patient ID</strong></h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                    PID - {{context.Patient_ID_id}}
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-3">
+                    <h6 class="mb-0"><strong>Patient Name</strong></h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                    {{context.PatientName}}
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-3">
+                    <h6 class="mb-0"><strong>Red Blood Cell Count</strong></h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                    {{context.RBCCount}}
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-3">
+                    <h6 class="mb-0"><strong>Image</strong></h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                    <img src="{{context.image.path}}"  height="700px">
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-3">
+                    <h6 class="mb-0"><strong>Model Prediction</strong></h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                    {{context.result}}
+                </div>
+            </div>
+            <hr style="border-top: 3px solid black;">
+            <HR>
+        </div>
+    </div>
+
+    {% endfor %}
+    <div class="forImage">
+        <img src="file:static/image/Logo1.jpg" height="200px">
+    </div>
+</body>
+
+</html>
