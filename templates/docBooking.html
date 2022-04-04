@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+
+
+<div class="loginContainer" id="signupContainer">
+    <div class="img">
+        <img src="{% static 'image/booking.svg' %}">
+    </div>
+    <div class="login-content">
+        <form method="POST" id="signupForm" data-doctor-url="{% url 'ajax_load_doctor' %}">
+            {% csrf_token %}
+            <h2 class="title">Booking form</h2>
+            {% for d in patient_details%}
+            <div class="input-div one">
+                <div class="i">
+                    <ion-icon name="person-circle"></ion-icon>
+                </div>
+                <div class="div">
+                    <h5>Patient ID: PID - {{d.id}}</h5>
+                    <input type="hidden" name="PatientID" value="{{d.id}}">
+                </div>
+            </div>
+            <div class="input-div one">
+                <div class="i">
+                    <ion-icon name="person"></ion-icon>
+                </div>
+                <div class="div">
+                    <h5>Name: {{d.FirstName}} {{d.LastName}}</h5>
+                </div>
+            </div>
+            {% endfor %}
+            {% for d in doctor_details%}
+            <div class="input-div one">
+                <div class="i">
+                    <ion-icon name="business"></ion-icon>
+                </div>
+                <div class="div">
+                    <h5>Department: {{d.speciality}}</h5>
+                    <input type="hidden" name="Department" value="{{d.speciality}}">
+                </div>
+            </div>
+            <div class="input-div one">
+                <div class="i">
+                    <ion-icon name="medkit"></ion-icon>
+                </div>
+                <div class="div">
+                    <h5>Doctor Name: Dr.{{d.name}}</h5>
+                    <input type="hidden" name="doctor" value="{{ d.id }} {{d.EmailAddress}} {{d.name}}">
+                </div>
+            </div>
+            {% endfor %}
+            <div class="input-div one">
+                <div class="i">
+                    <ion-icon name="bandage"></ion-icon>
+                </div>
+                <div class="div">
+                    <h5>Symptoms</h5>
+                    <input type="datalist" class="input" name="Symptoms" required>
+                </div>
+            </div>
+            <div class="input-div one focus">
+                <div class="i">
+                    <ion-icon name="calendar"></ion-icon>
+                </div>
+                <div class="div">
+                    <h5>Appointment Date</h5>
+                    <input type="date" class="input" name="Date" required>
+                </div>
+            </div>
+            <div class="input-div one focus">
+                <div class="i">
+                    <ion-icon name="time"></ion-icon>
+                </div>
+                <div class="div">
+                    <h5>Appointment Time</h5>
+                    <input type="time" class="input" name="Time" required>
+                </div>
+            </div>
+            <div class="input-div one">
+                <div class="i">
+                    <ion-icon name="document-text"></ion-icon>
+                </div>
+                <div class="div">
+                    <h5>Comments (Optional)</h5>
+                    <input type="textarea" class="input" name="comment">
+                </div>
+            </div>
+            <div class="input-div one">
+                <div class="i">
+                    <ion-icon name="cash"></ion-icon>
+                </div>
+                <div class="div">
+                    <h5>Initial Appointment cost is Rs 1500 (Additional charges may apply)</h5>
+                </div>
+            </div>
+            <button type="submit" class="loginBtn">Submit</button>
+            <a href="userProfile" class="section-btn btn btn-default btn-blue smoothScroll">Return to Personal
+                Profile</a>
+            <a href="./" class="section-btn btn btn-default btn-blue smoothScroll">Cancel Booking</a>
+        </form>
+    </div>
+</div>
+{% include "footer.html" %}
+{% endblock %}

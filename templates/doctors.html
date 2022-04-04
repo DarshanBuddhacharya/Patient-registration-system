@@ -38,7 +38,7 @@
                             <a href="{{doc.twitter}}"><ion-icon name="logo-twitter"></ion-icon></i></a>
                             <a href="{{doc.linkedin}}"><ion-icon name="logo-linkedin"></ion-icon></i></a>
                         </div>
-                        <a href="{% url 'booking' %}" onclick= "sendData('{{doc.id}}')" class="section-btn btn btn-default smoothScroll">Book an appointment</a>
+                        <a href="{% url 'docBooking' doc.id %}" onclick= "sendData('{{doc.id}}')" class="section-btn btn btn-default smoothScroll">Book an appointment</a>
                     </div>
                 </div>
             </div>

@@ -81,6 +81,55 @@ def booking(request):
     return render(request, 'booking.html', d)
 
 
+def docBooking(request, aid):
+    if not request.user.is_active:
+        messages.success(
+            request, ("In order to book an appointment you must login first"))
+        return redirect('login')
+    doctor_details = Doctor.objects.all().filter(id=aid)
+    department_details = Department.objects.all()
+    g = request.user.groups.all()[0].name
+    if g == 'Patient':
+        patient_details = Patient.objects.all().filter(EmailAddress=request.user)
+        d = {'patient_details': patient_details,
+             'doctor_details': doctor_details,
+             'department_details': department_details}
+
+    if request.method == "POST":
+        Patient_ID = request.POST['PatientID']
+        PatientEmail = request.user
+        PatientName = request.user.first_name + request.user.last_name
+        Speciality = request.POST['Department']
+        doctor = request.POST['doctor']
+        DoctorID = doctor.split()[0]
+        DoctorEmail = doctor.split()[1]
+        DoctorName = doctor.split()[2]
+        DoctorSurname = doctor.split()[3]
+        Symptoms = request.POST['Symptoms']
+        Date = request.POST['Date']
+        time = request.POST['Time']
+        comment = request.POST['comment']
+
+        try:
+            template = render_to_string(
+                'email/email_booking.html', {'PatientName': PatientName, 'DoctorName': DoctorName, 'DoctorSurname': DoctorSurname, 'Date': Date, 'time': time})
+            send_mail(
+                'Hello there ' + PatientName,
+                template,
+                settings.EMAIL_HOST_USER,
+                [request.user.email],
+                fail_silently=False,
+            )
+            Appoitment.objects.create(Patient_ID_id=Patient_ID, PatientName=PatientName, PatientEmail=PatientEmail, Doctor_ID_id=DoctorID, DoctorFullName=DoctorName + " " + DoctorSurname, DoctorEmail=DoctorEmail, symptoms=Symptoms,
+                                      department=Speciality, appoitmentDate=Date, appoitmentTime=time, Comments=comment)
+            return render(request, 'conformation.html', {'PatientName': PatientName, 'DoctorName': DoctorName, 'DoctorSurname': DoctorSurname, 'Date': Date, 'time': time, 'DoctorEmail': DoctorEmail})
+        except Exception as e:
+            raise e
+            # messages.success(
+            #     request, ("Looks like a field is empty"))
+    return render(request, 'docBooking.html', d)
+
+
 def load_doctor(request):
     department_id = request.GET.get('Department_id')
     doctors = Doctor.objects.all().filter(speciality=department_id).order_by('name')
