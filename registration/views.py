@@ -1,3 +1,5 @@
+from tkinter import N
+from matplotlib.style import context
 import requests
 import json
 import pickle
@@ -408,11 +410,43 @@ def render_pdf_Mri(request, aid):
     return response
 
 
+def is_valid_queryparam(param):
+    return param != '' and param is not None
+
+
+def search_doc(request):
+    qs = Doctor.objects.filter()
+    serName = request.GET.get('serName')
+    serDep = request.GET.get('serDep')
+    serEdu = request.GET.get('serEdu')
+    serExp = request.GET.get('serExp')
+    serHos = request.GET.get('serHos')
+
+    if is_valid_queryparam(serName):
+        qs = qs.filter(name__icontains=serName)
+
+    elif is_valid_queryparam(serDep):
+        qs = qs.filter(speciality__name__icontains=serDep)
+
+    elif is_valid_queryparam(serEdu):
+        qs = qs.filter(education__icontains=serEdu)
+
+    elif is_valid_queryparam(serExp):
+        qs = qs.filter(experince__icontains=serExp)
+
+    elif is_valid_queryparam(serHos):
+        qs = qs.filter(hospital__icontains=serHos)
+
+    return qs
+
+
 def doctors(request):
+    qs = search_doc(request)
+    context = {
+        'queryset': qs
+    }
 
-    docs = Doctor.objects.all()
-
-    return render(request, 'doctors.html', {'docs': docs})
+    return render(request, 'doctors.html', context)
 
 
 def depDoctor(request, aid):

@@ -13,9 +13,41 @@
             they have the best possible care. A few of the main duties of a doctor are performing diagnostic tests, recommending
             specialists for patients, document patient's medical history, and educating patients.</p>
         </div>
+        <div class="page-wrapper bg-color-1 p-t-500 p-b-150">
+            <div class="searchWrapper">
+                <div class="card card-7">
+                    <div class="card-body">
+                        <form class="form" method="GET">
+                            {% csrf_token %}
+                            <div class="input-group input--large">
+                                <label class="label">Doctor Name</label>
+                                <input class="input--style-1" type="search" placeholder="Enter Doctor's name" name="serName">
+                            </div>
+                            <div class="input-group input--medium">
+                                <label class="label">Department</label>
+                                <input class="input--style-1" type="search" placeholder="Enter Department" name="serDep">
+                            </div>
+                            <div class="input-group input--medium">
+                                <label class="label">Education</label>
+                                <input class="input--style-1" type="text" placeholder="Enter Education" name="serEdu">
+                            </div>
+                            <div class="input-group input--medium">
+                                <label class="label">Years of Experince</label>
+                                <input class="input--style-1" type="number" placeholder="Enter Experince" name="serExp">
+                            </div>
+                            <div class="input-group input--medium">
+                                <label class="label">Hospitals</label>
+                                <input class="input--style-1" type="text" placeholder="Enter Hospitals" name="serHos">
+                            </div>
+                            <button class="button-84" id="searchBtn" type="submit">search</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="row">
-            {% for doc in docs %}
+            {% for doc in queryset %}
             <div class="col-lg-6">
                 <div class="member d-flex align-items-start">
                     <div class="pic"><img src="{{doc.img.url}}" class="img-fluid" alt="" height="200" width="200"></div>

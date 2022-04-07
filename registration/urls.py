@@ -15,6 +15,7 @@ urlpatterns = [
     path('help', views.help, name='help'),
     path('signup', views.signup, name='signup'),
     path('doctors', views.doctors, name='doctors'),
+    path('search_doc', views.search_doc, name='search_doc'),
     path('depDoctor<int:aid>', views.depDoctor, name='depDoctor'),
     path('department', views.department, name='department'),
     path('booking', views.booking, name='booking'),
