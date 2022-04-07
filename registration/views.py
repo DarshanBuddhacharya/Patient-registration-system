@@ -305,7 +305,7 @@ def bloodReport(request, aid):
             return redirect('labWorkshop')
         except Exception as e:
             raise e
-    return render(request, 'bloodReport.html', d)
+    return render(request, 'labReports/bloodReport.html', d)
 
 
 def tumor_pred(imageTumor):
@@ -357,11 +357,11 @@ def mriReport(request, aid):
             return redirect('labWorkshop')
         except Exception as e:
             raise e
-    return render(request, 'MRIReport.html', {'appoitment_details': appoitment_details})
+    return render(request, 'labReports/MRIReport.html', {'appoitment_details': appoitment_details})
 
 
 def render_pdf_view(request, aid):
-    template_path = 'reportPrint.html'
+    template_path = 'printing/reportPrint.html'
     report_context = MedicalReport.objects.all().filter(id=aid)
     context = {'report_context': report_context}
     response = HttpResponse(content_type='application/pdf')
@@ -377,7 +377,7 @@ def render_pdf_view(request, aid):
 
 
 def render_pdf_blood(request, aid):
-    template_path = 'bloodReportPrint.html'
+    template_path = 'printing/bloodReportPrint.html'
     report_context = BloodReport.objects.all().filter(id=aid)
     context = {'report_context': report_context}
     response = HttpResponse(content_type='application/pdf')
@@ -393,7 +393,7 @@ def render_pdf_blood(request, aid):
 
 
 def render_pdf_Mri(request, aid):
-    template_path = 'mriReportPrint.html'
+    template_path = 'printing/mriReportPrint.html'
     report_context = MRIReport.objects.all().filter(id=aid)
     context = {'report_context': report_context}
     response = HttpResponse(content_type='application/pdf')
@@ -413,6 +413,13 @@ def doctors(request):
     docs = Doctor.objects.all()
 
     return render(request, 'doctors.html', {'docs': docs})
+
+
+def depDoctor(request, aid):
+
+    docs = Doctor.objects.all().filter(speciality_id=aid)
+
+    return render(request, 'depDoctor.html', {'docs': docs})
 
 
 def labWorkshop(request):

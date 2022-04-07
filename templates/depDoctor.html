@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+
+
+<!-- ======= Doctors Section ======= -->
+<section id="doctors" class="doctors">
+    <div class="DoctorContainer">
+        <div class="section-title">
+            <h2>Doctors in this Department</h2>
+        </div>
+
+        <div class="row">
+            {% for doc in docs %}
+            <div class="col-lg-6">
+                <div class="member d-flex align-items-start">
+                    <div class="pic"><img src="{{doc.img.url}}" class="img-fluid" alt="" height="200" width="200"></div>
+                    <div class="member-info">
+                        <h4>Dr. {{doc.name}}</h4>
+                        <span>{{doc.speciality}}</span>
+                        <p>
+                            <strong>Education: </strong>{{doc.education}}<br>
+                            <strong>Gender: </strong>{{doc.gender}}<br>
+                            <strong>Age: </strong>{{doc.age}}<br>
+                            <strong>Time of availability: </strong>{{doc.availableFrom}} - {{doc.availableTo}}<br>
+                            <strong>Email Address: </strong>{{doc.EmailAddress}}<br>
+                            <strong>Phone number: </strong>{{doc.phoneNumber}}<br>
+                            <strong>Experince: </strong>{{doc.experince}} years<br>
+                            <strong>Hospitals: </strong>{{doc.hospital}}<br>
+                        </p>
+                        <div class="social">
+                            <a href="{{doc.facebook}}">
+                                <ion-icon name="logo-facebook"></ion-icon>
+                            </a>
+                            <a href="{{doc.instragram}}">
+                                <ion-icon name="logo-instagram"></ion-icon>
+                            </a>
+                            <a href="{{doc.twitter}}">
+                                <ion-icon name="logo-twitter"></ion-icon></i>
+                            </a>
+                            <a href="{{doc.linkedin}}">
+                                <ion-icon name="logo-linkedin"></ion-icon></i>
+                            </a>
+                        </div>
+                        <a href="{% url 'docBooking' doc.id %}" class="section-btn btn btn-default smoothScroll">Book an appointment</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section><!-- End Doctors Section -->
+{% include "footer.html" %}
+{% endblock %}

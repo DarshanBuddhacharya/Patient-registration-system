@@ -15,9 +15,9 @@
                 recommending
                 specialists for patients, document patient's medical history, and educating patients.</p>
         </div>
-
         <div class="row">
             {% for dep in deps %}
+            <a href="{% url 'depDoctor' dep.id %}">
             <div class="col-lg-6">
                 <div class="member" id="depMember">
                     <h3>Department of {{dep.name}}</h3>
@@ -30,7 +30,8 @@
                     </div>
                 </div>
             </div>
-            {% endfor %}
+            </a>
+        {% endfor %}
         </div>
     </div>
 </section><!-- End Doctors Section -->
