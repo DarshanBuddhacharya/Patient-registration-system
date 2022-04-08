@@ -171,6 +171,27 @@ def delete_appointment(request, aid):
         return redirect('doctorProfile')
 
 
+def delete_user(request):
+    patient_details = Patient.objects.filter(EmailAddress=request.user)
+    user_patient = User.objects.filter(email=request.user)
+    g = request.user.groups.all()[0].name
+    if g == 'Patient':
+        patient_details = Patient.objects.filter(EmailAddress=request.user)
+        d = {'patient_details': patient_details}
+        template = render_to_string(
+            'email/email_patient_delete.html', d)
+        send_mail(
+            'Account Deleted',
+            template,
+            settings.EMAIL_HOST_USER,
+            [request.user.email],
+            fail_silently=False,
+        )
+        patient_details.delete()
+        user_patient.delete()
+        return redirect('home')
+
+
 def userProfile(request):
     upcomming_appointments = Appoitment.objects.all().filter(
         PatientEmail=request.user, appoitmentDate__gte=timezone.now(), active="yes").order_by('appoitmentDate')

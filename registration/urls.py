@@ -34,6 +34,8 @@ urlpatterns = [
          views.render_pdf_Mri, name='render_pdf_Mri'),
     path('delete_appointment<int:aid>',
          delete_appointment, name='delete_appointment'),
+    path('delete_user',
+         delete_user, name='delete_user'),
 
     # Lab Reports
     path('bloodReport<int:aid>',
