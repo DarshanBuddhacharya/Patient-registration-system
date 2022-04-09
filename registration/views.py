@@ -257,9 +257,13 @@ def medicalReport(request, aid):
     appoitment_details = Appoitment.objects.all().filter(id=aid)
     bloodReport_details = BloodReport.objects.all().filter(Appoitment_ID_id=aid)
     mriReport_details = MRIReport.objects.all().filter(Appoitment_ID_id=aid)
+    endoscopy_details = EndoscopyReport.objects.all().filter(Appoitment_ID_id=aid)
+    xray_details = XrayReport.objects.all().filter(Appoitment_ID_id=aid)
     d = {'appoitment_details': appoitment_details,
          'bloodReport_details': bloodReport_details,
-         'mriReport_details': mriReport_details}
+         'mriReport_details': mriReport_details,
+         'endoscopy_details': endoscopy_details,
+         'xray_details': xray_details}
 
     if request.method == "POST":
         Appoitment_ID = request.POST['SessionID']
@@ -331,10 +335,67 @@ def bloodReport(request, aid):
     return render(request, 'labReports/bloodReport.html', d)
 
 
+def endoscopyReport(request, aid):
+    appoitment_details = Appoitment.objects.all().filter(id=aid)
+    d = {'appoitment_details': appoitment_details}
+    if request.method == "POST":
+        Appoitment_ID = request.POST['SessionID']
+        Patient_ID = request.POST['PatientID']
+        PatientName = request.POST['PatientName']
+        PatientEmail = request.POST['PatientEmail']
+        Date = request.POST['Date']
+        Fungus = request.POST['Fungus']
+        Body = request.POST['Body']
+        Antrum = request.POST['Antrum']
+        P_ring = request.POST['P_ring']
+        Bulb = request.POST['Bulb']
+        Papilla = request.POST['Papilla']
+        Oesophagus = request.POST['Oesophagus']
+        try:
+            # template = render_to_string(
+            #     'email/email_booking.html', {'PatientName': PatientName, 'DoctorFullName': DoctorFullName, 'Date': d.Date, 'time': d.time})
+            # send_mail(
+            #     'Hello there ' + PatientName,
+            #     template,
+            #     settings.EMAIL_HOST_USER,
+            #     [request.user.email],
+            #     fail_silently=False,
+            # )
+            EndoscopyReport.objects.create(Appoitment_ID_id=Appoitment_ID, Patient_ID_id=Patient_ID,
+                                           PatientName=PatientName, Date=Date, PatientEmail=PatientEmail, Fungus=Fungus, Body=Body, Antrum=Antrum, P_ring=P_ring, Bulb=Bulb, Papilla=Papilla, Oesophagus=Oesophagus)
+            return redirect('labWorkshop')
+        except Exception as e:
+            raise e
+    return render(request, 'labReports/endoscopyReport.html', d)
+
+
 def tumor_pred(imageTumor):
     model = load_model("bestmodel2.sav")
     fs = FileSystemStorage()
     filePathName = fs.save(imageTumor.name, imageTumor)
+    filePathName = fs.url(filePathName)
+    path = '.'+filePathName
+    img = load_img(path, target_size=(224, 224))
+    input_arr = img_to_array(img)/225
+
+    input_arr.shape
+
+    input_arr = np.expand_dims(input_arr, axis=0)
+
+    pred = model.predict_classes(input_arr)[0][0]
+
+    if pred == 0:
+        return 'yes'
+    elif pred == 1:
+        return 'no'
+    else:
+        return 'error'
+
+
+def pneo_pred(imagePneo):
+    model = load_model("bestmodel2.sav")
+    fs = FileSystemStorage()
+    filePathName = fs.save(imagePneo.name, imagePneo)
     filePathName = fs.url(filePathName)
     path = '.'+filePathName
     img = load_img(path, target_size=(224, 224))
@@ -383,6 +444,35 @@ def mriReport(request, aid):
     return render(request, 'labReports/MRIReport.html', {'appoitment_details': appoitment_details})
 
 
+def xrayReport(request, aid):
+    appoitment_details = Appoitment.objects.all().filter(id=aid)
+    if request.method == "POST":
+        Appoitment_ID = request.POST['SessionID']
+        Patient_ID = request.POST['PatientID']
+        PatientName = request.POST['PatientName']
+        PatientEmail = request.POST['PatientEmail']
+        Date = request.POST['Date']
+        imagePneo = request.FILES['imagePneo']
+
+        result = pneo_pred(imagePneo)
+        try:
+            # template = render_to_string(
+            #     'email/email_booking.html', {'PatientName': PatientName, 'DoctorFullName': DoctorFullName, 'Date': d.Date, 'time': d.time})
+            # send_mail(
+            #     'Hello there ' + PatientName,
+            #     template,
+            #     settings.EMAIL_HOST_USER,
+            #     [request.user.email],
+            #     fail_silently=False,
+            # )
+            XrayReport.objects.create(Appoitment_ID_id=Appoitment_ID, Patient_ID_id=Patient_ID,
+                                      PatientName=PatientName, Date=Date, PatientEmail=PatientEmail, image=imagePneo, result=result)
+            return redirect('labWorkshop')
+        except Exception as e:
+            raise e
+    return render(request, 'labReports/XrayReport.html', {'appoitment_details': appoitment_details})
+
+
 def render_pdf_view(request, aid):
     template_path = 'printing/reportPrint.html'
     report_context = MedicalReport.objects.all().filter(id=aid)
@@ -415,9 +505,41 @@ def render_pdf_blood(request, aid):
     return response
 
 
+def render_pdf_endoscopy(request, aid):
+    template_path = 'printing/endoscopyReportPrint.html'
+    report_context = EndoscopyReport.objects.all().filter(id=aid)
+    context = {'report_context': report_context}
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'filename="report.pdf"'
+    template = get_template(template_path)
+    html = template.render(context)
+
+    pisa_status = pisa.CreatePDF(
+        html, dest=response)
+    if pisa_status.err:
+        return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
+
+
 def render_pdf_Mri(request, aid):
     template_path = 'printing/mriReportPrint.html'
     report_context = MRIReport.objects.all().filter(id=aid)
+    context = {'report_context': report_context}
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'filename="report.pdf"'
+    template = get_template(template_path)
+    html = template.render(context)
+
+    pisa_status = pisa.CreatePDF(
+        html, dest=response)
+    if pisa_status.err:
+        return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
+
+
+def render_pdf_Xray(request, aid):
+    template_path = 'printing/xrayReportPrint.html'
+    report_context = XrayReport.objects.all().filter(id=aid)
     context = {'report_context': report_context}
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'filename="report.pdf"'
@@ -453,7 +575,7 @@ def search_doc(request):
         qs = qs.filter(education__icontains=serEdu)
 
     elif is_valid_queryparam(serExp):
-        qs = qs.filter(experince__icontains=serExp)
+        qs = qs.filter(experince__gte=serExp)
 
     elif is_valid_queryparam(serHos):
         qs = qs.filter(hospital__icontains=serHos)

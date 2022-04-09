@@ -34,7 +34,7 @@
 <body>
     <div class="userContainer">
         {% for context in report_context %}
-        <h4 id="title">MRI Report</h4>
+        <h4 id="title">Endoscopy Report</h4>
         <div class="card-body">
             <div class="row" id="Date">
                 <div class="col-sm-3">
@@ -66,27 +66,76 @@
             <hr>
             <div class="row">
                 <div class="col-sm-3">
-                    <h6 class="mb-0"><strong>Image</strong></h6>
+                    <h6 class="mb-0"><strong>Fungus</strong></h6>
                 </div>
                 <div class="col-sm-9 text-secondary">
-                    <img src="{{context.image.path}}"  height="700px">
+                    {{context.Fungus}}
                 </div>
             </div>
             <hr>
             <div class="row">
                 <div class="col-sm-3">
-                    <h6 class="mb-0"><strong>Model Prediction</strong></h6>
+                    <h6 class="mb-0"><strong>Body</strong></h6>
                 </div>
                 <div class="col-sm-9 text-secondary">
-                    {{context.result}}
+                    {{context.Body}}
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-3">
+                    <h6 class="mb-0"><strong>Antrum</strong></h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                    {{context.Antrum}}
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-3">
+                    <h6 class="mb-0"><strong>P_ring/strong></h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                    {{context.P_ring}}
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-3">
+                    <h6 class="mb-0"><strong>Bulb</strong></h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                    {{context.Bulb}}
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-3">
+                    <h6 class="mb-0"><strong>Papilla</strong></h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                    {{context.Papilla}}
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-3">
+                    <h6 class="mb-0"><strong>Oesophagus</strong></h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                    {{context.Oesophagus}}
                 </div>
             </div>
             <hr style="border-top: 3px solid black;">
             <HR>
         </div>
+
     </div>
 
+    </div>
+    </div>
     {% endfor %}
+    </div>
     <div class="forImage">
         <img src="file:static/image/Logo1.jpg" height="200px">
     </div>

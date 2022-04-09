@@ -123,7 +123,38 @@ class BloodReport(models.Model):
         return self.Doctor_ID + " has uploaded medical report of " + self.Patient_ID
 
 
+class EndoscopyReport(models.Model):
+    Appoitment_ID = models.ForeignKey(Appoitment, on_delete=models.CASCADE)
+    Patient_ID = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    PatientEmail = models.CharField(max_length=100)
+    PatientName = models.CharField(max_length=100)
+    Date = models.CharField(max_length=100)
+    Fungus = models.CharField(max_length=50)
+    Body = models.CharField(max_length=50)
+    Antrum = models.CharField(max_length=50)
+    P_ring = models.CharField(max_length=50)
+    Bulb = models.CharField(max_length=50)
+    Papilla = models.CharField(max_length=50)
+    Oesophagus = models.CharField(max_length=50)
+
+    def __int__(self):
+        return self.Doctor_ID + " has uploaded medical report of " + self.Patient_ID
+
+
 class MRIReport(models.Model):
+    Appoitment_ID = models.ForeignKey(Appoitment, on_delete=models.CASCADE)
+    Patient_ID = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    PatientEmail = models.CharField(max_length=100)
+    PatientName = models.CharField(max_length=100)
+    Date = models.CharField(max_length=100)
+    image = models.ImageField(upload_to='images')
+    result = models.CharField(max_length=100)
+
+    def __int__(self):
+        return self.Appoitment_ID + " has medical report of " + self.Patient_ID
+
+
+class XrayReport(models.Model):
     Appoitment_ID = models.ForeignKey(Appoitment, on_delete=models.CASCADE)
     Patient_ID = models.ForeignKey(Patient, on_delete=models.CASCADE)
     PatientEmail = models.CharField(max_length=100)

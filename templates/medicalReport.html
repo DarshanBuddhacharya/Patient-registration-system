@@ -84,6 +84,20 @@
                             </h6>
                             <hr>
                         {% endfor %}
+                        {% for d in endoscopy_details %}
+                            <h6 class="mb-0">
+                                <ion-icon name="pulse-outline"></ion-icon> Endoscopy Report of <strong>{{d.PatientName}} </strong>
+                                <a class="btn btn-info " id="sessionBtn" href="{% url 'render_pdf_endoscopy' d.id %}">Review this report</a>
+                            </h6>
+                            <hr>
+                        {% endfor %}
+                        {% for d in xray_details %}
+                            <h6 class="mb-0">
+                                <ion-icon name="body"></ion-icon> X-ray Report of <strong>{{d.PatientName}} </strong>
+                                <a class="btn btn-info " id="sessionBtn" href="{% url 'render_pdf_Xray' d.id %}">Review this report</a>
+                            </h6>
+                            <hr>
+                        {% endfor %}
                             <div class="row">
                                 <div class="col-sm-3">
                                     <h6 class="mb-0"><strong>Diagnosis Report</strong></h6>

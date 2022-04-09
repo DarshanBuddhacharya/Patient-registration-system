@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+
+<div class="userContainer">
+    <div class="main-body">
+        <div class="row gutters-sm" id="medicalReport">
+            {% for d in appoitment_details %}
+            <div class="col-md-12">
+                <h4>X-ray Report</h4>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0"><strong>Session ID</strong></h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{d.id}}
+                                    <input type="hidden" name="SessionID" value="{{d.id}}">
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0"><strong>Patient ID</strong></h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    PID - {{d.Patient_ID_id}}
+                                    <input type="hidden" name="PatientID" value="{{d.Patient_ID_id}}">
+                                    <input type="hidden" name="DoctorID" value="{{d.Doctor_ID_id}}">
+                                    <input type="hidden" name="PatientEmail" value="{{d.PatientEmail}}">
+                                    <input type="hidden" name="active" value="no">
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0"><strong>Patient Name</strong></h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{d.PatientName}}
+                                    <input type="hidden" name="PatientName" value="{{d.PatientName}}">
+                                    <input type="hidden" name="department" value="{{d.department}}">
+                                    <input type="hidden" name="Date" value="{{d.appoitmentDate}}">
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0"><strong>Upload X-ray Scan</strong></h6>
+                                </div>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                <input type="file" class="input" name="imagePneo" required>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <button type="submit" class="btn btn-info" id="sessionBtn">Publish Medical
+                                        Report</button>
+                                    <a class="btn btn-info " href="labWorkshop"
+                                        onclick="return confirm('Are you sure you want to return to workspace? The progress is not saved.')">Cancel</a>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

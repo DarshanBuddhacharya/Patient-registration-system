@@ -34,7 +34,7 @@
 <body>
     <div class="userContainer">
         {% for context in report_context %}
-        <h4 id="title">MRI Report</h4>
+        <h4 id="title">X-ray Report</h4>
         <div class="card-body">
             <div class="row" id="Date">
                 <div class="col-sm-3">
@@ -69,7 +69,7 @@
                     <h6 class="mb-0"><strong>Image</strong></h6>
                 </div>
                 <div class="col-sm-9 text-secondary">
-                    <img src="{{context.image.path}}"  height="700px">
+                    <img src="{{context.image.path}}" height="700px">
                 </div>
             </div>
             <hr>

@@ -27,11 +27,17 @@ urlpatterns = [
     path('medicalReport<int:aid>', views.medicalReport, name='medicalReport'),
     path('logout', views.logout, name='logout'),
     path('load-doctor', views.load_doctor, name='ajax_load_doctor'),
+
     path('render_pdf_view<int:aid>', views.render_pdf_view, name='render_pdf_view'),
     path('render_pdf_blood<int:aid>',
          views.render_pdf_blood, name='render_pdf_blood'),
     path('render_pdf_Mri<int:aid>',
          views.render_pdf_Mri, name='render_pdf_Mri'),
+    path('render_pdf_endoscopy<int:aid>',
+         views.render_pdf_endoscopy, name='render_pdf_endoscopy'),
+    path('render_pdf_Xray<int:aid>',
+         views.render_pdf_Xray, name='render_pdf_Xray'),
+
     path('delete_appointment<int:aid>',
          delete_appointment, name='delete_appointment'),
     path('delete_user',
@@ -42,6 +48,10 @@ urlpatterns = [
          views.bloodReport, name='bloodReport'),
     path('mriReport<int:aid>',
          views.mriReport, name='mriReport'),
+    path('endoscopyReport<int:aid>',
+         views.endoscopyReport, name='endoscopyReport'),
+    path('xrayReport<int:aid>',
+         views.xrayReport, name='xrayReport'),
 
     path('password_reset/', auth_views.PasswordResetView.as_view(),
          name='password_reset'),
