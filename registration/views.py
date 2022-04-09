@@ -380,26 +380,18 @@ def get_img_array(img_path):
 
 
 def tumor_pred(imageTumor):
-    model = load_model("bestmodel2.sav")
+    model = load_model("bestTumor.sav")
     fs = FileSystemStorage()
     filePathName = fs.save(imageTumor.name, imageTumor)
     filePathName = fs.url(filePathName)
     path = '.'+filePathName
-    img = load_img(path, target_size=(224, 224))
-    input_arr = img_to_array(img)/225
+    class_type = {0: 'Healthy',  1: 'Tumor'}
+    img = get_img_array(path)
 
-    input_arr.shape
-
-    input_arr = np.expand_dims(input_arr, axis=0)
-
-    pred = model.predict_classes(input_arr)[0][0]
-
-    if pred == 0:
-        return 'yes'
-    elif pred == 1:
-        return 'no'
-    else:
-        return 'error'
+    res = class_type[np.argmax(model.predict(img))]
+    normalPercent = model.predict(img)[0][0]*100
+    tumorPercent = model.predict(img)[0][1]*100
+    return res, normalPercent, tumorPercent
 
 
 def pneo_pred(imagePneo):
@@ -434,7 +426,7 @@ def mriReport(request, aid):
         Date = request.POST['Date']
         imageTumor = request.FILES['imageTumor']
 
-        result = tumor_pred(imageTumor)
+        result, normalPercent, tumorPercent = tumor_pred(imageTumor)
         try:
             # template = render_to_string(
             #     'email/email_booking.html', {'PatientName': PatientName, 'DoctorFullName': DoctorFullName, 'Date': d.Date, 'time': d.time})
@@ -446,7 +438,7 @@ def mriReport(request, aid):
             #     fail_silently=False,
             # )
             MRIReport.objects.create(Appoitment_ID_id=Appoitment_ID, Patient_ID_id=Patient_ID,
-                                     PatientName=PatientName, Date=Date, PatientEmail=PatientEmail, image=imageTumor, result=result)
+                                     PatientName=PatientName, Date=Date, PatientEmail=PatientEmail, image=imageTumor, result=result, normalPercent=normalPercent, tumorPercent=tumorPercent)
             return redirect('labWorkshop')
         except Exception as e:
             raise e

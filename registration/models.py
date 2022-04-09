@@ -149,6 +149,8 @@ class MRIReport(models.Model):
     Date = models.CharField(max_length=100)
     image = models.ImageField(upload_to='images')
     result = models.CharField(max_length=100)
+    normalPercent = models.CharField(max_length=50)
+    tumorPercent = models.CharField(max_length=50)
 
     def __int__(self):
         return self.Appoitment_ID + " has medical report of " + self.Patient_ID
