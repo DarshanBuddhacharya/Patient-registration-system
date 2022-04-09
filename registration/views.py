@@ -24,6 +24,7 @@ from keras.preprocessing.image import load_img, img_to_array
 from django.core.files.storage import FileSystemStorage
 import numpy as np
 from keras.models import load_model
+from tensorflow.keras.preprocessing import image
 
 
 def index(request):
@@ -369,6 +370,15 @@ def endoscopyReport(request, aid):
     return render(request, 'labReports/endoscopyReport.html', d)
 
 
+def get_img_array(img_path):
+    path = img_path
+    img = image.load_img(path, target_size=(224, 224, 3))
+    img = image.img_to_array(img)
+    img = np.expand_dims(img, axis=0)
+
+    return img
+
+
 def tumor_pred(imageTumor):
     model = load_model("bestmodel2.sav")
     fs = FileSystemStorage()
@@ -393,26 +403,25 @@ def tumor_pred(imageTumor):
 
 
 def pneo_pred(imagePneo):
-    model = load_model("bestmodel2.sav")
+    model = load_model("bestPneo.sav")
     fs = FileSystemStorage()
     filePathName = fs.save(imagePneo.name, imagePneo)
     filePathName = fs.url(filePathName)
     path = '.'+filePathName
-    img = load_img(path, target_size=(224, 224))
-    input_arr = img_to_array(img)/225
+    class_type = {0: 'Normal', 1: 'Pneumonia'}
+    img = get_img_array(path)
 
-    input_arr.shape
-
-    input_arr = np.expand_dims(input_arr, axis=0)
-
-    pred = model.predict_classes(input_arr)[0][0]
-
-    if pred == 0:
-        return 'yes'
-    elif pred == 1:
-        return 'no'
-    else:
-        return 'error'
+    res = class_type[np.argmax(model.predict(img))]
+    normalPercent = model.predict(img)[0][0]*100
+    pneoPercent = model.predict(img)[0][1]*100
+    return res, normalPercent, pneoPercent
+    # print(f"The given X-Ray image is of type = {res}")
+    # print()
+    # print(
+    #     f"The chances of image being Normal is : {model.predict(img)[0][0]*100} percent")
+    # print()
+    # print(
+    #     f"The chances of image being Covid is : {model.predict(img)[0][1]*100} percent")
 
 
 def mriReport(request, aid):
@@ -454,7 +463,7 @@ def xrayReport(request, aid):
         Date = request.POST['Date']
         imagePneo = request.FILES['imagePneo']
 
-        result = pneo_pred(imagePneo)
+        result, normalPercent, pneoPercent = pneo_pred(imagePneo)
         try:
             # template = render_to_string(
             #     'email/email_booking.html', {'PatientName': PatientName, 'DoctorFullName': DoctorFullName, 'Date': d.Date, 'time': d.time})
@@ -466,7 +475,7 @@ def xrayReport(request, aid):
             #     fail_silently=False,
             # )
             XrayReport.objects.create(Appoitment_ID_id=Appoitment_ID, Patient_ID_id=Patient_ID,
-                                      PatientName=PatientName, Date=Date, PatientEmail=PatientEmail, image=imagePneo, result=result)
+                                      PatientName=PatientName, Date=Date, PatientEmail=PatientEmail, image=imagePneo, result=result, normalPercent=normalPercent, pneoPercent=pneoPercent)
             return redirect('labWorkshop')
         except Exception as e:
             raise e
