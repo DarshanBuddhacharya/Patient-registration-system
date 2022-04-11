@@ -1,15 +1,11 @@
-from tkinter import N
-from matplotlib.style import context
 import requests
 import json
-import pickle
 from django.http import HttpResponse, JsonResponse
 from xhtml2pdf import pisa
 
 from time import timezone
 from django.contrib import auth
 from django.core.checks import messages
-from django.core.checks.messages import Error
 from django.shortcuts import redirect, render
 from .models import *
 from django.contrib.auth.models import User, Group
@@ -27,8 +23,24 @@ from keras.models import load_model
 from tensorflow.keras.preprocessing import image
 
 
+def navbar(request):
+    g = request.user.groups.all()[0].name
+    if g == 'Doctor':
+        doctor_details = Doctor.objects.all().filter(EmailAddress=request.user)
+        d = {'doctor_details': doctor_details}
+    if g == 'Patient':
+        patient_details = Patient.objects.all().filter(EmailAddress=request.user)
+        d = {'patient_details': patient_details}
+
+    return render(request, 'navbar.html', d)
+
+
 def index(request):
     return render(request, 'index.html')
+
+
+def aboutus(request):
+    return render(request, 'aboutus.html')
 
 
 def contact(request):
@@ -648,7 +660,7 @@ def doctorlogin(request):
             if g == 'Doctor':
                 doctor_details = Doctor.objects.all().filter(EmailAddress=request.user)
                 d = {'doctor_details': doctor_details}
-                return redirect('doctorProfile')
+                return redirect('home')
             if g == 'Patient':
                 messages.success(
                     request, ("You cannot login with patient's detail. Do so from patient login or login with doctor's details"))

@@ -9,6 +9,7 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     path('', views.index, name='home'),
     path('contact', views.contact, name='contact'),
+    path('aboutus', views.aboutus, name='aboutus'),
     path('loginPage', views.loginPage, name='login'),
     path('labLogin', views.labLogin, name='labLogin'),
     path('doctorlogin', views.doctorlogin, name='doctorlogin'),
@@ -63,6 +64,7 @@ urlpatterns = [
          name='password_reset_complete'),
 
     path('footer', views.footer, name='footer'),
+    #     path('navbar', views.navbar, name='navbar'),
 
     path('api/verify_payment', verify_payment, name='verify_payment')
 ]

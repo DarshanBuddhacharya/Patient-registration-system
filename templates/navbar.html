@@ -1,0 +1,128 @@
+{% block content %}
+{% load static %}
+<header class="header_area">
+    <!--------------------------------- Navbar -------------------------------------->
+    <div class="container">
+        <div class="navRow">
+
+            <div class="col-md-4 col-sm-5">
+                <p>Patient registration with Brain tumor and Pneumonia detection</p>
+            </div>
+
+            <div class="col-md-8 col-sm-7 text-align-right">
+                <span class="phone-icon"><i class="fa fa-phone"></i> +977-98X-XXX-XXXX</span>
+                {% if not user.is_staff%}
+                <span class="date-icon"><i class="fa fa-calendar-plus-o"></i><a href="{% url 'booking' %}"
+                        class="smoothScroll">Book an
+                        appointment</a></span>
+                {% endif %}
+                <span class="invert">
+                    <a class="nav-link" onclick="invertColor()" title="Invert Color for color blindness"><i
+                            class="fa fa-adjust"></i> Invert Color</a>
+                    <a class="nav-link" onclick="changeFont('decrease')" title="Decrease Font Size">A- </a>
+                    <a class="nav-link" onclick="changeFont('original')" title="Original Font Size">A </a>
+                    <a class="nav-link" onclick="changeFont('increase')" title="Increase Font Size">A+ </a>
+                </span>
+            </div>
+        </div>
+    </div>
+</header>
+<!------------------------------------------------- NAVMENU ---------------------------------------->
+<section class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container">
+
+        <div class="navbar-header">
+            <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon icon-bar"></span>
+                <span class="icon icon-bar"></span>
+                <span class="icon icon-bar"></span>
+            </button>
+            <a href="./"><img src="{% static 'image/logo.png' %} " alt="Main logo"></a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                {% with url_name=request.resolver_match.url_name %}
+                <li class="{% if url_name == 'home' %}active{% endif %}"><a href="{% url 'home' %}">Home</a></li>
+                <li class="{% if url_name == 'aboutus' %}active{% endif %}"><a href="{% url 'aboutus' %}" class="smoothScroll">About Us</a>
+                </li>
+                <li class="{% if url_name == 'department' %}active{% endif %}"><a href="{% url 'department' %}"
+                        class="smoothScroll">Department</a></li>
+                <li class="{% if url_name == 'doctors' %}active{% endif %}"><a href="{% url 'doctors' %}"
+                        class="smoothScroll">Doctors</a></li>
+                <li class="{% if url_name == 'contact' %}active{% endif %}"><a href="{% url 'contact' %}"
+                        class="smoothScroll">Contact</a></li>
+                <li class="{% if url_name == 'help' %}active{% endif %}"><a href="{% url 'help' %}"
+                        class="smoothScroll">Help</a></li>
+                {% endwith %}
+                {% if user.is_authenticated and not user.is_staff and not user.is_superuser%}
+                <li>
+                    <div class="profile">
+                        <div class="icon_wrap">
+                            <a class="smoothScroll">Hello, {{user.first_name}}</a>
+                            <img src="{% static 'image/avatar.svg' %}" alt="profile_pic">
+                            <ion-icon name="caret-down"></ion-icon>
+                        </div>
+                        <div class="profile_dd">
+                            <ul style="list-style: none; padding: 0;">
+                                <li><a class="profile" href="{% url 'userProfile' %}"><span class="picon">
+                                            <ion-icon name="person"></ion-icon>
+                                        </span>Profile</a>
+                                </li>
+                                <li><a class="logout" href="logout"><span class="picon">
+                                            <ion-icon name="log-out"></ion-icon>
+                                        </span>Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                {% elif user.is_authenticated and user.is_staff and not user.is_superuser%}
+                <li>
+                    <div class="profile">
+                        <div class="icon_wrap">
+                            <a class="smoothScroll">Dr. {{user.first_name}} {{user.last_name}}</a>
+                            <img src="{% static 'image/doctor.svg' %}" alt="profile_pic">
+                            <ion-icon name="caret-down"></ion-icon>
+                        </div>
+                        <div class="profile_dd">
+                            <ul style="list-style: none; padding: 0;">
+                                <li><a class="profile" href="{% url 'doctorProfile' %}"><span class="picon">
+                                            <ion-icon name="person"></ion-icon>
+                                        </span>Profile</a>
+                                </li>
+                                <li><a class="logout" href="logout"><span class="picon">
+                                            <ion-icon name="log-out"></ion-icon>
+                                        </span>Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                {% elif user.is_authenticated and user.is_staff and user.is_superuser %}
+                <li>
+                    <div class="profile">
+                        <div class="icon_wrap">
+                            <a class="smoothScroll">Laboratory</a>
+                            <img src="{% static 'image/lablogin.png' %}" alt="profile_pic">
+                            <ion-icon name="caret-down"></ion-icon>
+                        </div>
+                        <div class="profile_dd">
+                            <ul style="list-style: none; padding: 0;">
+                                <li><a class="profile" href="{% url 'labWorkshop' %}"><span class="picon">
+                                            <ion-icon name="person"></ion-icon>
+                                        </span>Profile</a>
+                                </li>
+                                <li><a class="logout" href="logout"><span class="picon">
+                                            <ion-icon name="log-out"></ion-icon>
+                                        </span>Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                {% else %}
+                <li><a class="button-84" id="button-19" href="{% url 'login' %}" class="smoothScroll">Login</a></li>
+                <li><a class="button-85" id="navLogin" href="{% url 'signup' %}" class="smoothScroll">SignUp</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</section>
+{% endblock %}

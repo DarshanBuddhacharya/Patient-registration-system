@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+{% include "navbar.html" %}
+<!--service-->
+
+<section id="service" class="section-padding">
+    <div class="section-title">
+        <h2>About us</h2>
+    </div>
+    <section id="aboutus" class="section-padding">
+        <div class="aboutContainer">
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="section-title">
+                        <h2 class="head-title lg-line">The Dhanvantari <br>Medical Team</h2>
+                        <hr class="botm-line">
+                        <p class="sec-para">The project is proposed to be a patient registration website of hospitals with a brain tumor and Pneumonia detection.
+                        This project aims to minimize the hassle and time taken in the hospital. When you visit a hospital there is a lot of
+                        checkpoints that you need to go through. This website plans to eliminate this hassle by making the patient registration online. Users can fill out the
+                        registration form in their homes and make an appointment with a concerned doctor by just press of a button.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-8 col-xs-12">
+                    <div style="visibility: visible;" class="col-sm-9 more-features-box">
+                        <div class="more-features-box-text">
+                            <div class="more-features-box-text-icon"> <i class="fa fa-angle-right" aria-hidden="true"></i>
+                            </div>
+                            <div class="more-features-box-text-description">
+                                <h3>Our Aim</h3>
+                                <p class="sec-para">1. Patient Registration<br>
+                                2. Medical History Display<br>
+                                3. Brain Tumor detection<br>
+                                4. Pneumonia detection<br>
+                                5. Doctor’s note and feedback<br>
+                                6. Appointment booking<br>
+</p>
+                            </div>
+                        </div>
+                        <div class="more-features-box-text">
+                            <div class="more-features-box-text-icon"> <i class="fa fa-angle-right" aria-hidden="true"></i>
+                            </div>
+                            <div class="more-features-box-text-description">
+                                <h3>Our Objective</h3>
+                                <p class="sec-para">1. New patients can register with signup form<br>
+                                2. Returning patients can login to their previous accounts<br>
+                                3. Patient’s symptom with any previous dieses’ registration<br>
+                                4. Pneumonia and brain tumor detection with ML<br>
+                                5. Patients can book appointment with concerned doctor<br>
+                                6. Doctors can view patient’s data (Backend)<br>
+                                7. Doctors can provide feedback and notes to their respective patients<br>
+</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="aboutContainer">
+        <div class="section-title">
+            <h2>Services</h2>
+        </div>
+        <div class="aboutusRow">
+            <div class="col-md-4 col-sm-4">
+                <div class="service-info">
+                    <div class="absicon">
+                        <i class="fa fa-clock-o"></i>
+                    </div>
+                    <div class="icon-info">
+                        <h4>24 Hour Support</h4>
+                        <p>We fully understand and provide our clients with a professional and reliable service. We are always available 24hr a day
+                        with staff on standby for short notice bookings as well as block bookings.</p>
+                    </div>
+                </div>
+                <div class="service-info">
+                    <div class="absicon">
+                        <i class="fa fa-medkit"></i>
+                    </div>
+                    <div class="icon-info">
+                        <h4>Premium Healthcare</h4>
+                        <p>We are focused on addressing the diverse health needs and issues of the communities we serve. We offer a broad range of
+                        services for patients of all ages, from family medicine and full-service health care</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4">
+                <div class="service-info">
+                    <div class="absicon">
+                        <i class="fa fa-user-md"></i>
+                    </div>
+                    <div class="icon-info">
+                        <h4>Medical Counseling</h4>
+                        <p>Our counsellors are a trained, objective professional with whom you can build a healing and trusting relationship. They are
+                        trained to offer different types of assistance; most frequently talk-based styles of therapy.</p>
+                    </div>
+                </div>
+                <div class="service-info">
+                    <div class="absicon">
+                        <i class="fa fa-tachometer"></i>
+                    </div>
+                    <div class="icon-info">
+                        <h4>Deep-learning Disease detection</h4>
+                        <p>This website features brain tumor detection as well as a Pneumonia detection system with the help of a deep-learning
+                        algorithm called convolutional neural network (CNN).</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4">
+                <div class="service-info">
+                    <div class="absicon">
+                        <i class="fa fa-hospital-o"></i>
+                    </div>
+                    <div class="icon-info">
+                        <h4>State of the art hospital</h4>
+                        <p>Our Hospital provides an array of services starting from emergency care to general, elective and subspecialty medical
+                        and surgical care in numerous medical and surgical subspecialties.</p>
+                    </div>
+                </div>
+                <div class="service-info">
+                    <div class="absicon">
+                        <i class="fa fa-ambulance"></i>
+                    </div>
+                    <div class="icon-info">
+                        <h4>Emergency Services</h4>
+                        <p>All emergency cases are managed with an efficient team of MDGP, casualty registrar, house officers, nurses, nurse aides
+                        and patient attendants.We serve all categories and age groups.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--/ service-->
+<!--cta-->
+<section id="cta-1" class="section-padding">
+    <div class="aboutContainer">
+        <div class="row">
+        </div>
+    </div>
+</section>
+<!--cta-->
+{% include "footer.html" %}
+{% endblock %}
