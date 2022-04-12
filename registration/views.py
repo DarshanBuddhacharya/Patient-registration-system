@@ -237,6 +237,39 @@ def userProfile(request):
     return render(request, 'userProfile.html', d)
 
 
+def userEdit(request, aid):
+    g = request.user.groups.all()[0].name
+    if g == 'Patient':
+        patient_details = Patient.objects.all().filter(EmailAddress=request.user)
+        d = {'patient_details': patient_details}
+    if request.method == "POST":
+        image = request.FILES.get('image', "None")
+        age = request.POST['age']
+        gender = request.POST['gender']
+        address = request.POST['address']
+        PhoneNumber = request.POST['PhoneNumber']
+        BloodGroup = request.POST['BloodGroup']
+        try:
+            patient = Patient.objects.get(pk=aid)
+            if image != 'None':
+                patient.image = image
+            if age != '':
+                patient.age = age
+            if gender != 'non-binary':
+                patient.gender = gender
+            if address != '':
+                patient.address = address
+            if PhoneNumber != '':
+                patient.PhoneNumber = PhoneNumber
+            if BloodGroup != 'defult':
+                patient.BloodGroup = BloodGroup
+            patient.save()
+            return redirect('userProfile')
+        except Exception as e:
+            raise e
+    return render(request, 'userEdit.html', d)
+
+
 def doctorProfile(request):
     upcomming_appointments = Appoitment.objects.all().filter(
         DoctorEmail=request.user, appoitmentDate__gte=timezone.now(), active="yes").order_by('appoitmentDate')
@@ -723,7 +756,7 @@ def signup(request):
     if request.method == "POST":
         FirstName = request.POST['FirstName']
         LastName = request.POST['LastName']
-        image = request.FILES['image']
+        image = request.FILES.get('image')
         age = request.POST['age']
         gender = request.POST['gender']
         address = request.POST['address']

@@ -2140,7 +2140,7 @@ Lab report
 .card-body {
   flex: 1 1 auto;
   min-height: 1px;
-  padding: 1rem;
+  padding: 2rem;
 }
 
 .gutters-sm {
@@ -2175,6 +2175,14 @@ Lab report
   background-clip: border-box;
 }
 
+/*---------------------------------------
+     user Profile edit              
+  -----------------------------------------*/
+  #userEdit{
+    width: 100%;
+    padding-left: 130px;
+    padding-right: 130px;
+  }
 /*---------------------------------------
      doctor Profile              
   -----------------------------------------*/

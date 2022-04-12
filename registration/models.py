@@ -81,8 +81,8 @@ class Appoitment(models.Model):
     appoitmentTime = models.TimeField()
     Comments = models.CharField(max_length=500)
 
-    def __int__(self):
-        return self.Doctor_ID + " has an appointment with " + self.Patient_ID
+    def __str__(self):
+        return self.DoctorFullName + " In department "+self.department + " has an appointment with " + self.PatientName
 
 
 class MedicalReport(models.Model):

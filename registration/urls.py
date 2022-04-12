@@ -22,6 +22,7 @@ urlpatterns = [
     path('booking', views.booking, name='booking'),
     path('docBooking<int:aid>', views.docBooking, name='docBooking'),
     path('userProfile', views.userProfile, name='userProfile'),
+     path('userEdit<int:aid>', views.userEdit, name='userEdit'),
     path('doctorProfile', views.doctorProfile, name='doctorProfile'),
     path('labWorkshop', views.labWorkshop, name='labWorkshop'),
     path('conformation', views.conformation, name='conformation'),

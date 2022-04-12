@@ -173,7 +173,7 @@
                         <hr>
                         <div class="row">
                             <div class="col-sm-12">
-                                <a class="btn btn-info" href="">Edit</a>
+                                <a class="btn btn-info" href="{% url 'userEdit' d.id %}">Edit</a>
                                 <a class="btn btn-info " id = "logoutBtn" href="{% url 'delete_user' %}" onclick= "return confirm('Are you sure you want to Delete this Account? This action is irreversible.')">Delete Account</a>
                             </div>
                         </div>
