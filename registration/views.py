@@ -214,6 +214,14 @@ def userProfile(request):
         PatientEmail=request.user, appoitmentDate__gte=timezone.now(), active="no").order_by('appoitmentDate')
     report_details = MedicalReport.objects.all().filter(
         PatientEmail=request.user).order_by('-Date')
+    bloodReport_details = BloodReport.objects.all().filter(
+        PatientEmail=request.user)
+    mriReport_details = MRIReport.objects.all().filter(
+        PatientEmail=request.user)
+    endoscopy_details = EndoscopyReport.objects.all().filter(
+        PatientEmail=request.user)
+    xray_details = XrayReport.objects.all().filter(
+        PatientEmail=request.user)
     g = request.user.groups.all()[0].name
     if g == 'Patient':
         patient_details = Patient.objects.all().filter(EmailAddress=request.user)
@@ -221,7 +229,11 @@ def userProfile(request):
              'upcomming_appointments': upcomming_appointments,
              'report_details': report_details,
              'completed_appointments': completed_appointments,
-             'past_appointments': past_appointments}
+             'past_appointments': past_appointments,
+             'bloodReport_details': bloodReport_details,
+             'mriReport_details': mriReport_details,
+             'endoscopy_details': endoscopy_details,
+             'xray_details': xray_details}
     return render(request, 'userProfile.html', d)
 
 
@@ -660,7 +672,7 @@ def doctorlogin(request):
             if g == 'Doctor':
                 doctor_details = Doctor.objects.all().filter(EmailAddress=request.user)
                 d = {'doctor_details': doctor_details}
-                return redirect('home')
+                return redirect('doctorProfile')
             if g == 'Patient':
                 messages.success(
                     request, ("You cannot login with patient's detail. Do so from patient login or login with doctor's details"))
