@@ -13,7 +13,7 @@
             <div class="col-md-12 col-lg-4">
                 <div class="dk-footer-box-info">
                     <a href="{% url 'home' %}" class="footer-logo">
-                        <img src="{% static 'image/Logo1.jpg' %}" alt="footer_logo" class="img-fluid">
+                        <img src="{% static 'image/logo.png' %}" alt="footer_logo" class="img-fluid">
                     </a>
                     <p class="footer-info-text">
                         The project is proposed to be a patient registration website of hospitals with a brain tumor and Pneumonia detection. 
@@ -103,11 +103,12 @@
                             <p>
                                 Any problems with respect to this website? Plese feel free to fill up this form below
                             </p>
-                            <form action="#">
+                            <form method="POST">
+                                {% csrf_token %}
                                 <div class="form-row">
                                     <div class="col dk-footer-form">
-                                        <input type="email" class="form-control" placeholder="Email Address" id = "footerInput">
-                                        <textarea type="text" id = "footerInput" class="form-control" cols="200" rows="2" placeholder="    Enter FeedBack here" name="NoonMedicine"></textarea>
+                                        <input type="email" class="form-control" placeholder="Email Address" id = "footerInput" name="EmailAddress" required>
+                                        <textarea type="text" id = "footerInput" class="form-control" cols="200" rows="2" placeholder="    Enter FeedBack here"  name="feedback" required></textarea>
                                         <button type="submit">
                                             Send
                                             <i class="fa fa-send"></i>

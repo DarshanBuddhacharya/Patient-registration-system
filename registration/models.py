@@ -174,3 +174,10 @@ class XrayReport(models.Model):
 class Help(models.Model):
     Title = models.CharField(max_length=50)
     Description = models.CharField(max_length=500)
+
+
+class Feedback(models.Model):
+    email = models.CharField(max_length=50)
+    name = models.CharField(max_length=100)
+    phoneNumber = models.CharField(max_length=15)
+    feedback = models.CharField(max_length=50)

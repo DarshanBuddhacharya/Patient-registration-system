@@ -44,6 +44,29 @@ def aboutus(request):
 
 
 def contact(request):
+    if request.method == "POST":
+        FirstName = request.POST['FirstName']
+        LastName = request.POST['LastName']
+        EmailAddress = request.POST['EmailAddress']
+        Phonenumber = request.POST['Phonenumber']
+        userfeedback = request.POST['feedback']
+        name = FirstName + ' ' + LastName
+
+        try:
+            # template = render_to_string(
+            #     'email/email_booking.html', {'PatientName': PatientName, 'DoctorFullName': DoctorFullName, 'Date': d.Date, 'time': d.time})
+            # send_mail(
+            #     'Hello there ' + PatientName,
+            #     template,
+            #     settings.EMAIL_HOST_USER,
+            #     [request.user.email],
+            #     fail_silently=False,
+            # )
+            Feedback.objects.create(
+                name=name, email=EmailAddress, phoneNumber=Phonenumber, feedback=userfeedback)
+            return redirect('home')
+        except Exception as e:
+            raise e
     return render(request, 'contact.html')
 
 
@@ -794,6 +817,28 @@ def logout(request):
     return redirect('/')
 
 
+def footer(request):
+    if request.method == "POST":
+        EmailAddress = request.POST['EmailAddress']
+        userfeedback = request.POST['feedback']
+        try:
+            # template = render_to_string(
+            #     'email/email_booking.html', {'PatientName': PatientName, 'DoctorFullName': DoctorFullName, 'Date': d.Date, 'time': d.time})
+            # send_mail(
+            #     'Hello there ' + PatientName,
+            #     template,
+            #     settings.EMAIL_HOST_USER,
+            #     [request.user.email],
+            #     fail_silently=False,
+            # )
+            Feedback.objects.create(
+                email=EmailAddress, feedback=userfeedback)
+            return redirect('home')
+        except Exception as e:
+            raise e
+    return render(request, 'footer.html')
+
+
 @csrf_exempt
 def verify_payment(request):
     data = request.POST
@@ -819,7 +864,3 @@ def verify_payment(request):
         response = JsonResponse(
             {'status': 'false', 'message': response_data['detail']}, status=500)
         return response
-
-
-def footer(request):
-    return render(request, 'footer.html')

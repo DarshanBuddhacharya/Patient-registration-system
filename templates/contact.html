@@ -14,32 +14,33 @@
         <div class="box">
             <div class="contact form">
                 <h3>Send a Meessage</h3>
-                <form>
+                <form method="POST">
+                    {% csrf_token %}
                     <div class = "formBox">
                         <div class="row50">
                             <div class="inputBox">
                                 <span> First Name </span>
-                                <input type="text" placeholder="First Name" required>
+                                <input type="text" placeholder="First Name" name="FirstName" required>
                             </div>
                             <div class="inputBox">
                                 <span> Last Name </span>
-                                <input type="text" placeholder="Last Name" required>
+                                <input type="text" placeholder="Last Name" name="LastName" required>
                             </div>
                         </div>
                         <div class="row50">
                             <div class="inputBox">
                                 <span> Email Address </span>
-                                <input type="email" placeholder="Email Address" required>
+                                <input type="email" placeholder="Email Address" name="EmailAddress" required>
                             </div>
                             <div class="inputBox">
                                 <span> Phone number </span>
-                                <input type="number" placeholder="Phone number" required>
+                                <input type="number" placeholder="Phone number"  name="Phonenumber" required>
                             </div>
                         </div>
                         <div class="row100">
                             <div class="inputBox">
                                 <span> Message </span>
-                                <textarea placeholder="Write your message here..." required></textarea>
+                                <textarea placeholder="Write your message here..." name="feedback" required></textarea>
                             </div>
                         </div>
                         <div class="row100">
