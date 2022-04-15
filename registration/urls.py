@@ -15,6 +15,7 @@ urlpatterns = [
     path('doctorlogin', views.doctorlogin, name='doctorlogin'),
     path('help', views.help, name='help'),
     path('signup', views.signup, name='signup'),
+    path('socialSignup', views.socialSignup, name='socialSignup'),
     path('doctors', views.doctors, name='doctors'),
     path('search_doc', views.search_doc, name='search_doc'),
     path('depDoctor<int:aid>', views.depDoctor, name='depDoctor'),

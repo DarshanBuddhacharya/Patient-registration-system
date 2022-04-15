@@ -1842,7 +1842,7 @@ cta -2
   padding: 0 2rem;
 }
 #signupContainer {
-  height: 120vh;
+  height: 100%;
 }
 
 .img {

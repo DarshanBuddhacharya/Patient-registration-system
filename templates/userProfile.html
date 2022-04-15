@@ -12,8 +12,12 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex flex-column align-items-center text-center">
+                            {% if d.image %}
                             <img src="{{d.image.url}}" alt="Admin"
                                 class="rounded-circle" width="350">
+                            {% else %}
+                            <img src="{% static 'image/avatar.svg' %}" alt="Admin" class="rounded-circle" width="350">
+                            {% endif %}
                             <div class="mt-3">
                                 <h4>{{d.FirstName}} {{d.LastName}}</h4>
                                 <p class="text-secondary mb-1">PID - {{d.id}}</p>

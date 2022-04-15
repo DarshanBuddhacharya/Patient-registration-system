@@ -21,6 +21,7 @@ from django.core.files.storage import FileSystemStorage
 import numpy as np
 from keras.models import load_model
 from tensorflow.keras.preprocessing import image
+from django import template
 
 
 def navbar(request):
@@ -79,14 +80,14 @@ def booking(request):
     department_details = Department.objects.all()
     g = request.user.groups.all()[0].name
     if g == 'Patient':
-        patient_details = Patient.objects.all().filter(EmailAddress=request.user)
+        patient_details = Patient.objects.all().filter(EmailAddress=request.user.email)
         d = {'patient_details': patient_details,
              'doctor_details': doctor_details,
              'department_details': department_details}
 
     if request.method == "POST":
         Patient_ID = request.POST['PatientID']
-        PatientEmail = request.user
+        PatientEmail = request.user.email
         PatientName = request.user.first_name + request.user.last_name
         Speciality = request.POST['Department']
         doctor = request.POST['doctor']
@@ -208,11 +209,12 @@ def delete_appointment(request, aid):
 
 
 def delete_user(request):
-    patient_details = Patient.objects.filter(EmailAddress=request.user)
-    user_patient = User.objects.filter(email=request.user)
+    patient_details = Patient.objects.filter(EmailAddress=request.user.email)
+    user_patient = User.objects.filter(email=request.user.email)
     g = request.user.groups.all()[0].name
     if g == 'Patient':
-        patient_details = Patient.objects.filter(EmailAddress=request.user)
+        patient_details = Patient.objects.filter(
+            EmailAddress=request.user.email)
         d = {'patient_details': patient_details}
         template = render_to_string(
             'email/email_patient_delete.html', d)
@@ -230,24 +232,24 @@ def delete_user(request):
 
 def userProfile(request):
     upcomming_appointments = Appoitment.objects.all().filter(
-        PatientEmail=request.user, appoitmentDate__gte=timezone.now(), active="yes").order_by('appoitmentDate')
+        PatientEmail=request.user.email, appoitmentDate__gte=timezone.now(), active="yes").order_by('appoitmentDate')
     past_appointments = Appoitment.objects.all().filter(
-        PatientEmail=request.user, appoitmentDate__lt=timezone.now()).order_by('-appoitmentDate')
+        PatientEmail=request.user.email, appoitmentDate__lt=timezone.now()).order_by('-appoitmentDate')
     completed_appointments = Appoitment.objects.all().filter(
-        PatientEmail=request.user, appoitmentDate__gte=timezone.now(), active="no").order_by('appoitmentDate')
+        PatientEmail=request.user.email, appoitmentDate__gte=timezone.now(), active="no").order_by('appoitmentDate')
     report_details = MedicalReport.objects.all().filter(
-        PatientEmail=request.user).order_by('-Date')
+        PatientEmail=request.user.email).order_by('-Date')
     bloodReport_details = BloodReport.objects.all().filter(
-        PatientEmail=request.user)
+        PatientEmail=request.user.email)
     mriReport_details = MRIReport.objects.all().filter(
-        PatientEmail=request.user)
+        PatientEmail=request.user.email)
     endoscopy_details = EndoscopyReport.objects.all().filter(
-        PatientEmail=request.user)
+        PatientEmail=request.user.email)
     xray_details = XrayReport.objects.all().filter(
-        PatientEmail=request.user)
+        PatientEmail=request.user.email)
     g = request.user.groups.all()[0].name
     if g == 'Patient':
-        patient_details = Patient.objects.all().filter(EmailAddress=request.user)
+        patient_details = Patient.objects.all().filter(EmailAddress=request.user.email)
         d = {'patient_details': patient_details,
              'upcomming_appointments': upcomming_appointments,
              'report_details': report_details,
@@ -263,7 +265,7 @@ def userProfile(request):
 def userEdit(request, aid):
     g = request.user.groups.all()[0].name
     if g == 'Patient':
-        patient_details = Patient.objects.all().filter(EmailAddress=request.user)
+        patient_details = Patient.objects.all().filter(EmailAddress=request.user.email)
         d = {'patient_details': patient_details}
     if request.method == "POST":
         image = request.FILES.get('image', "None")
@@ -806,6 +808,33 @@ def signup(request):
             messages.success(
                 request, ("This email already exists. Try again with another email or recover your account"))
     return render(request, 'signup.html')
+
+
+def socialSignup(request):
+    if request.method == "POST":
+        FirstName = request.user.first_name
+        LastName = request.user.last_name
+        image = request.FILES.get('image')
+        age = request.POST['age']
+        gender = request.POST['gender']
+        address = request.POST['address']
+        PhoneNumber = request.POST['PhoneNumber']
+        EmailAddress = request.user.email
+        BloodGroup = request.POST['BloodGroup']
+
+        try:
+            Patient.objects.create(FirstName=FirstName, LastName=LastName, image=image, age=age, gender=gender,
+                                   address=address, PhoneNumber=PhoneNumber, EmailAddress=EmailAddress, BloodGroup=BloodGroup)
+            user = request.user
+            pat_group = Group.objects.get(name="Patient")
+            pat_group.user_set.add(user)
+            user.save()
+            return redirect('userProfile')
+        except Exception as e:
+            raise e
+    patient_details = Patient.objects.all().filter(EmailAddress=request.user.email)
+    d = {'patient_details': patient_details}
+    return render(request, 'socialSignup.html', d)
 
 
 def conformation(request):

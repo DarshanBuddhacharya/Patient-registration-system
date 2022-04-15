@@ -8,7 +8,8 @@ from django.contrib.auth.models import User
 class Patient(models.Model):
     FirstName = models.CharField(max_length=50)
     LastName = models.CharField(max_length=50)
-    image = models.ImageField(upload_to='images')
+    image = models.FileField(
+        upload_to='images', blank=True, default='images/avatar.svg', null=True)
     age = models.CharField(max_length=30)
     gender = models.CharField(max_length=30)
     address = models.CharField(max_length=100)

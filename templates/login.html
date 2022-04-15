@@ -3,6 +3,8 @@
 {% block content %}
 {% load static %}
 {% include "navbar.html" %}
+{% load socialaccount %}
+{% providers_media_js %}
 
 <div class="loginContainer">
     <div class="img">
@@ -36,6 +38,7 @@
                 </div>
             </div>
             <a href='{% url "password_reset" %}'>Forgot Password?</a>
+            <a href='{% provider_login_url "google" %}'>Google</a>
             <input type="submit" class="loginBtn" value="Login">
             <a href="signup" class="section-btn btn btn-default btn-blue smoothScroll">Create an account</a>
             <a href="doctorlogin" class="section-btn btn btn-default btn-blue smoothScroll">Doctor's Login</a>
