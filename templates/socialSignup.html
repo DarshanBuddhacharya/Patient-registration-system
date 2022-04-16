@@ -3,9 +3,9 @@
 {% block content %}
 {% load static %}
 {% load auth_extras %}
-{% include "navbar.html" %}
 
 {% if request.user|has_group:"Patient" %}
+{% include "navbar.html" %}
 <div class="loginContainer" id="signupContainer">
     <div class="img">
         <img src="{% static 'image/welcome.svg' %}">
@@ -33,7 +33,7 @@
     <div class="login-content">
         <form method="POST" id="signupForm" enctype="multipart/form-data">
             {% csrf_token %}
-            <h2 class="title">Registration form</h2>
+            <h2 class="title">Please provide additional details</h2>
             <div class="input-div one">
                 <div class="i">
                     <ion-icon name="image-sharp"></ion-icon>
@@ -106,7 +106,7 @@
                 </div>
             </div>
             <button type="submit" class="loginBtn">Submit</button>
-            <a href="loginPage" class="section-btn btn btn-default btn-blue smoothScroll">Already have an account</a>
+            <a href="{% url 'delete_user' %}"  class="section-btn btn btn-default btn-blue smoothScroll" onclick= "return confirm('Are you sure you want to Cancel creating an account.')">Cancel creating account</a>
         </form>
     </div>
 </div>

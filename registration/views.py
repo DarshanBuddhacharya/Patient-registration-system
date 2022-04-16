@@ -129,14 +129,14 @@ def docBooking(request, aid):
     department_details = Department.objects.all()
     g = request.user.groups.all()[0].name
     if g == 'Patient':
-        patient_details = Patient.objects.all().filter(EmailAddress=request.user)
+        patient_details = Patient.objects.all().filter(EmailAddress=request.user.email)
         d = {'patient_details': patient_details,
              'doctor_details': doctor_details,
              'department_details': department_details}
 
     if request.method == "POST":
         Patient_ID = request.POST['PatientID']
-        PatientEmail = request.user
+        PatientEmail = request.user.email
         PatientName = request.user.first_name + request.user.last_name
         Speciality = request.POST['Department']
         doctor = request.POST['doctor']
@@ -211,23 +211,21 @@ def delete_appointment(request, aid):
 def delete_user(request):
     patient_details = Patient.objects.filter(EmailAddress=request.user.email)
     user_patient = User.objects.filter(email=request.user.email)
-    g = request.user.groups.all()[0].name
-    if g == 'Patient':
-        patient_details = Patient.objects.filter(
-            EmailAddress=request.user.email)
-        d = {'patient_details': patient_details}
-        template = render_to_string(
-            'email/email_patient_delete.html', d)
-        send_mail(
-            'Account Deleted',
-            template,
-            settings.EMAIL_HOST_USER,
-            [request.user.email],
-            fail_silently=False,
-        )
-        patient_details.delete()
-        user_patient.delete()
-        return redirect('home')
+    patient_details = Patient.objects.filter(
+        EmailAddress=request.user.email)
+    d = {'patient_details': patient_details}
+    template = render_to_string(
+        'email/email_patient_delete.html', d)
+    send_mail(
+        'Account Deleted',
+        template,
+        settings.EMAIL_HOST_USER,
+        [request.user.email],
+        fail_silently=False,
+    )
+    patient_details.delete()
+    user_patient.delete()
+    return redirect('home')
 
 
 def userProfile(request):
@@ -489,13 +487,6 @@ def pneo_pred(imagePneo):
     normalPercent = model.predict(img)[0][0]*100
     pneoPercent = model.predict(img)[0][1]*100
     return res, normalPercent, pneoPercent
-    # print(f"The given X-Ray image is of type = {res}")
-    # print()
-    # print(
-    #     f"The chances of image being Normal is : {model.predict(img)[0][0]*100} percent")
-    # print()
-    # print(
-    #     f"The chances of image being Covid is : {model.predict(img)[0][1]*100} percent")
 
 
 def mriReport(request, aid):
@@ -851,15 +842,6 @@ def footer(request):
         EmailAddress = request.POST['EmailAddress']
         userfeedback = request.POST['feedback']
         try:
-            # template = render_to_string(
-            #     'email/email_booking.html', {'PatientName': PatientName, 'DoctorFullName': DoctorFullName, 'Date': d.Date, 'time': d.time})
-            # send_mail(
-            #     'Hello there ' + PatientName,
-            #     template,
-            #     settings.EMAIL_HOST_USER,
-            #     [request.user.email],
-            #     fail_silently=False,
-            # )
             Feedback.objects.create(
                 email=EmailAddress, feedback=userfeedback)
             return redirect('home')

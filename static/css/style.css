@@ -67,6 +67,98 @@ p {
   font-weight: normal;
   line-height: 24px;
 }
+/* 
+social button 
+*/
+.socialLogin{
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-evenly;
+}
+.google-btn {
+  width: 201px;
+  height: 42px;
+  margin-right: 5px;
+  margin-left: 5px;
+  background-color: #bb0909;
+  border-radius: 2px;
+  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.25);
+}
+.facebook-btn {
+  width: 201px;
+  height: 42px;
+  margin-right: 5px;
+  margin-left: 5px;
+  background-color: #4285f4;
+  border-radius: 2px;
+  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+.google-btn .google-icon-wrapper {
+  position: absolute;
+  margin-top: 1px;
+  margin-left: 1px;
+  width: 40px;
+  height: 40px;
+  border-radius: 2px;
+  background-color: #fff;
+}
+.facebook-btn .facebook-icon-wrapper {
+  position: absolute;
+  margin-top: 1px;
+  margin-left: 1px;
+  width: 40px;
+  height: 40px;
+  border-radius: 2px;
+  background-color: #fff;
+}
+
+.google-btn .google-icon {
+      margin-top: 8px;
+      width: 44px;
+      height: 26px;
+}
+
+.facebook-btn .facebook-icon {
+  margin-top: 3px;
+  width: 32px;
+  height: 33px;
+}
+
+.google-btn .btn-text {
+  float: right;
+  margin: 11px 11px 0 0;
+  color: #fff;
+  font-size: 14px;
+  letter-spacing: 0.2px;
+  font-family: "Roboto";
+}
+.facebook-btn .btn-text {
+  float: right;
+  margin: 11px 11px 0 0;
+  color: #fff;
+  font-size: 14px;
+  letter-spacing: 0.2px;
+  font-family: "Roboto";
+}
+
+.google-btn:hover {
+  box-shadow: 0 0 6px #ff1111;
+}
+.facebook-btn:hover {
+  box-shadow: 0 0 6px #0765fc;
+}
+
+.google-btn:active {
+  background: #1669f2;
+}
+.facebook-btn:active {
+  background: #bb0909;
+}
+
+#facebook{
+    background-image: linear-gradient(92.88deg, #537bcb 9.16%, #2d5fd1 43.89%, #537bcb 64.72%);
+}
 /*---------------------------------------
        PRE LOADER              
   -----------------------------------------*/
@@ -192,7 +284,7 @@ a:focus {
   transition: transform 0.1s ease-in;
   transform: translateX(0);
   margin-bottom: 10px;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .section-btn:hover {

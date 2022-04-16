@@ -37,8 +37,27 @@
                     </span>
                 </div>
             </div>
-            <a href='{% url "password_reset" %}'>Forgot Password?</a>
-            <a href='{% provider_login_url "google" %}'>Google</a>
+            <a href='{% url "password_reset" %}'>Forgot Password?</a><br>
+            <div class="socialLogin">
+                <!-- <a ><ion-icon class='socLogo'name="logo-google"></ion-icon>   Google</a>
+                <a class = "button-36" id = "facebook" href='{% provider_login_url "google" %}'><ion-icon class='socLogo' name="logo-facebook"></ion-icon> Facebook</a> -->
+            <a href='{% provider_login_url "google" %}'>
+                <div class="google-btn">
+                    <div class="google-icon-wrapper">
+                        <img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
+                    </div>
+                    <p class="btn-text"><b>Sign in with google</b></p>
+                </div>
+            </a>
+            <a href='{% provider_login_url "facebook" method = "oauth2" %}'>
+                <div class="facebook-btn">
+                    <div class="facebook-icon-wrapper">
+                        <img class="facebook-icon" src="{% static 'image/facebook.svg' %}" />
+                    </div>
+                    <p class="btn-text"><b>Sign in with Facebook</b></p>
+                </div>
+            </a>
+            </div>
             <input type="submit" class="loginBtn" value="Login">
             <a href="signup" class="section-btn btn btn-default btn-blue smoothScroll">Create an account</a>
             <a href="doctorlogin" class="section-btn btn btn-default btn-blue smoothScroll">Doctor's Login</a>
