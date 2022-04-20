@@ -3,9 +3,11 @@
 {% block content %}
 {% load static %}
 {% include "navbar.html" %}
+<div class="section-title">
+    <h2>Frequently Asked Questions(FAQs)</h2>
+</div>
 
 <div class="container-fluid">
-    <h2>Frequently Asked Questions(FAQs)</h2>
     {% for d in Help_details %}
     <div class="accordion">
         <div class="icon"></div>

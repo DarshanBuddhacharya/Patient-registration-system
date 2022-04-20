@@ -225,6 +225,8 @@ def delete_user(request):
     )
     patient_details.delete()
     user_patient.delete()
+    messages.success(
+        request, ("Your account was successfully deleted. We enjoyed your stay."))
     return redirect('home')
 
 
@@ -690,6 +692,8 @@ def labLogin(request):
             login(request, user)
             g = request.user.groups.all()[0].name
             if g == 'Lab':
+                messages.success(
+                    request, ("You are successfully loged in. Hello there."))
                 return redirect('labWorkshop')
             if g == 'Patient':
                 messages.success(
@@ -721,6 +725,8 @@ def doctorlogin(request):
             if g == 'Doctor':
                 doctor_details = Doctor.objects.all().filter(EmailAddress=request.user)
                 d = {'doctor_details': doctor_details}
+                messages.success(
+                    request, ("You are successfully loged in. Hello there Doctor"))
                 return redirect('doctorProfile')
             if g == 'Patient':
                 messages.success(
@@ -747,6 +753,8 @@ def loginPage(request):
             if g == 'Patient':
                 # patient_details = Patient.objects.all().filter(EmailAddress=request.user)
                 # d = {'patient_details': patient_details}
+                messages.success(
+                    request, ("You are successfully loged in. Welcome to Dhanvantari"))
                 return redirect('userProfile')
             if g == 'Doctor':
                 messages.success(
@@ -791,6 +799,8 @@ def signup(request):
                 pat_group = Group.objects.get(name="Patient")
                 pat_group.user_set.add(user)
                 user.save()
+                messages.success(
+                    request, ("Your account was successfully Created. Welcome to Dhanvantari."))
                 return redirect('login')
             else:
                 messages.success(
@@ -833,6 +843,8 @@ def conformation(request):
 
 
 def logout(request):
+    messages.success(
+        request, ("Successfully logged out. See you next time."))
     auth.logout(request)
     return redirect('/')
 

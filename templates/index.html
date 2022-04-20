@@ -32,8 +32,8 @@
                         <div class="caption">
                             <div class="col-md-offset-1 col-md-10">
                                 <h3>Study news</h3>
-                                <h1>Find out whats new in Nepal</h1>
-                                <a href="#news" class="section-btn btn btn-default btn-blue smoothScroll">Read News</a>
+                                <h1>Find out more about us</h1>
+                                <a href="{% url 'aboutus' %}" class="section-btn btn btn-default btn-blue smoothScroll">About us</a>
                             </div>
                         </div>
                     </div>
@@ -79,5 +79,84 @@
         </div>
     </section>
 <!--========================================Header Area ========================================================-->
+<!-- NEWS -->
+<section id="news" data-stellar-background-ratio="2.5">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-12 col-sm-12">
+                <!-- SECTION TITLE -->
+                <div class="section-title wow fadeInUp" data-wow-delay="0.1s">
+                    <h2>Latest News</h2>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6">
+                <!-- NEWS THUMB -->
+                <div class="news-thumb wow fadeInUp" data-wow-delay="0.4s">
+                    <a href="news-detail.html">
+                        <img src="{% static 'image/news-image1.jpg' %}" class="img-responsive" alt="">
+                    </a>
+                    <div class="news-info">
+                        <span>March 08, 2022</span>
+                        <h3><a href="news-detail.html">About Amazing Technology</a></h3>
+                        <p>Maecenas risus neque, placerat volutpat tempor ut, vehicula et felis.</p>
+                        <div class="author">
+                            <img src="{% static 'image/author-image.jpg' %}" class="img-responsive" alt="">
+                            <div class="author-info">
+                                <h5>Dr.Ram Kumar</h5>
+                                <p>CEO / Founder</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6">
+                <!-- NEWS THUMB -->
+                <div class="news-thumb wow fadeInUp" data-wow-delay="0.6s">
+                    <a href="news-detail.html">
+                        <img src="{% static 'image/news-image2.jpg' %}" class="img-responsive" alt="">
+                    </a>
+                    <div class="news-info">
+                        <span>February 20, 2022</span>
+                        <h3><a href="news-detail.html">Introducing a new healing process</a></h3>
+                        <p>Fusce vel sem finibus, rhoncus massa non, aliquam velit. Nam et est ligula.</p>
+                        <div class="author">
+                            <img src="{% static 'image/author-image.jpg' %}" class="img-responsive" alt="">
+                            <div class="author-info">
+                                <h5>Jason Stewart</h5>
+                                <p>General Director</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6">
+                <!-- NEWS THUMB -->
+                <div class="news-thumb wow fadeInUp" data-wow-delay="0.8s">
+                    <a href="news-detail.html">
+                        <img src="{% static 'image/news-image3.jpg' %}" class="img-responsive" alt="">
+                    </a>
+                    <div class="news-info">
+                        <span>January 27, 2022</span>
+                        <h3><a href="news-detail.html">AI in health care</a></h3>
+                        <p>Vivamus non nulla semper diam cursus maximus. Pellentesque dignissim.</p>
+                        <div class="author">
+                            <img src="{% static 'image/author-image.jpg' %}" class="img-responsive" alt="">
+                            <div class="author-info">
+                                <h5>Andrio Abero</h5>
+                                <p>Machine learning</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
 {% include "footer.html" %}
 {% endblock %}

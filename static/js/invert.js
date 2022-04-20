@@ -1,8 +1,5 @@
 
     window.onload =function (){
-        document.getElementById("fdate1").value = localStorage.getItem('DATE1');
-        document.getElementById("fdate2").value = localStorage.getItem('DATE2');
-
         var bodyFontSize = localStorage.getItem('bodyFontSize');
         let invertColor = localStorage.getItem('invertColor');
         if(invertColor === null || invertColor === "0"){
@@ -27,10 +24,10 @@
 
     function changeFont(operation){
         var decreaseLimit = 70;
-        var increaseLimit = 130;
+        var increaseLimit = 230;
         var bodyFontSize = localStorage.getItem('bodyFontSize');
         if(bodyFontSize === null){
-            bodyFontSize = 100;
+            bodyFontSize = 150;
         }
         if(operation === "increase"){
             if(bodyFontSize < increaseLimit){
@@ -41,7 +38,7 @@
                 bodyFontSize = parseInt(bodyFontSize) - 10;
             }
         }else{
-            bodyFontSize = 100;
+            bodyFontSize = 150;
         }
         localStorage.setItem('bodyFontSize', bodyFontSize)
         document.getElementsByTagName("body")[0].style.fontSize = bodyFontSize+"%";
