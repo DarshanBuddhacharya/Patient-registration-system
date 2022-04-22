@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'registration',
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -46,7 +47,10 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.facebook'
 ]
-
+JAZZMIN_UI_TWEAKS = {
+    "theme": "cyborg ",
+    "dark_mode_theme": "darkly",
+}
 SITE_ID = 1
 SOCIALACCOUNT_PROVIDERS = {
     'google': {

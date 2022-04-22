@@ -481,7 +481,7 @@ def tumor_pred(imageTumor):
 
 
 def pneo_pred(imagePneo):
-    model = load_model("bestPneo.sav")
+    model = load_model("bestPneo2.sav")
     fs = FileSystemStorage()
     filePathName = fs.save(imagePneo.name, imagePneo)
     filePathName = fs.url(filePathName)
