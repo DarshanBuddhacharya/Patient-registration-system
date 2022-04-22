@@ -5,14 +5,34 @@
 {% include "navbar.html" %}
 
 <div class="userContainer">
+    <div class="page-wrapper bg-color-1 p-t-500 p-b-150">
+        <div class="searchWrapper">
+            <div class="card card-7">
+                <div class="card-body">
+                    <form class="form" method="GET">
+                        {% csrf_token %}
+                        <div class="input-group input--large">
+                            <label class="label">Patient's Name</label>
+                            <input class="input--style-1" type="search" placeholder="Enter Patient's name" name="serName">
+                        </div>
+                        <div class="input-group input--medium">
+                            <label class="label">Doctor's Name</label>
+                            <input class="input--style-1" type="search" placeholder="Enter Doctor's name" name="serDoc">
+                        </div>
+                        <button class="button-84" id="searchBtn" type="submit">search</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="main-body">
         <div class="row gutters-sm">
             <div class="col-md-12 mb-3">
                 <div class="card mt-3">
                     <ul class="list-group list-group-flush">
                         <h4>Available Patients</h4>
-                        {% if appointments %}
-                        {% for d in appointments %}
+                        {% if qe %}
+                        {% for d in qe %}
                         <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                             <h6 class="mb-0">
                                 <ion-icon name="medkit"></ion-icon> Appointment of <strong>{{d.PatientName}}</strong> with <strong>Dr.{{d.Doctor_ID}}</strong>

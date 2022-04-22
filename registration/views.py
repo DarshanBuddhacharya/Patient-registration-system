@@ -366,15 +366,15 @@ def medicalReport(request, aid):
         NightMedicine = request.POST['NightMedicine']
         active = request.POST['active']
         try:
-            # template = render_to_string(
-            #     'email/email_booking.html', {'PatientName': PatientName, 'DoctorFullName': DoctorFullName, 'Date': d.Date, 'time': d.time})
-            # send_mail(
-            #     'Hello there ' + PatientName,
-            #     template,
-            #     settings.EMAIL_HOST_USER,
-            #     [request.user.email],
-            #     fail_silently=False,
-            # )
+            template = render_to_string(
+                'email/email_mediReport.html', {'PatientName': PatientName, 'DoctorFullName': DoctorFullName})
+            send_mail(
+                'Medical report Published,' + PatientName,
+                template,
+                settings.EMAIL_HOST_USER,
+                [request.user.email],
+                fail_silently=False,
+            )
             MedicalReport.objects.create(Appoitment_ID_id=Appoitment_ID, Patient_ID_id=Patient_ID, PatientName=PatientName, Doctor_ID_id=Doctor_ID, DoctorFullName=DoctorFullName, DoctorEmail=DoctorEmail, DiagnosisReport=DiagnosisReport,
                                          department=Department, Date=Date, PatientEmail=PatientEmail, DoctorComments=DoctorComments, MorningMedicine=MorningMedicine, DayMedicine=DayMedicine, NoonMedicine=NoonMedicine, NightMedicine=NightMedicine)
             appoitment = Appoitment.objects.get(pk=Appoitment_ID)
@@ -412,6 +412,8 @@ def bloodReport(request, aid):
             # )
             BloodReport.objects.create(Appoitment_ID_id=Appoitment_ID, Patient_ID_id=Patient_ID,
                                        PatientName=PatientName, Date=Date, PatientEmail=PatientEmail, RBCCount=RBCCount, Hemoglobin=Hemoglobin, Hematocrit=Hematocrit, WBCcount=WBCcount, Platelet=Platelet)
+            messages.success(
+                request, ("Lab report has been published. Doctor and patient can view the lab reports"))
             return redirect('labWorkshop')
         except Exception as e:
             raise e
@@ -446,6 +448,8 @@ def endoscopyReport(request, aid):
             # )
             EndoscopyReport.objects.create(Appoitment_ID_id=Appoitment_ID, Patient_ID_id=Patient_ID,
                                            PatientName=PatientName, Date=Date, PatientEmail=PatientEmail, Fungus=Fungus, Body=Body, Antrum=Antrum, P_ring=P_ring, Bulb=Bulb, Papilla=Papilla, Oesophagus=Oesophagus)
+            messages.success(
+                request, ("Lab report has been published. Doctor and patient can view the lab reports"))
             return redirect('labWorkshop')
         except Exception as e:
             raise e
@@ -514,6 +518,8 @@ def mriReport(request, aid):
             # )
             MRIReport.objects.create(Appoitment_ID_id=Appoitment_ID, Patient_ID_id=Patient_ID,
                                      PatientName=PatientName, Date=Date, PatientEmail=PatientEmail, image=imageTumor, result=result, normalPercent=normalPercent, tumorPercent=tumorPercent)
+            messages.success(
+                request, ("Lab report has been published. Doctor and patient can view the lab reports"))
             return redirect('labWorkshop')
         except Exception as e:
             raise e
@@ -543,6 +549,8 @@ def xrayReport(request, aid):
             # )
             XrayReport.objects.create(Appoitment_ID_id=Appoitment_ID, Patient_ID_id=Patient_ID,
                                       PatientName=PatientName, Date=Date, PatientEmail=PatientEmail, image=imagePneo, result=result, normalPercent=normalPercent, pneoPercent=pneoPercent)
+            messages.success(
+                request, ("Lab report has been published. Doctor and patient can view the lab reports"))
             return redirect('labWorkshop')
         except Exception as e:
             raise e
@@ -659,6 +667,43 @@ def search_doc(request):
     return qs
 
 
+def search_docBook(request, aid):
+    qs = Doctor.objects.all().filter(speciality_id=aid)
+    serName = request.GET.get('serName')
+    serEdu = request.GET.get('serEdu')
+    serExp = request.GET.get('serExp')
+    serHos = request.GET.get('serHos')
+
+    if is_valid_queryparam(serName):
+        qs = qs.filter(name__icontains=serName)
+
+    elif is_valid_queryparam(serEdu):
+        qs = qs.filter(education__icontains=serEdu)
+
+    elif is_valid_queryparam(serExp):
+        qs = qs.filter(experince__gte=serExp)
+
+    elif is_valid_queryparam(serHos):
+        qs = qs.filter(hospital__icontains=serHos)
+
+    return qs
+
+
+def search_patient(request):
+    qe = Appoitment.objects.all().filter(
+        appoitmentDate__gte=timezone.now(), active="yes").order_by('appoitmentDate')
+    serName = request.GET.get('serName')
+    serDep = request.GET.get('serDoc')
+
+    if is_valid_queryparam(serName):
+        qe = qe.filter(PatientName__icontains=serName)
+
+    elif is_valid_queryparam(serDep):
+        qe = qe.filter(DoctorFullName__icontains=serDep)
+
+    return qe
+
+
 def doctors(request):
     qs = search_doc(request)
     context = {
@@ -669,16 +714,17 @@ def doctors(request):
 
 
 def depDoctor(request, aid):
+    qs = search_docBook(request, aid)
+    context = {
+        'queryset': qs
+    }
 
-    docs = Doctor.objects.all().filter(speciality_id=aid)
-
-    return render(request, 'depDoctor.html', {'docs': docs})
+    return render(request, 'depDoctor.html', context)
 
 
 def labWorkshop(request):
-    appointments = Appoitment.objects.all().filter(
-        appoitmentDate__gte=timezone.now(), active="yes").order_by('appoitmentDate')
-    d = {'appointments': appointments}
+    qe = search_patient(request)
+    d = {'qe': qe}
     return render(request, 'labWorkshop.html', d)
 
 
