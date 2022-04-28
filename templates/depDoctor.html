@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load auth_extras %}
 {% block content %}
 {% load static %}
 {% include "navbar.html" %}
@@ -73,7 +73,11 @@
                                 <ion-icon name="logo-linkedin"></ion-icon></i>
                             </a>
                         </div>
-                        <a href="{% url 'docBooking' doc.id %}" class="section-btn btn btn-default smoothScroll">Book an appointment</a>
+                        {% if request.user|has_group:"Doctor" %}
+                        {% else %}
+                        <a href="{% url 'docBooking' doc.id %}" onclick="sendData('{{doc.id}}')"
+                            class="section-btn btn btn-default smoothScroll">Book an appointment</a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
